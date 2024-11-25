@@ -26,22 +26,17 @@
 	<div class="color-picker-input-group">
 		<div class="color-picker-input-item">
 			<div>HEX</div>
-			<input type="text" value={color.toHex()} oninput={handleColorInput} />
+			<input type="text" value={color.toHex()} onblur={handleColorInput} />
 		</div>
 
 		<div class="color-picker-input-item">
 			<div>RGB</div>
-			<input type="text" value={color.toRgbString()} oninput={handleColorInput} />
+			<input type="text" value={color.toRgbString()} onblur={handleColorInput} />
 		</div>
 
 		<div class="color-picker-input-item">
 			<div>HSL</div>
-			<input type="text" value={color.toHslString()} oninput={handleColorInput} />
-		</div>
-
-		<div class="color-picker-input-item">
-			<div>OKLCH</div>
-			<input type="text" value={'color.toOklchString()'} oninput={handleColorInput} />
+			<input type="text" value={color.toHslString()} onblur={handleColorInput} />
 		</div>
 	</div>
 </div>
