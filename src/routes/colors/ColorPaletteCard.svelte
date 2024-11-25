@@ -48,6 +48,13 @@
 
 <style>
 	.color-picker-container {
+		:global(.color-picker .wrapper) {
+			margin: 0;
+			border: none;
+		}
+		:global(.text-input) {
+			display: none;
+		}
 		width: fit-content;
 		padding: 10px;
 		border: 1px solid rgba(0, 0, 0, 0.25);
