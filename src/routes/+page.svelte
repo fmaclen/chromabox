@@ -8,8 +8,7 @@
 	const colors: Colord[] = $state([]);
 </script>
 
-<h1>Explore and Create Color Combos</h1>
-<p>A creative tool to experiment with and perfect your color combinations.</p>
+<h1>Chromabox</h1>
 <button onclick={() => colors.push(colord(generateRandomColor()))}>New color</button>
 
 <div class="color-grid">
