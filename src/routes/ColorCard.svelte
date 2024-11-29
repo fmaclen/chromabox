@@ -4,6 +4,9 @@
 
 	let { color }: { color: Colord } = $props();
 
+	// It seems that the ColorPicker component doesn't work as expected when binded
+	// to the 'color: Colord' prop. However, it does update the color value when it is
+	// binded to the 'hex: string' prop.
 	let hex = $state(color.toHex());
 
 	$effect(() => {
