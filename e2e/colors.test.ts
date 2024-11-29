@@ -13,6 +13,8 @@ test.describe('Color card', () => {
 	});
 
 	test('should start with an empty color grid', async ({ page }) => {
+		await page.waitForLoadState('domcontentloaded');
+		await expect(page.getByRole('button', { name: 'New color' })).toBeVisible();
 		expect((await page.locator('.color-card').all()).length).toBe(0);
 	});
 
