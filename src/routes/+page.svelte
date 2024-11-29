@@ -3,7 +3,7 @@
 
 	import { generateRandomColor } from '$lib/utils';
 
-	import ColorPaletteCard from './ColorPaletteCard.svelte';
+	import ColorCard from './ColorCard.svelte';
 
 	const colors: Colord[] = $state([]);
 </script>
@@ -13,7 +13,7 @@
 
 <div class="color-grid">
 	{#each colors as color}
-		<ColorPaletteCard {color} />
+		<ColorCard {color} />
 	{/each}
 </div>
 
