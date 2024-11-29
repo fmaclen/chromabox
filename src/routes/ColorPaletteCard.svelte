@@ -20,16 +20,16 @@
 	}
 </script>
 
-<div class="color-picker-container">
+<div class="color-card">
 	<ColorPicker bind:hex components={ChromeVariant} isDialog={false} sliderDirection="horizontal" />
 
-	<div class="color-picker-input-group">
-		<div class="color-picker-input-item">
+	<div class="color-card__input-group">
+		<div class="color-card__input-item">
 			<div>HEX</div>
 			<input type="text" value={color.toHex()} onblur={handleColorInput} data-testid="hex-input" />
 		</div>
 
-		<div class="color-picker-input-item">
+		<div class="color-card__input-item">
 			<div>RGB</div>
 			<input
 				type="text"
@@ -39,7 +39,7 @@
 			/>
 		</div>
 
-		<div class="color-picker-input-item">
+		<div class="color-card__input-item">
 			<div>HSL</div>
 			<input
 				type="text"
@@ -52,7 +52,7 @@
 </div>
 
 <style>
-	.color-picker-container {
+	.color-card {
 		:global(.color-picker .wrapper) {
 			margin: 0;
 			border: none;
@@ -66,18 +66,18 @@
 		border-radius: 10px;
 	}
 
-	.color-picker-input-group {
+	.color-card__input-group {
 		display: flex;
 		flex-direction: column;
 		gap: 5px;
 	}
 
-	.color-picker-input-item {
+	.color-card__input-item {
 		display: flex;
 		gap: 10px;
 	}
 
-	.color-picker-input-item input {
+	.color-card__input-item input {
 		width: 100%;
 	}
 </style>

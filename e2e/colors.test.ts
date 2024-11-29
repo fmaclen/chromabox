@@ -1,18 +1,18 @@
 import { expect, test } from '@playwright/test';
 
-test.describe('Color Picker', () => {
+test.describe('Color card', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/');
 	});
 
 	test('should start with an empty color grid', async ({ page }) => {
-		const colorCards = await page.locator('.color-picker-container').all();
+		const colorCards = await page.locator('.color-card').all();
 		expect(colorCards.length).toBe(0);
 	});
 
 	test('should add a new color when clicking the New color button', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
-		const colorCards = await page.locator('.color-picker-container').all();
+		const colorCards = await page.locator('.color-card').all();
 		expect(colorCards.length).toBe(1);
 	});
 
@@ -22,7 +22,7 @@ test.describe('Color Picker', () => {
 		await newColorButton.click();
 		await newColorButton.click();
 
-		const colorCards = await page.locator('.color-picker-container').all();
+		const colorCards = await page.locator('.color-card').all();
 		expect(colorCards.length).toBe(3);
 	});
 
