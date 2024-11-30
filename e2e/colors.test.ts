@@ -7,9 +7,9 @@ test.describe('Color card', () => {
 
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/');
-		hexInput = page.getByTestId('hex-input');
-		rgbInput = page.getByTestId('rgb-input');
-		hslInput = page.getByTestId('hsl-input');
+		hexInput = page.getByLabel('HEX', { exact: true });
+		rgbInput = page.getByLabel('RGB', { exact: true });
+		hslInput = page.getByLabel('HSL', { exact: true });
 	});
 
 	test('should start with an empty color grid', async ({ page }) => {

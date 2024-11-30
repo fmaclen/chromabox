@@ -23,39 +23,30 @@
 	}
 </script>
 
-<div class="color-card">
+<form class="color">
 	<ColorPicker bind:hex components={ChromeVariant} isDialog={false} sliderDirection="horizontal" />
 
-	<div class="color-card__input-group">
-		<div class="color-card__input-item">
-			<div>HEX</div>
-			<input type="text" value={color.toHex()} onblur={handleColorInput} data-testid="hex-input" />
+	<fieldset class="color__fieldset">
+		<div class="color__input-item">
+			<label for="color-hex">HEX</label>
+			<input id="color-hex" type="text" value={color.toHex()} onblur={handleColorInput} />
 		</div>
 
-		<div class="color-card__input-item">
-			<div>RGB</div>
-			<input
-				type="text"
-				value={color.toRgbString()}
-				onblur={handleColorInput}
-				data-testid="rgb-input"
-			/>
+		<div class="color__input-item">
+			<label for="color-rgb">RGB</label>
+			<input id="color-rgb" type="text" value={color.toRgbString()} onblur={handleColorInput} />
 		</div>
 
-		<div class="color-card__input-item">
-			<div>HSL</div>
-			<input
-				type="text"
-				value={color.toHslString()}
-				onblur={handleColorInput}
-				data-testid="hsl-input"
-			/>
+		<div class="color__input-item">
+			<label for="color-hsl">HSL</label>
+			<input id="color-hsl" type="text" value={color.toHslString()} onblur={handleColorInput} />
 		</div>
-	</div>
-</div>
+	</fieldset>
+</form>
 
 <style>
-	.color-card {
+	form.color {
+		/* These are the styles of the ColorPicker component */
 		:global(.color-picker .wrapper) {
 			margin: 0;
 			border: none;
@@ -69,18 +60,21 @@
 		border-radius: 10px;
 	}
 
-	.color-card__input-group {
+	fieldset.color__fieldset {
 		display: flex;
 		flex-direction: column;
 		gap: 5px;
+		border: none;
+		padding: 0;
+		margin: 0;
 	}
 
-	.color-card__input-item {
+	.color__input-item {
 		display: flex;
 		gap: 10px;
 	}
 
-	.color-card__input-item input {
+	.color__input-item input {
 		width: 100%;
 	}
 </style>
