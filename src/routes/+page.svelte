@@ -11,14 +11,14 @@
 <h1>Chromabox</h1>
 <button onclick={() => colors.push(colord(generateRandomColor()))}>New color</button>
 
-<div class="color-grid">
+<div class="palette">
 	{#each colors as color}
 		<ColorCard {color} />
 	{/each}
 </div>
 
 <style>
-	.color-grid {
+	.palette {
 		margin-top: 20px;
 		display: grid;
 		grid-template-columns: repeat(auto-fill, 300px);
