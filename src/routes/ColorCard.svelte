@@ -19,7 +19,7 @@
 	});
 
 	let steps = $state(12);
-	let easingFn = $state('cubicInOut');
+	let easingFn = $state('linear');
 
 	const variants: Colord[] = $derived.by(() => {
 		const colorVariants: Colord[] = [];
