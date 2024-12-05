@@ -18,9 +18,33 @@
 		color = colord(hex);
 	});
 
-	let variants: Colord[] = $state([]);
-	let steps = $state('12');
+	let steps = $state(12);
 	let easingFn = $state('cubicInOut');
+
+	const variants: Colord[] = $derived.by(() => {
+		const colorVariants: Colord[] = [];
+		const hsl = color.toHsl();
+
+		const MIN_LIGHTNESS = 5;
+		const MAX_LIGHTNESS = 95;
+		const RANGE = MAX_LIGHTNESS - MIN_LIGHTNESS;
+
+		for (let i = 0; i < steps; i++) {
+			const progress = i / (steps - 1);
+			const easedProgress = easingFns[easingFn as keyof typeof easingFns](progress);
+			const rangePercentage = RANGE * (1 - easedProgress);
+			const lightness = MIN_LIGHTNESS + rangePercentage;
+
+			const variant = colord({
+				h: hsl.h,
+				s: hsl.s,
+				l: lightness
+			});
+			colorVariants.push(variant);
+		}
+
+		return colorVariants;
+	});
 
 	const easingFns = {
 		linear,
@@ -34,42 +58,10 @@
 		if (colord(event.target.value).isValid()) color = colord(event.target.value);
 	}
 
-	function generateVariants(
-		baseColor: Colord,
-		steps: number = 12,
-		easingFn: (t: number) => number
-	): Colord[] {
-		const variants: Colord[] = [];
-		const hsl = baseColor.toHsl();
-
-		const MIN_LIGHTNESS = 5;
-		const MAX_LIGHTNESS = 95;
-		const RANGE = MAX_LIGHTNESS - MIN_LIGHTNESS;
-
-		for (let i = 0; i < steps; i++) {
-			const progress = i / (steps - 1);
-			const easedProgress = easingFn(progress);
-			const rangePercentage = RANGE * (1 - easedProgress);
-			const lightness = MIN_LIGHTNESS + rangePercentage;
-
-			const variant = colord({
-				h: hsl.h,
-				s: hsl.s,
-				l: lightness
-			});
-			variants.push(variant);
-		}
-
-		return variants;
+	function handleStepsChange(event: Event & { currentTarget: EventTarget & HTMLSelectElement }) {
+		if (!(event.target instanceof HTMLSelectElement)) return;
+		steps = Number(event.target.value);
 	}
-
-	$effect(() => {
-		variants = generateVariants(
-			color,
-			Number(steps),
-			easingFns[easingFn as keyof typeof easingFns]
-		);
-	});
 </script>
 
 <form class="color">
@@ -100,7 +92,7 @@
 			<option value="cubicOut">Cubic Out</option>
 		</select>
 
-		<select bind:value={steps}>
+		<select value={String(steps)} onchange={handleStepsChange}>
 			<option value="5">5</option>
 			<option value="6">6</option>
 			<option value="7">7</option>
