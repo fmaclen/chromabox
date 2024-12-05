@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { colord, type Colord } from 'colord';
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
+	import { cubicIn, cubicInOut, cubicOut, linear } from 'svelte/easing';
 
 	let { color }: { color: Colord } = $props();
 
@@ -17,10 +18,58 @@
 		color = colord(hex);
 	});
 
+	let variants: Colord[] = $state([]);
+	let steps = $state('12');
+	let easingFn = $state('cubicInOut');
+
+	const easingFns = {
+		linear,
+		cubicInOut,
+		cubicIn,
+		cubicOut
+	};
+
 	function handleColorInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (!(event.target instanceof HTMLInputElement)) return;
 		if (colord(event.target.value).isValid()) color = colord(event.target.value);
 	}
+
+	function generateVariants(
+		baseColor: Colord,
+		steps: number = 12,
+		easingFn: (t: number) => number
+	): Colord[] {
+		const variants: Colord[] = [];
+		const hsl = baseColor.toHsl();
+
+		const MIN_LIGHTNESS = 5;
+		const MAX_LIGHTNESS = 95;
+		const RANGE = MAX_LIGHTNESS - MIN_LIGHTNESS;
+
+		for (let i = 0; i < steps; i++) {
+			const progress = i / (steps - 1);
+			const easedProgress = easingFn(progress);
+			const rangePercentage = RANGE * (1 - easedProgress);
+			const lightness = MIN_LIGHTNESS + rangePercentage;
+
+			const variant = colord({
+				h: hsl.h,
+				s: hsl.s,
+				l: lightness
+			});
+			variants.push(variant);
+		}
+
+		return variants;
+	}
+
+	$effect(() => {
+		variants = generateVariants(
+			color,
+			Number(steps),
+			easingFns[easingFn as keyof typeof easingFns]
+		);
+	});
 </script>
 
 <form class="color">
@@ -42,6 +91,34 @@
 			<input id="color-hsl" type="text" value={color.toHslString()} onblur={handleColorInput} />
 		</div>
 	</fieldset>
+
+	<div class="variants__controls">
+		<select bind:value={easingFn}>
+			<option value="linear">Linear</option>
+			<option value="cubicInOut">Cubic In Out</option>
+			<option value="cubicIn">Cubic In</option>
+			<option value="cubicOut">Cubic Out</option>
+		</select>
+
+		<select bind:value={steps}>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+		</select>
+	</div>
+
+	<div class="variants">
+		{#each variants as variant}
+			<div class="variant__box" style:background-color={variant.toHex()}>
+				<p class="variant__text">{variant.toHslString()}</p>
+			</div>
+		{/each}
+	</div>
 </form>
 
 <style>
@@ -76,5 +153,36 @@
 
 	.color__input-item input {
 		width: 100%;
+	}
+
+	.variants__controls {
+		margin-top: 10px;
+		width: 100%;
+		display: flex;
+		gap: 5px;
+	}
+
+	.variants {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+		margin-top: 10px;
+	}
+
+	.variants__controls select {
+		width: 100%;
+	}
+
+	.variant__box {
+		display: flex;
+		align-items: center;
+		padding: 0 10px;
+		height: 30px;
+		border-radius: 5px;
+		border: 1px solid rgba(0, 0, 0, 0.1);
+	}
+
+	.variant__text {
+		color: white;
 	}
 </style>
