@@ -9,6 +9,8 @@
 	// to the 'color: Colord' prop. However, it does update the color value when it is
 	// binded to the 'hex: string' prop.
 	let hex = $state(color.toHex());
+	let steps = $state(12);
+	let easingFn = $state('linear');
 
 	$effect(() => {
 		hex = color.toHex();
@@ -17,9 +19,6 @@
 	$effect(() => {
 		color = colord(hex);
 	});
-
-	let steps = $state(12);
-	let easingFn = $state('linear');
 
 	const variants: Colord[] = $derived.by(() => {
 		const colorVariants: Colord[] = [];
