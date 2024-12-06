@@ -15,10 +15,18 @@
 	{/if}
 </svelte:head>
 
-<h1>Chromabox</h1>
+{#if env.PUBLIC_IS_DEMO}
+	<header>
+		<div>
+			<h1>Chromabox</h1>
+			<h2>The ultimate color palette generator for designers & developers</h2>
+		</div>
+		<nav>
+			<a href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Buy now</a>
+			<a href="https://github.com/fmaclen/chromabox#self-hosting" target="_blank">Self-host</a>
+		</nav>
+	</header>
+	<hr />
+{/if}
 
-<hr />
-
-<main>
-	<slot />
-</main>
+<slot />
