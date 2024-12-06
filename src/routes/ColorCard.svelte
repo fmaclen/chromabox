@@ -24,8 +24,8 @@
 		const colorVariants: Colord[] = [];
 		const hsl = color.toHsl();
 
-		const MIN_LIGHTNESS = 5;
-		const MAX_LIGHTNESS = 95;
+		const MIN_LIGHTNESS = 0;
+		const MAX_LIGHTNESS = 100;
 		const RANGE = MAX_LIGHTNESS - MIN_LIGHTNESS;
 
 		for (let i = 0; i < steps; i++) {
@@ -55,11 +55,6 @@
 	function handleColorInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (!(event.target instanceof HTMLInputElement)) return;
 		if (colord(event.target.value).isValid()) color = colord(event.target.value);
-	}
-
-	function handleStepsChange(event: Event & { currentTarget: EventTarget & HTMLSelectElement }) {
-		if (!(event.target instanceof HTMLSelectElement)) return;
-		steps = Number(event.target.value);
 	}
 </script>
 
@@ -91,22 +86,17 @@
 			<option value="cubicOut">Cubic Out</option>
 		</select>
 
-		<select value={String(steps)} onchange={handleStepsChange}>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9">9</option>
-			<option value="10">10</option>
-			<option value="11">11</option>
-			<option value="12">12</option>
+		<select bind:value={steps}>
+			{#each Array.from({ length: 8 }, (_, i) => i + 5) as value}
+				<option {value}>{value}</option>
+			{/each}
 		</select>
 	</div>
 
 	<div class="variants">
 		{#each variants as variant}
 			<div class="variant__box" style={`background-color: ${variant.toHex()}`}>
-				<p class="variant__text">{variant.toHex()} - {variant.toHslString()}</p>
+				<p class="variant__text">{variant.toHex()}</p>
 			</div>
 		{/each}
 	</div>
