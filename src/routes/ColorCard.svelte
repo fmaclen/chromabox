@@ -105,8 +105,8 @@
 
 	<div class="variants">
 		{#each variants as variant}
-			<div class="variant__box" style:background-color={variant.toHex()}>
-				<p class="variant__text">{variant.toHslString()}</p>
+			<div class="variant__box" style={`background-color: ${variant.toHex()}`}>
+				<p class="variant__text">{variant.toHex()} - {variant.toHslString()}</p>
 			</div>
 		{/each}
 	</div>
