@@ -86,11 +86,7 @@
 			<option value="cubicOut">Cubic Out</option>
 		</select>
 
-		<select bind:value={steps}>
-			{#each Array.from({ length: 8 }, (_, i) => i + 5) as value}
-				<option {value}>{value}</option>
-			{/each}
-		</select>
+		<input type="number" bind:value={steps} />
 	</div>
 
 	<div class="variants">
