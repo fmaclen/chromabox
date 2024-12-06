@@ -8,7 +8,6 @@
 	const colors: Colord[] = $state([]);
 </script>
 
-<h1>Chromabox</h1>
 <button onclick={() => colors.push(colord(generateRandomColor()))}>New color</button>
 
 <div class="palette">
