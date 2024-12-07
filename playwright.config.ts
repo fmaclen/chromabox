@@ -1,10 +1,5 @@
-import { defineConfig } from '@playwright/test';
+import { baseConfig } from './playwright.config.base';
 
-export default defineConfig({
-	webServer: {
-		command: 'npm run build && npm run preview',
-		port: 4173
-	},
-	testDir: 'e2e',
-	timeout: 5000
-});
+export default {
+	...baseConfig
+};
