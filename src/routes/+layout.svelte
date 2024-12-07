@@ -22,9 +22,11 @@
 		<header class="header">
 			<h1>Chromabox</h1>
 			<h2>The ultimate color palette generator for designers & developers</h2>
-			<nav>
-				<a href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Buy now</a>
-				<a href="https://github.com/fmaclen/chromabox#self-hosting" target="_blank">Self-host</a>
+			<nav class="flex flex-row items-center justify-center gap-2">
+				<a class="button" href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Buy now</a>
+				<a class="button" href="https://github.com/fmaclen/chromabox#self-hosting" target="_blank"
+					>Self-host</a
+				>
 			</nav>
 		</header>
 		<main class="main">
@@ -45,11 +47,11 @@
 
 <style lang="postcss">
 	.layout {
-		@apply grid h-full min-h-screen grid-rows-[max-content_auto_max-content] bg-stone-900 text-stone-50;
+		@apply grid h-full min-h-screen grid-rows-[max-content_auto_max-content] gap-16 bg-stone-50 py-16;
 	}
 
 	.header {
-		@apply container mx-auto my-16 flex flex-col items-center gap-4 text-center;
+		@apply container mx-auto flex flex-col items-center gap-4 text-center;
 
 		h1 {
 			@apply text-6xl font-bold tracking-tighter;
@@ -60,12 +62,16 @@
 		}
 	}
 
+	.button {
+		@apply rounded-md bg-stone-900 px-6 py-2 font-semibold text-stone-50;
+	}
+
 	.main {
-		@apply mx-16 max-h-[75vh] rounded-lg border border-stone-50;
+		@apply mx-16 max-h-[75vh] rounded-lg border;
 	}
 
 	.footer {
-		@apply container mx-auto my-16 flex flex-row items-center justify-center gap-4;
+		@apply container mx-auto flex flex-row items-center justify-center gap-4;
 
 		nav {
 			@apply ml-auto flex flex-row items-center justify-center gap-4;
