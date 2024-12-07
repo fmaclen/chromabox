@@ -1,4 +1,6 @@
 <script lang="ts">
+	import '../app.css';
+
 	import { env } from '$env/dynamic/public';
 </script>
 
@@ -16,17 +18,57 @@
 </svelte:head>
 
 {#if env.PUBLIC_IS_DEMO}
-	<header>
-		<div>
+	<div class="layout">
+		<header class="header">
 			<h1>Chromabox</h1>
 			<h2>The ultimate color palette generator for designers & developers</h2>
-		</div>
-		<nav>
-			<a href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Buy now</a>
-			<a href="https://github.com/fmaclen/chromabox#self-hosting" target="_blank">Self-host</a>
-		</nav>
-	</header>
-	<hr />
+			<nav>
+				<a href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Buy now</a>
+				<a href="https://github.com/fmaclen/chromabox#self-hosting" target="_blank">Self-host</a>
+			</nav>
+		</header>
+		<main class="main">
+			<slot />
+		</main>
+		<footer class="footer">
+			<p>&copy; {new Date().getFullYear()} Chromabox</p>
+			<nav>
+				<a href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Gumroad</a>
+				<a href="https://github.com/fmaclen/chromabox" target="_blank">GitHub</a>
+				<a href="https://fernando.is" target="_blank">Contact</a>
+			</nav>
+		</footer>
+	</div>
+{:else}
+	<slot />
 {/if}
 
-<slot />
+<style lang="postcss">
+	.layout {
+		@apply grid h-full min-h-screen grid-rows-[max-content_auto_max-content] bg-stone-900 text-stone-50;
+	}
+
+	.header {
+		@apply container mx-auto my-16 flex flex-col items-center gap-4 text-center;
+
+		h1 {
+			@apply text-6xl font-bold tracking-tighter;
+		}
+
+		h2 {
+			@apply text-2xl font-light tracking-wider;
+		}
+	}
+
+	.main {
+		@apply mx-16 max-h-[75vh] rounded-lg border border-stone-50;
+	}
+
+	.footer {
+		@apply container mx-auto my-16 flex flex-row items-center justify-center gap-4;
+
+		nav {
+			@apply ml-auto flex flex-row items-center justify-center gap-4;
+		}
+	}
+</style>
