@@ -4,9 +4,12 @@
 	import { generateRandomColor } from '$lib/utils';
 
 	import ColorCard from './ColorCard.svelte';
+	import Favicon from './Favicon.svelte';
 
-	const colors: Colord[] = $state([]);
+	let colors: Colord[] = $state([]);
 </script>
+
+<Favicon {colors} />
 
 <button onclick={() => colors.push(colord(generateRandomColor()))}>New color</button>
 
