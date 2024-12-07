@@ -6,8 +6,8 @@ export const baseConfig = defineConfig({
 		port: 4173
 	},
 	use: {
-		trace: 'retain-on-failure',
+		trace: 'retain-on-failure'
 	},
 	testDir: 'e2e',
 	timeout: 5000
-}); 
+});
