@@ -23,10 +23,12 @@
 			<h1>Chromabox</h1>
 			<h2>The ultimate color palette generator for designers & developers</h2>
 			<nav class="flex flex-row items-center justify-center gap-2">
-				<a class="button" href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Buy now</a>
-				<a class="button" href="https://github.com/fmaclen/chromabox#self-hosting" target="_blank"
-					>Self-host</a
-				>
+				<a class="button" href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">
+					Buy now
+				</a>
+				<a class="button" href="https://github.com/fmaclen/chromabox#self-hosting" target="_blank">
+					Self-host
+				</a>
 			</nav>
 		</header>
 		<main class="main">
