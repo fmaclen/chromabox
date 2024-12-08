@@ -14,6 +14,7 @@
 <button onclick={() => colors.push(colord(generateRandomColor()))}>New color</button>
 
 <div class="palette">
+	<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
 	{#each colors as _, index}
 		<ColorCard bind:color={colors[index]} />
 	{/each}
