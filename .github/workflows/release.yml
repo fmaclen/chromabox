@@ -11,15 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check if secret exists
-        run: |
-          if [ -z "${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}" ]; then
-            echo "::error::GH_PERSONAL_ACCESS_TOKEN is not set"
-            exit 1
-          else
-            echo "GH_PERSONAL_ACCESS_TOKEN is available"
-          fi
-
       - name: Checkout
         uses: actions/checkout@v4
 
