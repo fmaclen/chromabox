@@ -15,7 +15,7 @@
 
 <div class="palette">
 	{#each colors as _, index}
-		<ColorCard bind:color={colors[index]}/>
+		<ColorCard bind:color={colors[index]} />
 	{/each}
 </div>
 
