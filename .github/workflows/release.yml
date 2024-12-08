@@ -17,11 +17,10 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
 
-      - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v4
+      - name: Release Please
+        uses: google-github-actions/release-please-action@v2
         with:
-          branches: main
-          tag_format: ${version}
-        id: semantic
+          release-type: node
+        id: release-please
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
