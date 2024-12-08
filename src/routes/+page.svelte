@@ -14,8 +14,8 @@
 <button onclick={() => colors.push(colord(generateRandomColor()))}>New color</button>
 
 <div class="palette">
-	{#each colors as color}
-		<ColorCard {color} />
+	{#each colors as _, index}
+		<ColorCard bind:color={colors[index]}/>
 	{/each}
 </div>
 
