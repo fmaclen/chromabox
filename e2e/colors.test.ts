@@ -80,11 +80,13 @@ test.describe('Color card', () => {
 
 	test('should display correct number of variants based on steps input', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
+		const variants = page.locator('.variant__box');
+
+		await expect(variants).toHaveCount(12);
 
 		const stepsInput = page.getByTitle('Steps');
 		await stepsInput.fill('7');
 
-		const variants = page.locator('.variant__box');
 		await expect(variants).toHaveCount(7);
 
 		await stepsInput.fill('8');
@@ -135,9 +137,6 @@ test.describe('Color card', () => {
 
 	test('should handle minimum and maximum lightness values', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
-
-		await hexInput.fill('#ff0000');
-		await hexInput.blur();
 
 		const variants = page.locator('.variant__box');
 
