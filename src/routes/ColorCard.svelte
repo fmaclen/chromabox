@@ -3,7 +3,7 @@
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { cubicIn, cubicInOut, cubicOut, linear } from 'svelte/easing';
 
-	let { color }: { color: Colord } = $props();
+	let { color = $bindable() }: { color: Colord } = $props();
 
 	// It seems that the ColorPicker component doesn't work as expected when binded
 	// to the 'color: Colord' prop. However, it does update the color value when it is
