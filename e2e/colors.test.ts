@@ -99,30 +99,49 @@ test.describe('Color card', () => {
 		await page.getByRole('button', { name: 'New color' }).click();
 		const easingSelect = page.getByTitle('Easing');
 
-		// Set a known color and steps for consistent testing
+		// Set a known color for consistent testing
 		await hexInput.fill('#ff0000');
 		await hexInput.blur();
 
-		// Set an odd number of steps for ensuring the middle variant is the original color
-		await page.getByTitle('Steps').fill('9');
+		const secondVariant = page.locator('.variant__box').nth(1);
+		const penultimateVariant = page.locator('.variant__box').nth(10);
 
-		// Test different easing functions and verify the middle variant changes
-		const middleVariant = page.locator('.variant__box').nth(4);
+		// Store initial values with linear easing (default)
+		const linearSecondColor = await secondVariant.getAttribute('style');
+		const linearPenultimateColor = await penultimateVariant.getAttribute('style');
 
-		// Linear (default), expect middle variant to be equal to the original color
-		await expect(middleVariant).toHaveAttribute('style', /background-color: #ff0000/);
-
-		// Change to Quad In Out, expect middle variant to remain the same
+		// Change to Quad In Out
 		await easingSelect.selectOption('quadInOut');
-		await expect(middleVariant).toHaveAttribute('style', /background-color: #ff0000/);
+		const quadInOutSecondColor = await secondVariant.getAttribute('style');
+		const quadInOutPenultimateColor = await penultimateVariant.getAttribute('style');
 
-		// Change to Quad In, expect middle variant to be different
+		// Verify colors changed from linear
+		expect(quadInOutSecondColor).not.toBe(linearSecondColor);
+		expect(quadInOutPenultimateColor).not.toBe(linearPenultimateColor);
+
+		// Change to Quad In
 		await easingSelect.selectOption('quadIn');
-		await expect(middleVariant).not.toHaveAttribute('style', /background-color: #ff0000/);
+		const quadInSecondColor = await secondVariant.getAttribute('style');
+		const quadInPenultimateColor = await penultimateVariant.getAttribute('style');
 
-		// Change to Quad Out, expect middle variant to be different
+		// Verify colors changed from quad-in-out and linear
+		expect(quadInSecondColor).not.toBe(quadInOutSecondColor);
+		expect(quadInPenultimateColor).not.toBe(quadInOutPenultimateColor);
+		expect(quadInSecondColor).not.toBe(linearSecondColor);
+		expect(quadInPenultimateColor).not.toBe(linearPenultimateColor);
+
+		// Change to Quad Out
 		await easingSelect.selectOption('quadOut');
-		await expect(middleVariant).not.toHaveAttribute('style', /background-color: #ff0000/);
+		const quadOutSecondColor = await secondVariant.getAttribute('style');
+		const quadOutPenultimateColor = await penultimateVariant.getAttribute('style');
+
+		// Verify colors changed from quad-in, quad-in-out and linear
+		expect(quadOutSecondColor).not.toBe(quadInSecondColor);
+		expect(quadOutPenultimateColor).not.toBe(quadInPenultimateColor);
+		expect(quadOutSecondColor).not.toBe(quadInOutSecondColor);
+		expect(quadOutPenultimateColor).not.toBe(quadInOutPenultimateColor);
+		expect(quadOutSecondColor).not.toBe(linearSecondColor);
+		expect(quadOutPenultimateColor).not.toBe(linearPenultimateColor);
 	});
 
 	test('should maintain number of variants when updating color input', async ({ page }) => {
