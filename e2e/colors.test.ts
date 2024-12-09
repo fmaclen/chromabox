@@ -77,4 +77,114 @@ test.describe('Color card', () => {
 		await expect(rgbInput).toHaveValue('rgb(0, 255, 0)');
 		await expect(hslInput).toHaveValue('hsl(120, 100%, 50%)');
 	});
+
+	test('should display correct number of variants based on steps input', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+		const variants = page.locator('.variant__box');
+		const stepsInput = page.getByTitle('Steps');
+		await expect(variants).toHaveCount(12);
+		await expect(variants).not.toHaveCount(7);
+
+		await stepsInput.fill('7');
+		await expect(variants).toHaveCount(7);
+		await expect(variants).not.toHaveCount(12);
+
+		await stepsInput.fill('8');
+		await expect(variants).toHaveCount(8);
+		await expect(variants).not.toHaveCount(7);
+		await expect(variants).not.toHaveCount(12);
+	});
+
+	test('should update lightness variants when changing easing function', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+		const easingSelect = page.getByTitle('Easing');
+
+		// Set colors for consistent testing
+		const originalColor = '#ff0000';
+		const linearExpectedSecondColor = 'background-color: #ffd1d1';
+		const linearExpectedPenultimateColor = 'background-color: #2e0000';
+		const quadInOutExpectedSecondColor = 'background-color: #fff7f7';
+		const quadInOutExpectedPenultimateColor = 'background-color: #080000';
+		const quadInExpectedSecondColor = 'background-color: #fffbfb';
+		const quadInExpectedPenultimateColor = 'background-color: #590000';
+		const quadOutExpectedSecondColor = 'background-color: #ffa6a6';
+		const quadOutExpectedPenultimateColor = 'background-color: #040000';
+
+		await hexInput.fill(originalColor);
+		await hexInput.blur();
+
+		const secondVariant = page.locator('.variant__box').nth(1);
+		const penultimateVariant = page.locator('.variant__box').nth(10);
+
+		// Store initial values with linear easing (default)
+		const linearSecondColor = await secondVariant.getAttribute('style');
+		const linearPenultimateColor = await penultimateVariant.getAttribute('style');
+
+		// Verify colors are correct for linear easing
+		expect(linearSecondColor).toBe(linearExpectedSecondColor);
+		expect(linearPenultimateColor).toBe(linearExpectedPenultimateColor);
+
+		// Change to Quad In Out
+		await easingSelect.selectOption('quadInOut');
+		const quadInOutSecondColor = await secondVariant.getAttribute('style');
+		const quadInOutPenultimateColor = await penultimateVariant.getAttribute('style');
+
+		// Verify colors are correct and changed from linear
+		expect(quadInOutSecondColor).toBe(quadInOutExpectedSecondColor);
+		expect(quadInOutPenultimateColor).toBe(quadInOutExpectedPenultimateColor);
+		expect(quadInOutSecondColor).not.toBe(linearSecondColor);
+		expect(quadInOutPenultimateColor).not.toBe(linearPenultimateColor);
+
+		// Change to Quad In
+		await easingSelect.selectOption('quadIn');
+		const quadInSecondColor = await secondVariant.getAttribute('style');
+		const quadInPenultimateColor = await penultimateVariant.getAttribute('style');
+
+		// Verify colors are correct and changed from quad-in-out and linear
+		expect(quadInSecondColor).toBe(quadInExpectedSecondColor);
+		expect(quadInPenultimateColor).toBe(quadInExpectedPenultimateColor);
+		expect(quadInSecondColor).not.toBe(quadInOutSecondColor);
+		expect(quadInPenultimateColor).not.toBe(quadInOutPenultimateColor);
+		expect(quadInSecondColor).not.toBe(linearSecondColor);
+		expect(quadInPenultimateColor).not.toBe(linearPenultimateColor);
+
+		// Change to Quad Out
+		await easingSelect.selectOption('quadOut');
+		const quadOutSecondColor = await secondVariant.getAttribute('style');
+		const quadOutPenultimateColor = await penultimateVariant.getAttribute('style');
+
+		// Verify colors are correct and changed from quad-in, quad-in-out and linear
+		expect(quadOutSecondColor).toBe(quadOutExpectedSecondColor);
+		expect(quadOutPenultimateColor).toBe(quadOutExpectedPenultimateColor);
+		expect(quadOutSecondColor).not.toBe(quadInSecondColor);
+		expect(quadOutPenultimateColor).not.toBe(quadInPenultimateColor);
+		expect(quadOutSecondColor).not.toBe(quadInOutSecondColor);
+		expect(quadOutPenultimateColor).not.toBe(quadInOutPenultimateColor);
+		expect(quadOutSecondColor).not.toBe(linearSecondColor);
+		expect(quadOutPenultimateColor).not.toBe(linearPenultimateColor);
+	});
+
+	test('should maintain number of variants when updating color input', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+
+		await page.getByTitle('Steps').fill('4');
+		const variants = page.locator('.variant__box');
+		await expect(variants).toHaveCount(4);
+
+		await hexInput.fill('#00ff00');
+		await hexInput.blur();
+		await expect(variants).toHaveCount(4);
+	});
+
+	test('should handle minimum and maximum lightness values', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+
+		const variants = page.locator('.variant__box');
+
+		// First variant should be white (100% lightness)
+		await expect(variants.first()).toHaveAttribute('style', /background-color: #ffffff/);
+
+		// Last variant should be black (0% lightness)
+		await expect(variants.last()).toHaveAttribute('style', /background-color: #000000/);
+	});
 });
