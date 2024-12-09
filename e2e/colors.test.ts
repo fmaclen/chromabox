@@ -93,7 +93,7 @@ test.describe('Color card', () => {
 
 	test('should update variants when changing easing function', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
-		const easingSelect = page.getByTitle('Easing function');
+		const easingSelect = page.getByTitle('Easing');
 
 		// Set a known color and steps for consistent testing
 		await hexInput.fill('#ff0000');

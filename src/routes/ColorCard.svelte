@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { colord, type Colord } from 'colord';
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
-	import { cubicIn, cubicInOut, cubicOut, linear } from 'svelte/easing';
+	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
 	let { color = $bindable() }: { color: Colord } = $props();
 
@@ -47,9 +47,9 @@
 
 	const easingFns = {
 		linear,
-		cubicInOut,
-		cubicIn,
-		cubicOut
+		quadInOut,
+		quadIn,
+		quadOut
 	};
 
 	function handleColorInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
@@ -79,11 +79,11 @@
 	</fieldset>
 
 	<div class="variants__controls">
-		<select bind:value={easingFn} title="Easing function">
+		<select bind:value={easingFn} title="Easing">
 			<option value="linear">Linear</option>
-			<option value="cubicInOut">Cubic In Out</option>
-			<option value="cubicIn">Cubic In</option>
-			<option value="cubicOut">Cubic Out</option>
+			<option value="quadInOut">Quad In Out</option>
+			<option value="quadIn">Quad In</option>
+			<option value="quadOut">Quad Out</option>
 		</select>
 
 		<input type="number" bind:value={steps} title="Steps" />
