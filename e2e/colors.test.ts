@@ -108,16 +108,16 @@ test.describe('Color card', () => {
 		// Linear (default), expect middle variant to be equal to the original color
 		await expect(middleVariant).toHaveAttribute('style', /background-color: #ff0000/);
 
-		// Change to Cubic In Out, expect middle variant to remain the same
-		await easingSelect.selectOption('cubicInOut');
+		// Change to Quad In Out, expect middle variant to remain the same
+		await easingSelect.selectOption('quadInOut');
 		await expect(middleVariant).toHaveAttribute('style', /background-color: #ff0000/);
 
-		// Change to Cubic In, expect middle variant to be different
-		await easingSelect.selectOption('cubicIn');
+		// Change to Quad In, expect middle variant to be different
+		await easingSelect.selectOption('quadIn');
 		await expect(middleVariant).not.toHaveAttribute('style', /background-color: #ff0000/);
 
-		// Change to Cubic Out, expect middle variant to be different
-		await easingSelect.selectOption('cubicOut');
+		// Change to Quad Out, expect middle variant to be different
+		await easingSelect.selectOption('quadOut');
 		await expect(middleVariant).not.toHaveAttribute('style', /background-color: #ff0000/);
 	});
 
