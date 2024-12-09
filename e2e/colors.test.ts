@@ -82,16 +82,17 @@ test.describe('Color card', () => {
 		await page.getByRole('button', { name: 'New color' }).click();
 		const variants = page.locator('.variant__box');
 		const stepsInput = page.getByTitle('Steps');
-
 		await expect(variants).toHaveCount(12);
-
 		await expect(variants).not.toHaveCount(7);
+
 		await stepsInput.fill('7');
 		await expect(variants).toHaveCount(7);
+		await expect(variants).not.toHaveCount(12);
 
-		await expect(variants).not.toHaveCount(8);
 		await stepsInput.fill('8');
 		await expect(variants).toHaveCount(8);
+		await expect(variants).not.toHaveCount(7);
+		await expect(variants).not.toHaveCount(12);
 	});
 
 	test('should update variants when changing easing function', async ({ page }) => {
