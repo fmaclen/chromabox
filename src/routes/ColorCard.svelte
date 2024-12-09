@@ -79,14 +79,14 @@
 	</fieldset>
 
 	<div class="variants__controls">
-		<select bind:value={easingFn}>
+		<select bind:value={easingFn} title="Easing function">
 			<option value="linear">Linear</option>
 			<option value="cubicInOut">Cubic In Out</option>
 			<option value="cubicIn">Cubic In</option>
 			<option value="cubicOut">Cubic Out</option>
 		</select>
 
-		<input type="number" bind:value={steps} />
+		<input type="number" bind:value={steps} title="Steps" />
 	</div>
 
 	<div class="variants">
@@ -146,7 +146,8 @@
 		margin-top: 10px;
 	}
 
-	.variants__controls select {
+	.variants__controls select,
+	.variants__controls input {
 		width: 100%;
 	}
 
