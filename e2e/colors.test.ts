@@ -187,4 +187,40 @@ test.describe('Color card', () => {
 		// Last variant should be black (0% lightness)
 		await expect(variants.last()).toHaveAttribute('style', /background-color: #000000/);
 	});
+
+	test('should handle enabled/disabled state for Reset button', async ({ page }) => {
+		const newColorButton = page.getByRole('button', { name: 'New color' });
+		const resetButton = page.getByRole('button', { name: 'Reset' });
+
+		expect((await page.locator('form.color').all()).length).toBe(0);
+		await expect(resetButton).toBeDisabled();
+
+		await newColorButton.click();
+		await expect(resetButton).toBeEnabled();
+
+		await resetButton.click();
+		await expect(resetButton).toBeDisabled();
+	});
+
+	test('should remove multiple colors when clicking Reset', async ({ page }) => {
+		const newColorButton = page.getByRole('button', { name: 'New color' });
+		const resetButton = page.getByRole('button', { name: 'Reset' });
+		const colors = page.locator('form.color');
+
+		expect((await colors.all()).length).toBe(0);
+
+		await newColorButton.click();
+		expect((await colors.all()).length).toBe(1);
+
+		await resetButton.click();
+		expect((await colors.all()).length).toBe(0);
+
+		await newColorButton.click();
+		await newColorButton.click();
+		await newColorButton.click();
+		expect((await colors.all()).length).toBe(3);
+
+		await resetButton.click();
+		expect((await colors.all()).length).toBe(0);
+	});
 });
