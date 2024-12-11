@@ -214,4 +214,46 @@ test.describe('Color card', () => {
 		expect((await colors.all()).length).toBe(0);
 		await expect(resetButton).toBeDisabled();
 	});
+
+	test('should copy color values from input fields', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+
+		await hexInput.fill('#ff0000');
+		await hexInput.blur();
+
+		await page.getByRole('button', { name: 'Copy HEX' }).click();
+		const hexClipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(hexClipboard).toBe('#ff0000');
+
+		await page.getByRole('button', { name: 'Copy RGB' }).click();
+		const rgbClipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(rgbClipboard).toBe('rgb(255, 0, 0)');
+
+		await page.getByRole('button', { name: 'Copy HSL' }).click();
+		const hslClipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(hslClipboard).toBe('hsl(0, 100%, 50%)');
+	});
+
+	test('should copy variant colors', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+
+		await hexInput.fill('#ff0000');
+		await hexInput.blur();
+		await page.getByTitle('Steps').fill('3');
+
+		// Test copying first variant (should be white)
+		await page.locator('.variant__box').nth(0).getByRole('button', { name: 'Copy' }).click();
+		const firstVariantClipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(firstVariantClipboard).toBe('#ffffff');
+
+		// Test copying middle variant (should be the original color)
+		await page.locator('.variant__box').nth(1).getByRole('button', { name: 'Copy' }).click();
+		const middleVariantClipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(middleVariantClipboard).toBe('#ff0000');
+
+		// Test copying last variant (should be black)
+		await page.locator('.variant__box').nth(2).getByRole('button', { name: 'Copy' }).click();
+		const lastVariantClipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(lastVariantClipboard).toBe('#000000');
+	});
 });
