@@ -11,7 +11,10 @@
 
 <Favicon {colors} />
 
-<button onclick={() => colors.push(colord(generateRandomColor()))}>New color</button>
+<div class="controls">
+	<button onclick={() => colors.push(colord(generateRandomColor()))}>New color</button>
+	<button onclick={() => (colors = [])} disabled={!colors.length}>Reset</button>
+</div>
 
 <div class="palette">
 	<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
@@ -21,6 +24,11 @@
 </div>
 
 <style>
+	.controls {
+		display: flex;
+		gap: 10px;
+	}
+
 	.palette {
 		margin-top: 20px;
 		display: grid;
