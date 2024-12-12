@@ -215,30 +215,33 @@ test.describe('Color card', () => {
 		await expect(resetButton).toBeDisabled();
 	});
 
-	test('should copy color values from input fields', async ({ page }) => {
+	test('should copy color values from input fields and from variants', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
 
 		await hexInput.fill('#ff0000');
 		await hexInput.blur();
 
-		await page.getByRole('button', { name: 'Copy HEX' }).click();
+		await page
+			.locator('.color__input-item', { hasText: 'HEX' })
+			.getByRole('button', { name: 'Copy' })
+			.click();
 		const hexClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(hexClipboard).toBe('#ff0000');
 
-		await page.getByRole('button', { name: 'Copy RGB' }).click();
+		await page
+			.locator('.color__input-item', { hasText: 'RGB' })
+			.getByRole('button', { name: 'Copy' })
+			.click();
 		const rgbClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(rgbClipboard).toBe('rgb(255, 0, 0)');
 
-		await page.getByRole('button', { name: 'Copy HSL' }).click();
+		await page
+			.locator('.color__input-item', { hasText: 'HSL' })
+			.getByRole('button', { name: 'Copy' })
+			.click();
 		const hslClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(hslClipboard).toBe('hsl(0, 100%, 50%)');
-	});
 
-	test('should copy variant colors', async ({ page }) => {
-		await page.getByRole('button', { name: 'New color' }).click();
-
-		await hexInput.fill('#ff0000');
-		await hexInput.blur();
 		await page.getByTitle('Steps').fill('3');
 
 		// Test copying first variant (should be white)
