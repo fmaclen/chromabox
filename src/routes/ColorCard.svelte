@@ -64,17 +64,32 @@
 	<fieldset class="color__fieldset">
 		<div class="color__input-item">
 			<label for="color-hex">HEX</label>
-			<input id="color-hex" type="text" value={color.toHex()} onblur={handleColorInput} />
+			<div class="color__input-copy">
+				<input id="color-hex" type="text" value={color.toHex()} onblur={handleColorInput} />
+				<button onclick={() => navigator.clipboard.writeText(color.toHex())} title="Copy">
+					Copy
+				</button>
+			</div>
 		</div>
 
 		<div class="color__input-item">
 			<label for="color-rgb">RGB</label>
-			<input id="color-rgb" type="text" value={color.toRgbString()} onblur={handleColorInput} />
+			<div class="color__input-copy">
+				<input id="color-rgb" type="text" value={color.toRgbString()} onblur={handleColorInput} />
+				<button onclick={() => navigator.clipboard.writeText(color.toRgbString())} title="Copy">
+					Copy
+				</button>
+			</div>
 		</div>
 
 		<div class="color__input-item">
 			<label for="color-hsl">HSL</label>
-			<input id="color-hsl" type="text" value={color.toHslString()} onblur={handleColorInput} />
+			<div class="color__input-copy">
+				<input id="color-hsl" type="text" value={color.toHslString()} onblur={handleColorInput} />
+				<button onclick={() => navigator.clipboard.writeText(color.toHslString())} title="Copy">
+					Copy
+				</button>
+			</div>
 		</div>
 	</fieldset>
 
@@ -93,6 +108,13 @@
 		{#each variants as variant}
 			<div class="variant__box" style={`background-color: ${variant.toHex()}`}>
 				<p class="variant__text">{variant.toHex()}</p>
+				<button
+					class="variant__copy"
+					onclick={() => navigator.clipboard.writeText(variant.toHex())}
+					title="Copy"
+				>
+					Copy
+				</button>
 			</div>
 		{/each}
 	</div>
@@ -132,6 +154,12 @@
 		width: 100%;
 	}
 
+	.color__input-copy {
+		display: flex;
+		gap: 5px;
+		width: 100%;
+	}
+
 	.variants__controls {
 		margin-top: 10px;
 		width: 100%;
@@ -162,5 +190,15 @@
 
 	.variant__text {
 		color: white;
+	}
+
+	.variant__box {
+		justify-content: space-between;
+	}
+
+	.variant__copy {
+		background-color: white;
+		color: black;
+		cursor: pointer;
 	}
 </style>

@@ -1,5 +1,8 @@
 import { baseConfig } from './playwright.config.base';
 
 export default {
-	...baseConfig
+	...baseConfig,
+	use: {
+		permissions: ['clipboard-read', 'clipboard-write']
+	}
 };
