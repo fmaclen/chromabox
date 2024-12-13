@@ -104,13 +104,7 @@
 		{#each variants as variant}
 			<div class="variant__box" style={`background-color: ${variant.toHex()}`}>
 				<p class="variant__text">{variant.toHex()}</p>
-				<button
-					class="variant__copy"
-					onclick={() => navigator.clipboard.writeText(variant.toHex())}
-					title="Copy"
-				>
-					Copy
-				</button>
+				<ButtonCopy content={variant.toHex()} />
 			</div>
 		{/each}
 	</div>
@@ -190,10 +184,5 @@
 
 	.variant__box {
 		justify-content: space-between;
-	}
-
-	.variant__copy {
-		background-color: white;
-		color: black;
 	}
 </style>
