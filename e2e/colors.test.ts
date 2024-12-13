@@ -214,4 +214,49 @@ test.describe('Color card', () => {
 		expect((await colors.all()).length).toBe(0);
 		await expect(resetButton).toBeDisabled();
 	});
+
+	test('should copy color values from input fields and from variants', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+
+		await hexInput.fill('#ff0000');
+		await hexInput.blur();
+
+		await page
+			.locator('.color__input-item', { hasText: 'HEX' })
+			.getByRole('button', { name: 'Copy' })
+			.click();
+		const hexClipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(hexClipboard).toBe('#ff0000');
+
+		await page
+			.locator('.color__input-item', { hasText: 'RGB' })
+			.getByRole('button', { name: 'Copy' })
+			.click();
+		const rgbClipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(rgbClipboard).toBe('rgb(255, 0, 0)');
+
+		await page
+			.locator('.color__input-item', { hasText: 'HSL' })
+			.getByRole('button', { name: 'Copy' })
+			.click();
+		const hslClipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(hslClipboard).toBe('hsl(0, 100%, 50%)');
+
+		await page.getByTitle('Steps').fill('3');
+
+		// Test copying first variant (should be white)
+		await page.locator('.variant__box').nth(0).getByRole('button', { name: 'Copy' }).click();
+		const firstVariantClipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(firstVariantClipboard).toBe('#ffffff');
+
+		// Test copying middle variant (should be the original color)
+		await page.locator('.variant__box').nth(1).getByRole('button', { name: 'Copy' }).click();
+		const middleVariantClipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(middleVariantClipboard).toBe('#ff0000');
+
+		// Test copying last variant (should be black)
+		await page.locator('.variant__box').nth(2).getByRole('button', { name: 'Copy' }).click();
+		const lastVariantClipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(lastVariantClipboard).toBe('#000000');
+	});
 });

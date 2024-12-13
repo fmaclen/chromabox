@@ -3,6 +3,8 @@
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
+	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
+
 	let { color = $bindable() }: { color: Colord } = $props();
 
 	// It seems that the ColorPicker component doesn't work as expected when binded
@@ -64,17 +66,26 @@
 	<fieldset class="color__fieldset">
 		<div class="color__input-item">
 			<label for="color-hex">HEX</label>
-			<input id="color-hex" type="text" value={color.toHex()} onblur={handleColorInput} />
+			<div class="color__input-copy">
+				<input id="color-hex" type="text" value={color.toHex()} onblur={handleColorInput} />
+				<ButtonCopy content={color.toHex()} />
+			</div>
 		</div>
 
 		<div class="color__input-item">
 			<label for="color-rgb">RGB</label>
-			<input id="color-rgb" type="text" value={color.toRgbString()} onblur={handleColorInput} />
+			<div class="color__input-copy">
+				<input id="color-rgb" type="text" value={color.toRgbString()} onblur={handleColorInput} />
+				<ButtonCopy content={color.toRgbString()} />
+			</div>
 		</div>
 
 		<div class="color__input-item">
 			<label for="color-hsl">HSL</label>
-			<input id="color-hsl" type="text" value={color.toHslString()} onblur={handleColorInput} />
+			<div class="color__input-copy">
+				<input id="color-hsl" type="text" value={color.toHslString()} onblur={handleColorInput} />
+				<ButtonCopy content={color.toHslString()} />
+			</div>
 		</div>
 	</fieldset>
 
@@ -93,6 +104,7 @@
 		{#each variants as variant}
 			<div class="variant__box" style={`background-color: ${variant.toHex()}`}>
 				<p class="variant__text">{variant.toHex()}</p>
+				<ButtonCopy content={variant.toHex()} />
 			</div>
 		{/each}
 	</div>
@@ -132,6 +144,12 @@
 		width: 100%;
 	}
 
+	.color__input-copy {
+		display: flex;
+		gap: 5px;
+		width: 100%;
+	}
+
 	.variants__controls {
 		margin-top: 10px;
 		width: 100%;
@@ -162,5 +180,9 @@
 
 	.variant__text {
 		color: white;
+	}
+
+	.variant__box {
+		justify-content: space-between;
 	}
 </style>
