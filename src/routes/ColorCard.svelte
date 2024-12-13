@@ -3,6 +3,8 @@
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
+	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
+
 	let { color = $bindable() }: { color: Colord } = $props();
 
 	// It seems that the ColorPicker component doesn't work as expected when binded
@@ -66,9 +68,7 @@
 			<label for="color-hex">HEX</label>
 			<div class="color__input-copy">
 				<input id="color-hex" type="text" value={color.toHex()} onblur={handleColorInput} />
-				<button onclick={() => navigator.clipboard.writeText(color.toHex())} title="Copy">
-					Copy
-				</button>
+				<ButtonCopy content={color.toHex()} />
 			</div>
 		</div>
 
@@ -76,9 +76,7 @@
 			<label for="color-rgb">RGB</label>
 			<div class="color__input-copy">
 				<input id="color-rgb" type="text" value={color.toRgbString()} onblur={handleColorInput} />
-				<button onclick={() => navigator.clipboard.writeText(color.toRgbString())} title="Copy">
-					Copy
-				</button>
+				<ButtonCopy content={color.toRgbString()} />
 			</div>
 		</div>
 
@@ -86,9 +84,7 @@
 			<label for="color-hsl">HSL</label>
 			<div class="color__input-copy">
 				<input id="color-hsl" type="text" value={color.toHslString()} onblur={handleColorInput} />
-				<button onclick={() => navigator.clipboard.writeText(color.toHslString())} title="Copy">
-					Copy
-				</button>
+				<ButtonCopy content={color.toHslString()} />
 			</div>
 		</div>
 	</fieldset>
@@ -199,6 +195,5 @@
 	.variant__copy {
 		background-color: white;
 		color: black;
-		cursor: pointer;
 	}
 </style>
