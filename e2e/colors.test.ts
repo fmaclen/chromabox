@@ -264,17 +264,14 @@ test.describe('Color card', () => {
 		await page.getByRole('button', { name: 'New color' }).click();
 		const tokenInput = page.locator('.color__token input');
 
-		// Test red color
 		await hexInput.fill('#ff0000');
 		await hexInput.blur();
 		await expect(tokenInput).toHaveAttribute('placeholder', 'red');
 
-		// Test tomato color
 		await hexInput.fill('#ff6347');
 		await hexInput.blur();
 		await expect(tokenInput).toHaveAttribute('placeholder', 'tomato');
 
-		// Test aquamarine color
 		await hexInput.fill('#7fffd4');
 		await hexInput.blur();
 		await expect(tokenInput).toHaveAttribute('placeholder', 'aquamarine');
