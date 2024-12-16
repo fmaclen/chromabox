@@ -23,6 +23,7 @@
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@types/eslint": "^9.6.0",
 		"autoprefixer": "^10.4.20",
+		"color-2-name": "^1.4.4",
 		"colord": "^2.9.3",
 		"eslint": "^9.7.0",
 		"eslint-config-prettier": "^9.1.0",
