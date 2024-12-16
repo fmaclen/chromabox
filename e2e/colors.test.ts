@@ -259,4 +259,29 @@ test.describe('Color card', () => {
 		const lastVariantClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(lastVariantClipboard).toBe('#000000');
 	});
+
+	test('should display correct token name placeholder based on color', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+		const tokenInput = page.locator('.color__token input');
+
+		// Test red color
+		await hexInput.fill('#ff0000');
+		await hexInput.blur();
+		await expect(tokenInput).toHaveAttribute('placeholder', 'red');
+
+		// Test tomato color
+		await hexInput.fill('#ff6347');
+		await hexInput.blur();
+		await expect(tokenInput).toHaveAttribute('placeholder', 'tomato');
+
+		// Test aquamarine color
+		await hexInput.fill('#7fffd4');
+		await hexInput.blur();
+		await expect(tokenInput).toHaveAttribute('placeholder', 'aquamarine');
+
+		// Test color similar to aquamarine
+		await hexInput.fill('#7fffd5');
+		await hexInput.blur();
+		await expect(tokenInput).toHaveAttribute('placeholder', 'aquamarine');
+	});
 });
