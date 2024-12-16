@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { closest } from 'color-2-name';
-	import { colord, type Colord } from 'colord';
+	import { colord, extend, type Colord } from 'colord';
+	import namesPlugin from 'colord/plugins/names';
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
@@ -16,7 +16,7 @@
 	let steps = $state(12);
 	let easingFn = $state('linear');
 
-	const tokenNamePlaceholder = $derived(closest(color.toHex()).name);
+	const tokenNamePlaceholder = $derived(color.toName({ closest: true }));
 
 	$effect(() => {
 		hex = color.toHex();
@@ -50,6 +50,8 @@
 
 		return colorVariants;
 	});
+
+	extend([namesPlugin]);
 
 	const easingFns = {
 		linear,
