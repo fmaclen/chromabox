@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { closest } from 'color-2-name';
 	import { colord, type Colord } from 'colord';
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
@@ -11,8 +12,11 @@
 	// to the 'color: Colord' prop. However, it does update the color value when it is
 	// binded to the 'hex: string' prop.
 	let hex = $state(color.toHex());
+	let tokenName = $state('');
 	let steps = $state(12);
 	let easingFn = $state('linear');
+
+	const tokenNamePlaceholder = $derived(closest(color.toHex()).name);
 
 	$effect(() => {
 		hex = color.toHex();
@@ -61,6 +65,11 @@
 </script>
 
 <form class="color">
+	<div class="color__token">
+		<input bind:value={tokenName} placeholder={tokenNamePlaceholder} />
+		<ButtonCopy content={tokenName} />
+	</div>
+
 	<ColorPicker bind:hex components={ChromeVariant} isDialog={false} sliderDirection="horizontal" />
 
 	<fieldset class="color__fieldset">
@@ -111,6 +120,15 @@
 </form>
 
 <style>
+	.color__token {
+		display: flex;
+		gap: 5px;
+	}
+
+	.color__token input {
+		width: 100%;
+	}
+
 	form.color {
 		/* These are the styles of the ColorPicker component */
 		:global(.color-picker .wrapper) {
