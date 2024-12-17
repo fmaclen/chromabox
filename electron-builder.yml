@@ -1,0 +1,33 @@
+appId: com.chromabox.desktop
+productName: Chromabox
+artifactName: ${productName}_${version}-${os}-${arch}.${ext}
+
+files:
+  - build/**/*
+  - src-electron/**/*
+
+mac:
+  category: public.app-category.developer-tools
+  icon: src-electron/resources/icons/mac/icon.icns
+  entitlements: src-electron/resources/mac/entitlements.mac.plist
+  entitlementsInherit: src-electron/resources/mac/entitlements.mac.plist
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  target: dmg
+
+win:
+  target: nsis
+  icon: src-electron/resources/icons/win/icon.ico
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+
+linux:
+  target: tar.gz
+  icon: src-electron/resources/icons/png/1024x1024.png
+
+publish:
+  provider: github
+  releaseType: release
+  vPrefixedTagName: false
