@@ -1,11 +1,20 @@
 <script lang="ts">
 	import '../app.css';
 
-	import { PUBLIC_PLAUSIBLE_DOMAIN, PUBLIC_PLAUSIBLE_API, PUBLIC_PLAUSIBLE_SRC, PUBLIC_IS_DEMO } from '$env/static/public';
+	import {
+		PUBLIC_IS_DEMO,
+		PUBLIC_PLAUSIBLE_API,
+		PUBLIC_PLAUSIBLE_DOMAIN,
+		PUBLIC_PLAUSIBLE_SRC
+	} from '$env/static/public';
 </script>
 
 <svelte:head>
-	<title>Chromabox: An open-source color palette generator</title>
+	{#if PUBLIC_IS_DEMO}
+		<title>Chromabox: An open-source color palette generator</title>
+	{:else}
+		<title>Chromabox</title>
+	{/if}
 
 	{#if PUBLIC_PLAUSIBLE_DOMAIN}
 		<script
