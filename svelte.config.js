@@ -7,7 +7,7 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		adapter: process.env.PUBLIC_ADAPTER === 'cloudflare' ? adapterStatic() : adapterCloudflare(),
+		adapter: process.env.PUBLIC_ADAPTER === 'cloudflare' ? adapterCloudflare() : adapterStatic(),
 		version: {
 			name: process.env.npm_package_version
 		},
