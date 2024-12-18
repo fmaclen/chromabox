@@ -1,23 +1,32 @@
 <script lang="ts">
 	import '../app.css';
 
-	import { env } from '$env/dynamic/public';
+	import {
+		PUBLIC_IS_DEMO,
+		PUBLIC_PLAUSIBLE_API,
+		PUBLIC_PLAUSIBLE_DOMAIN,
+		PUBLIC_PLAUSIBLE_SRC
+	} from '$env/static/public';
 </script>
 
 <svelte:head>
-	<title>Chromabox: An open-source color palette generator</title>
+	{#if PUBLIC_IS_DEMO}
+		<title>Chromabox: An open-source color palette generator</title>
+	{:else}
+		<title>Chromabox</title>
+	{/if}
 
-	{#if env.PUBLIC_PLAUSIBLE_DOMAIN}
+	{#if PUBLIC_PLAUSIBLE_DOMAIN}
 		<script
 			defer
-			data-domain={env.PUBLIC_PLAUSIBLE_DOMAIN}
-			data-api={env.PUBLIC_PLAUSIBLE_API}
-			src={env.PUBLIC_PLAUSIBLE_SRC}
+			data-domain={PUBLIC_PLAUSIBLE_DOMAIN}
+			data-api={PUBLIC_PLAUSIBLE_API}
+			src={PUBLIC_PLAUSIBLE_SRC}
 		></script>
 	{/if}
 </svelte:head>
 
-{#if env.PUBLIC_IS_DEMO}
+{#if PUBLIC_IS_DEMO}
 	<div class="layout">
 		<header class="header">
 			<h1>Chromabox</h1>
