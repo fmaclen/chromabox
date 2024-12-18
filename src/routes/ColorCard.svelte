@@ -1,7 +1,10 @@
 <script lang="ts">
-	import { colord, type Colord } from 'colord';
+	import { colord, extend, type Colord } from 'colord';
+	import namesPlugin from 'colord/plugins/names';
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
+
+	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 
 	let { color = $bindable() }: { color: Colord } = $props();
 
@@ -9,8 +12,11 @@
 	// to the 'color: Colord' prop. However, it does update the color value when it is
 	// binded to the 'hex: string' prop.
 	let hex = $state(color.toHex());
+	let tokenName = $state('');
 	let steps = $state(12);
 	let easingFn = $state('linear');
+
+	const tokenNamePlaceholder = $derived(color.toName({ closest: true }));
 
 	$effect(() => {
 		hex = color.toHex();
@@ -45,6 +51,8 @@
 		return colorVariants;
 	});
 
+	extend([namesPlugin]);
+
 	const easingFns = {
 		linear,
 		quadInOut,
@@ -59,22 +67,36 @@
 </script>
 
 <form class="color">
+	<div class="color__token">
+		<input bind:value={tokenName} placeholder={tokenNamePlaceholder} />
+		<ButtonCopy content={tokenName} />
+	</div>
+
 	<ColorPicker bind:hex components={ChromeVariant} isDialog={false} sliderDirection="horizontal" />
 
 	<fieldset class="color__fieldset">
 		<div class="color__input-item">
 			<label for="color-hex">HEX</label>
-			<input id="color-hex" type="text" value={color.toHex()} onblur={handleColorInput} />
+			<div class="color__input-copy">
+				<input id="color-hex" type="text" value={color.toHex()} onblur={handleColorInput} />
+				<ButtonCopy content={color.toHex()} />
+			</div>
 		</div>
 
 		<div class="color__input-item">
 			<label for="color-rgb">RGB</label>
-			<input id="color-rgb" type="text" value={color.toRgbString()} onblur={handleColorInput} />
+			<div class="color__input-copy">
+				<input id="color-rgb" type="text" value={color.toRgbString()} onblur={handleColorInput} />
+				<ButtonCopy content={color.toRgbString()} />
+			</div>
 		</div>
 
 		<div class="color__input-item">
 			<label for="color-hsl">HSL</label>
-			<input id="color-hsl" type="text" value={color.toHslString()} onblur={handleColorInput} />
+			<div class="color__input-copy">
+				<input id="color-hsl" type="text" value={color.toHslString()} onblur={handleColorInput} />
+				<ButtonCopy content={color.toHslString()} />
+			</div>
 		</div>
 	</fieldset>
 
@@ -93,12 +115,22 @@
 		{#each variants as variant}
 			<div class="variant__box" style={`background-color: ${variant.toHex()}`}>
 				<p class="variant__text">{variant.toHex()}</p>
+				<ButtonCopy content={variant.toHex()} />
 			</div>
 		{/each}
 	</div>
 </form>
 
 <style>
+	.color__token {
+		display: flex;
+		gap: 5px;
+	}
+
+	.color__token input {
+		width: 100%;
+	}
+
 	form.color {
 		/* These are the styles of the ColorPicker component */
 		:global(.color-picker .wrapper) {
@@ -132,6 +164,12 @@
 		width: 100%;
 	}
 
+	.color__input-copy {
+		display: flex;
+		gap: 5px;
+		width: 100%;
+	}
+
 	.variants__controls {
 		margin-top: 10px;
 		width: 100%;
@@ -162,5 +200,9 @@
 
 	.variant__text {
 		color: white;
+	}
+
+	.variant__box {
+		justify-content: space-between;
 	}
 </style>

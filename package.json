@@ -1,6 +1,6 @@
 {
 	"name": "chromabox",
-	"version": "0.0.0-dev",
+	"version": "0.0.0-development",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -58,7 +58,19 @@
 		"plugins": [
 			"@semantic-release/commit-analyzer",
 			"@semantic-release/release-notes-generator",
-			"@semantic-release/github"
+			["@semantic-release/npm", {
+				"npmPublish": false
+			}],
+			"@semantic-release/github",
+			[
+				"@semantic-release/git",
+				{
+					"assets": [
+						"package.json",
+						"package-lock.json"
+					]
+				}
+			]
 		]
 	}
 }
