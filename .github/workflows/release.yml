@@ -19,6 +19,7 @@ jobs:
         with:
           branches: main
           tag_format: ${version}
-        id: semantic
+          extra_plugins: |
+            @semantic-release/npm
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
