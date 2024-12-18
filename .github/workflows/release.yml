@@ -16,10 +16,11 @@ jobs:
 
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
+        id: semantic
         with:
           branches: main
           tag_format: ${version}
           extra_plugins: |
-            @semantic-release/npm
+            @semantic-release/git
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
