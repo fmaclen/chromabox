@@ -12,8 +12,9 @@
 <Favicon {colors} />
 
 <div class="controls">
-	<button onclick={() => colors.push(colord(generateRandomColor()))}>New color</button>
-	<button onclick={() => (colors = [])} disabled={!colors.length}>Reset</button>
+	<button type="button" onclick={() => colors.push(colord(generateRandomColor()))}>New color</button
+	>
+	<button type="button" onclick={() => (colors = [])} disabled={!colors.length}>Reset</button>
 </div>
 
 <div class="palette">
