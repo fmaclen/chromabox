@@ -12,10 +12,15 @@
 <Favicon {colors} />
 
 <div class="controls">
-	<button type="button" onclick={() => colors.push(colord(generateRandomColor()))}>New color</button
-	>
-	<button type="button" onclick={() => (colors = [])} disabled={!colors.length}>Reset</button>
+	<button class="button" type="button" onclick={() => colors.push(colord(generateRandomColor()))}>
+		New color
+	</button>
+	<button class="button" type="button" onclick={() => (colors = [])} disabled={!colors.length}>
+		Reset
+	</button>
 </div>
+
+<hr class="hr" />
 
 <div class="palette">
 	<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
@@ -24,16 +29,25 @@
 	{/each}
 </div>
 
-<style>
+<style lang="postcss">
+	.controls,
+	.palette {
+		@apply gap-1.5 p-2.5;
+	}
+
 	.controls {
-		display: flex;
-		gap: 10px;
+		@apply flex;
 	}
 
 	.palette {
-		margin-top: 20px;
-		display: grid;
-		grid-template-columns: repeat(auto-fill, 300px);
-		gap: 20px;
+		@apply grid;
+	}
+
+	.button {
+		@apply rounded-md border px-3 py-1.5 text-sm font-medium cursor-pointer;
+	}
+
+	.hr {
+		@apply border-b border-t-0;
 	}
 </style>
