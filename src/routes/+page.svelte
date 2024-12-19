@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { colord, type Colord } from 'colord';
+	import { onMount } from 'svelte';
 
 	import { generateRandomColor } from '$lib/utils';
 
@@ -7,33 +8,54 @@
 	import Favicon from './Favicon.svelte';
 
 	let colors: Colord[] = $state([]);
+
+	const DEFAULT_COLOR_PALETTE = ['#008CFF', '#A600FF', '#F600FF', '#FF0004', '#FF9000', '#FFBF00'];
+
+	onMount(() => {
+		colors = DEFAULT_COLOR_PALETTE.map((color) => colord(color));
+	});
 </script>
 
 <Favicon {colors} />
 
-<div class="controls">
-	<button type="button" onclick={() => colors.push(colord(generateRandomColor()))}>New color</button
-	>
-	<button type="button" onclick={() => (colors = [])} disabled={!colors.length}>Reset</button>
+<div class="palette">
+	<button class="button" type="button" onclick={() => colors.push(colord(generateRandomColor()))}>
+		New color
+	</button>
+	<button class="button" type="button" onclick={() => (colors = [])} disabled={!colors.length}>
+		Reset
+	</button>
 </div>
 
-<div class="palette">
+<hr class="hr" />
+
+<div class="colors">
 	<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
 	{#each colors as _, index}
 		<ColorCard bind:color={colors[index]} />
 	{/each}
 </div>
 
-<style>
-	.controls {
-		display: flex;
-		gap: 10px;
+<style lang="postcss">
+	.palette,
+	.colors {
+		@apply gap-1.5 p-2.5;
 	}
 
 	.palette {
-		margin-top: 20px;
-		display: grid;
-		grid-template-columns: repeat(auto-fill, 300px);
-		gap: 20px;
+		@apply flex;
+	}
+
+	.colors {
+		@apply grid grid-flow-col;
+	}
+
+	.button {
+		@apply cursor-pointer rounded-md border px-3 py-1.5 text-sm font-medium;
+		@apply disabled:cursor-not-allowed disabled:opacity-50;
+	}
+
+	.hr {
+		@apply border-b border-t-0;
 	}
 </style>
