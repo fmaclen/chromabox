@@ -26,9 +26,9 @@
 	{/if}
 </svelte:head>
 
-<div class="layout">
-	{#if PUBLIC_IS_DEMO}
-		<header class="header">
+{#if PUBLIC_IS_DEMO}
+	<div class="layout layout--demo">
+		<header class="demo-header">
 			<h1>Chromabox</h1>
 			<h2>The ultimate color palette generator for designers & developers</h2>
 			<nav class="flex flex-row items-center justify-center gap-2">
@@ -40,10 +40,12 @@
 				</a>
 			</nav>
 		</header>
-		<main class="main">
+
+		<main class="main main--demo">
 			<slot />
 		</main>
-		<footer class="footer">
+
+		<footer class="demo-footer">
 			<p>&copy; {new Date().getFullYear()} Chromabox</p>
 			<nav>
 				<a href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Gumroad</a>
@@ -51,20 +53,26 @@
 				<a href="https://fernando.is" target="_blank">Contact</a>
 			</nav>
 		</footer>
-	{:else}
+	</div>
+{:else}
+	<div class="layout">
 		<main class="main">
 			<slot />
 		</main>
-	{/if}
-</div>
+	</div>
+{/if}
 
 <style lang="postcss">
 	.layout {
-		@apply grid h-screen gap-16 bg-stone-50;
+		@apply grid h-screen;
 	}
 
-	.header {
-		@apply container mx-auto flex flex-col items-center gap-4 text-center;
+	.layout--demo {
+		@apply h-min;
+	}
+
+	.demo-header {
+		@apply container mx-auto flex flex-col items-center gap-4 text-center my-32;
 
 		h1 {
 			@apply text-6xl font-bold tracking-tighter;
@@ -84,8 +92,12 @@
 		@apply flex h-full flex-col;
 	}
 
-	.footer {
-		@apply container mx-auto flex flex-row items-center justify-center gap-4;
+	.main--demo {
+		@apply container mx-auto h-[882px] overflow-hidden;
+	}
+
+	.demo-footer {
+		@apply container mx-auto flex flex-row items-center justify-center gap-4 my-16;
 
 		nav {
 			@apply ml-auto flex flex-row items-center justify-center gap-4;

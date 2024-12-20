@@ -121,16 +121,7 @@
 	</div>
 </form>
 
-<style>
-	.color__token {
-		display: flex;
-		gap: 5px;
-	}
-
-	.color__token input {
-		width: 100%;
-	}
-
+<style lang="postcss">
 	form.color {
 		/* These are the styles of the ColorPicker component */
 		:global(.color-picker .wrapper) {
@@ -140,10 +131,17 @@
 		:global(.text-input) {
 			display: none;
 		}
-		width: fit-content;
-		padding: 10px;
-		border: 1px solid rgba(0, 0, 0, 0.25);
-		border-radius: 10px;
+
+		@apply w-fit border-r p-2.5;
+	}
+
+	.color__token {
+		display: flex;
+		gap: 5px;
+	}
+
+	.color__token input {
+		width: 100%;
 	}
 
 	fieldset.color__fieldset {

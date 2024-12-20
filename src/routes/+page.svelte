@@ -37,21 +37,16 @@
 </div>
 
 <style lang="postcss">
-	.palette,
-	.colors {
-		@apply gap-1.5 p-2.5;
-	}
-
 	.palette {
-		@apply flex;
+		@apply flex gap-1.5 p-2.5;
 	}
 
 	.colors {
-		@apply grid grid-flow-col overflow-auto flex-grow bg-blue-500 max-w-max;
+		@apply flex flex-row overflow-auto flex-grow;
 	}
 
 	.button {
-		@apply cursor-pointer rounded-md border px-3 py-1.5 text-sm font-medium;
+		@apply cursor-pointer rounded-md border px-3 py-1.5 text-sm font-semibold tracking-tight;
 		@apply disabled:cursor-not-allowed disabled:opacity-50;
 	}
 
