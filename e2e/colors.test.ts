@@ -15,12 +15,12 @@ test.describe('Color card', () => {
 	test('should start with an empty color grid', async ({ page }) => {
 		await page.waitForLoadState('domcontentloaded');
 		await expect(page.getByRole('button', { name: 'New color' })).toBeVisible();
-		expect((await page.locator('form.color').all()).length).toBe(0);
+		expect((await page.locator('section.color').all()).length).toBe(0);
 	});
 
 	test('should add a new color when clicking the New color button', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
-		expect((await page.locator('form.color').all()).length).toBe(1);
+		expect((await page.locator('section.color').all()).length).toBe(1);
 	});
 
 	test('should add multiple color cards', async ({ page }) => {
@@ -29,7 +29,7 @@ test.describe('Color card', () => {
 		await newColorButton.click();
 		await newColorButton.click();
 
-		expect((await page.locator('form.color').all()).length).toBe(3);
+		expect((await page.locator('section.color').all()).length).toBe(3);
 	});
 
 	test('should update color when changing hex value', async ({ page }) => {
@@ -191,7 +191,7 @@ test.describe('Color card', () => {
 	test('should remove multiple colors when clicking Reset', async ({ page }) => {
 		const newColorButton = page.getByRole('button', { name: 'New color' });
 		const resetButton = page.getByRole('button', { name: 'Reset' });
-		const colors = page.locator('form.color');
+		const colors = page.locator('section.color');
 
 		expect((await colors.all()).length).toBe(0);
 		await expect(resetButton).toBeDisabled();

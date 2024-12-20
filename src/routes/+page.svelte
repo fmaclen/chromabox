@@ -2,6 +2,7 @@
 	import { colord, type Colord } from 'colord';
 	import { onMount } from 'svelte';
 
+	import { PUBLIC_IS_DEMO } from '$env/static/public';
 	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 	import { generateRandomColor } from '$lib/utils';
@@ -14,6 +15,7 @@
 	const DEFAULT_COLOR_PALETTE = ['#008CFF', '#A600FF', '#F600FF', '#FF0004', '#FF9000', '#FFBF00'];
 
 	onMount(() => {
+		if (!PUBLIC_IS_DEMO) return;
 		colors = DEFAULT_COLOR_PALETTE.map((color) => colord(color));
 	});
 </script>
@@ -43,10 +45,5 @@
 
 	.colors {
 		@apply flex flex-grow flex-row overflow-auto;
-	}
-
-	.button {
-		@apply cursor-pointer rounded-md border px-3 py-1.5 text-sm font-semibold tracking-tight;
-		@apply disabled:cursor-not-allowed disabled:opacity-50;
 	}
 </style>
