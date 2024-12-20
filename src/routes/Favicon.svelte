@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { type Colord } from 'colord';
 	import { onMount } from 'svelte';
+
+	import type { Color } from '$lib/colors';
 
 	const DEFAULT_COLOR_TOP = '#999';
 	const DEFAULT_COLOR_LEFT = '#666';
 	const DEFAULT_COLOR_RIGHT = '#333';
 
-	let { colors }: { colors: Colord[] } = $props();
+	let { colors }: { colors: Color[] } = $props();
 	let faviconElement: HTMLLinkElement | undefined = $state();
 	let box: { top: string; left: string; right: string } = $state({
 		top: DEFAULT_COLOR_TOP,
@@ -15,9 +16,9 @@
 	});
 
 	$effect(() => {
-		box.top = colors[0]?.toHex() || DEFAULT_COLOR_TOP;
-		box.left = colors[1]?.toHex() || DEFAULT_COLOR_LEFT;
-		box.right = colors[2]?.toHex() || DEFAULT_COLOR_RIGHT;
+		box.top = colors[0]?.source.hex || DEFAULT_COLOR_TOP;
+		box.left = colors[1]?.source.hex || DEFAULT_COLOR_LEFT;
+		box.right = colors[2]?.source.hex || DEFAULT_COLOR_RIGHT;
 		setFavicon();
 	});
 
