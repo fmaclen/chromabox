@@ -73,6 +73,8 @@
 		<ButtonCopy content={tokenName} />
 	</fieldset>
 
+	<Divider />
+
 	<ColorPicker bind:hex components={ChromeVariant} isDialog={false} sliderDirection="horizontal" />
 
 	<fieldset class="color__fieldset">
@@ -146,16 +148,16 @@
 
 <style lang="postcss">
 	section.color {
+		@apply max-w-min border-r;
+
 		/* These are the styles of the ColorPicker component */
 		:global(.color-picker .wrapper) {
-			@apply m-0 border-none;
+			@apply m-0 border-none p-2;
 		}
 
 		:global(.text-input) {
 			@apply hidden;
 		}
-
-		@apply w-fit border-r;
 	}
 
 	fieldset.color__fieldset {
@@ -184,7 +186,7 @@
 	}
 
 	.color__input-copy {
-		@apply gap-1;
+		@apply gap-1 w-full;
 	}
 
 	.select,
