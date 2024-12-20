@@ -20,6 +20,7 @@
 	$effect(() => {
 		// When the color is changed through the color picker, update all the other formats
 		// but not hex since it would create an infinite loop.
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { hex: _, ...otherFormats } = stringToColor(color.source.hex).source;
 		Object.assign(color.source, otherFormats);
 	});
