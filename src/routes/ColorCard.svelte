@@ -141,7 +141,7 @@
 	}
 
 	fieldset.color__fieldset {
-		@apply flex flex-col gap-1 border-none p-0 m-0;
+		@apply m-0 flex flex-col gap-1 border-none p-0;
 	}
 
 	.color__token {
@@ -152,8 +152,6 @@
 	.color__token input {
 		width: 100%;
 	}
-
-
 
 	.color__input-item {
 		display: flex;
