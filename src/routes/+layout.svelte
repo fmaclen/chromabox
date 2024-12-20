@@ -64,7 +64,7 @@
 
 <style lang="postcss">
 	.layout {
-		@apply grid h-screen;
+		@apply grid h-screen text-sm;
 	}
 
 	.layout--demo {
@@ -93,7 +93,7 @@
 	}
 
 	.main--demo {
-		@apply container mx-auto h-[882px] overflow-hidden;
+		@apply container mx-auto h-[1125px] overflow-hidden;
 	}
 
 	.demo-footer {
