@@ -79,7 +79,13 @@
 		<div class="color__input-item">
 			<label for="color-hex">HEX</label>
 			<div class="color__input-copy">
-				<input class="input" id="color-hex" type="text" value={color.toHex()} onblur={handleColorInput} />
+				<input
+					class="input"
+					id="color-hex"
+					type="text"
+					value={color.toHex()}
+					onblur={handleColorInput}
+				/>
 				<ButtonCopy content={color.toHex()} />
 			</div>
 		</div>
@@ -87,7 +93,13 @@
 		<div class="color__input-item">
 			<label for="color-rgb">RGB</label>
 			<div class="color__input-copy">
-				<input class="input"  id="color-rgb" type="text" value={color.toRgbString()} onblur={handleColorInput} />
+				<input
+					class="input"
+					id="color-rgb"
+					type="text"
+					value={color.toRgbString()}
+					onblur={handleColorInput}
+				/>
 				<ButtonCopy content={color.toRgbString()} />
 			</div>
 		</div>
@@ -95,7 +107,13 @@
 		<div class="color__input-item">
 			<label for="color-hsl">HSL</label>
 			<div class="color__input-copy">
-				<input class="input"  id="color-hsl" type="text" value={color.toHslString()} onblur={handleColorInput} />
+				<input
+					class="input"
+					id="color-hsl"
+					type="text"
+					value={color.toHslString()}
+					onblur={handleColorInput}
+				/>
 				<ButtonCopy content={color.toHslString()} />
 			</div>
 		</div>
@@ -104,7 +122,7 @@
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--row">
-		<select bind:value={easingFn} title="Easing" class="select" >
+		<select bind:value={easingFn} title="Easing" class="select">
 			<option value="linear">Linear</option>
 			<option value="quadInOut">Quad In Out</option>
 			<option value="quadIn">Quad In</option>
@@ -118,10 +136,10 @@
 
 	<fieldset class="color__fieldset color__fieldset--variants">
 		{#each variants as variant}
-				<div class="variant" style={`background-color: ${variant.toHex()}`}>
-					<p class="variant__color">{variant.toHex()}</p>
-					<ButtonCopy content={variant.toHex()} />
-				</div>
+			<div class="variant" style={`background-color: ${variant.toHex()}`}>
+				<p class="variant__color">{variant.toHex()}</p>
+				<ButtonCopy content={variant.toHex()} />
+			</div>
 		{/each}
 	</fieldset>
 </section>
@@ -149,7 +167,7 @@
 	}
 
 	fieldset.color__fieldset--variants {
-		@apply p-0 gap-0;
+		@apply gap-0 p-0;
 	}
 
 	.variant {
@@ -171,6 +189,6 @@
 
 	.select,
 	.input {
-		@apply w-full border px-3 py-1.5 rounded-md;
+		@apply w-full rounded-md border px-3 py-1.5;
 	}
 </style>
