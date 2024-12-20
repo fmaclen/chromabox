@@ -15,12 +15,12 @@ test.describe('Color card', () => {
 	test('should start with an empty color grid', async ({ page }) => {
 		await page.waitForLoadState('domcontentloaded');
 		await expect(page.getByRole('button', { name: 'New color' })).toBeVisible();
-		expect((await page.locator('form.color').all()).length).toBe(0);
+		expect((await page.locator('section.color').all()).length).toBe(0);
 	});
 
 	test('should add a new color when clicking the New color button', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
-		expect((await page.locator('form.color').all()).length).toBe(1);
+		expect((await page.locator('section.color').all()).length).toBe(1);
 	});
 
 	test('should add multiple color cards', async ({ page }) => {
@@ -29,7 +29,7 @@ test.describe('Color card', () => {
 		await newColorButton.click();
 		await newColorButton.click();
 
-		expect((await page.locator('form.color').all()).length).toBe(3);
+		expect((await page.locator('section.color').all()).length).toBe(3);
 	});
 
 	test('should update color when changing hex value', async ({ page }) => {
@@ -80,7 +80,7 @@ test.describe('Color card', () => {
 
 	test('should display correct number of variants based on steps input', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
-		const variants = page.locator('.variant__box');
+		const variants = page.locator('.variant');
 		const stepsInput = page.getByTitle('Steps');
 		await expect(variants).toHaveCount(12);
 		await expect(variants).not.toHaveCount(7);
@@ -113,8 +113,8 @@ test.describe('Color card', () => {
 		await hexInput.fill(originalColor);
 		await hexInput.blur();
 
-		const secondVariant = page.locator('.variant__box').nth(1);
-		const penultimateVariant = page.locator('.variant__box').nth(10);
+		const secondVariant = page.locator('.variant').nth(1);
+		const penultimateVariant = page.locator('.variant').nth(10);
 
 		// Store initial values with linear easing (default)
 		const linearSecondColor = await secondVariant.getAttribute('style');
@@ -168,7 +168,7 @@ test.describe('Color card', () => {
 		await page.getByRole('button', { name: 'New color' }).click();
 
 		await page.getByTitle('Steps').fill('4');
-		const variants = page.locator('.variant__box');
+		const variants = page.locator('.variant');
 		await expect(variants).toHaveCount(4);
 
 		await hexInput.fill('#00ff00');
@@ -179,7 +179,7 @@ test.describe('Color card', () => {
 	test('should handle minimum and maximum lightness values', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
 
-		const variants = page.locator('.variant__box');
+		const variants = page.locator('.variant');
 
 		// First variant should be white (100% lightness)
 		await expect(variants.first()).toHaveAttribute('style', /background-color: #ffffff/);
@@ -191,7 +191,7 @@ test.describe('Color card', () => {
 	test('should remove multiple colors when clicking Reset', async ({ page }) => {
 		const newColorButton = page.getByRole('button', { name: 'New color' });
 		const resetButton = page.getByRole('button', { name: 'Reset' });
-		const colors = page.locator('form.color');
+		const colors = page.locator('section.color');
 
 		expect((await colors.all()).length).toBe(0);
 		await expect(resetButton).toBeDisabled();
@@ -245,24 +245,24 @@ test.describe('Color card', () => {
 		await page.getByTitle('Steps').fill('3');
 
 		// Test copying first variant (should be white)
-		await page.locator('.variant__box').nth(0).getByRole('button', { name: 'Copy' }).click();
+		await page.locator('.variant').nth(0).getByRole('button', { name: 'Copy' }).click();
 		const firstVariantClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(firstVariantClipboard).toBe('#ffffff');
 
 		// Test copying middle variant (should be the original color)
-		await page.locator('.variant__box').nth(1).getByRole('button', { name: 'Copy' }).click();
+		await page.locator('.variant').nth(1).getByRole('button', { name: 'Copy' }).click();
 		const middleVariantClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(middleVariantClipboard).toBe('#ff0000');
 
 		// Test copying last variant (should be black)
-		await page.locator('.variant__box').nth(2).getByRole('button', { name: 'Copy' }).click();
+		await page.locator('.variant').nth(2).getByRole('button', { name: 'Copy' }).click();
 		const lastVariantClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(lastVariantClipboard).toBe('#000000');
 	});
 
 	test('should display correct token name placeholder based on color', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
-		const tokenInput = page.locator('.color__token input');
+		const tokenInput = page.locator('.color__fieldset:first-child .input');
 
 		await hexInput.fill('#ff0000');
 		await hexInput.blur();

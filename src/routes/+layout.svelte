@@ -27,8 +27,8 @@
 </svelte:head>
 
 {#if PUBLIC_IS_DEMO}
-	<div class="layout">
-		<header class="header">
+	<div class="layout layout--demo">
+		<header class="demo-header">
 			<h1>Chromabox</h1>
 			<h2>The ultimate color palette generator for designers & developers</h2>
 			<nav class="flex flex-row items-center justify-center gap-2">
@@ -40,10 +40,12 @@
 				</a>
 			</nav>
 		</header>
-		<main class="main">
+
+		<main class="main main--demo">
 			<slot />
 		</main>
-		<footer class="footer">
+
+		<footer class="demo-footer">
 			<p>&copy; {new Date().getFullYear()} Chromabox</p>
 			<nav>
 				<a href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Gumroad</a>
@@ -53,16 +55,24 @@
 		</footer>
 	</div>
 {:else}
-	<slot />
+	<div class="layout">
+		<main class="main">
+			<slot />
+		</main>
+	</div>
 {/if}
 
 <style lang="postcss">
 	.layout {
-		@apply grid h-full min-h-screen grid-rows-[max-content_auto_max-content] gap-16 bg-stone-50 py-16;
+		@apply grid h-screen text-sm;
 	}
 
-	.header {
-		@apply container mx-auto flex flex-col items-center gap-4 text-center;
+	.layout--demo {
+		@apply h-min;
+	}
+
+	.demo-header {
+		@apply container mx-auto my-32 flex flex-col items-center gap-4 text-center;
 
 		h1 {
 			@apply text-6xl font-bold tracking-tighter;
@@ -78,11 +88,16 @@
 	}
 
 	.main {
-		@apply mx-16 max-h-[75vh] rounded-lg border;
+		@apply overflow-auto rounded-lg border;
+		@apply flex h-full flex-col;
 	}
 
-	.footer {
-		@apply container mx-auto flex flex-row items-center justify-center gap-4;
+	.main--demo {
+		@apply container mx-auto h-[1125px] overflow-hidden;
+	}
+
+	.demo-footer {
+		@apply container mx-auto my-16 flex flex-row items-center justify-center gap-4;
 
 		nav {
 			@apply ml-auto flex flex-row items-center justify-center gap-4;

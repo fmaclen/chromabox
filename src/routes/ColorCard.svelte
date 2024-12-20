@@ -5,6 +5,7 @@
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
+	import Divider from '$lib/components/Divider.svelte';
 
 	let { color = $bindable() }: { color: Colord } = $props();
 
@@ -66,11 +67,11 @@
 	}
 </script>
 
-<form class="color">
-	<div class="color__token">
-		<input bind:value={tokenName} placeholder={tokenNamePlaceholder} />
+<section class="color">
+	<fieldset class="color__fieldset color__fieldset--row">
+		<input class="input" bind:value={tokenName} placeholder={tokenNamePlaceholder} />
 		<ButtonCopy content={tokenName} />
-	</div>
+	</fieldset>
 
 	<ColorPicker bind:hex components={ChromeVariant} isDialog={false} sliderDirection="horizontal" />
 
@@ -78,7 +79,13 @@
 		<div class="color__input-item">
 			<label for="color-hex">HEX</label>
 			<div class="color__input-copy">
-				<input id="color-hex" type="text" value={color.toHex()} onblur={handleColorInput} />
+				<input
+					class="input"
+					id="color-hex"
+					type="text"
+					value={color.toHex()}
+					onblur={handleColorInput}
+				/>
 				<ButtonCopy content={color.toHex()} />
 			</div>
 		</div>
@@ -86,7 +93,13 @@
 		<div class="color__input-item">
 			<label for="color-rgb">RGB</label>
 			<div class="color__input-copy">
-				<input id="color-rgb" type="text" value={color.toRgbString()} onblur={handleColorInput} />
+				<input
+					class="input"
+					id="color-rgb"
+					type="text"
+					value={color.toRgbString()}
+					onblur={handleColorInput}
+				/>
 				<ButtonCopy content={color.toRgbString()} />
 			</div>
 		</div>
@@ -94,115 +107,88 @@
 		<div class="color__input-item">
 			<label for="color-hsl">HSL</label>
 			<div class="color__input-copy">
-				<input id="color-hsl" type="text" value={color.toHslString()} onblur={handleColorInput} />
+				<input
+					class="input"
+					id="color-hsl"
+					type="text"
+					value={color.toHslString()}
+					onblur={handleColorInput}
+				/>
 				<ButtonCopy content={color.toHslString()} />
 			</div>
 		</div>
 	</fieldset>
 
-	<div class="variants__controls">
-		<select bind:value={easingFn} title="Easing">
+	<Divider />
+
+	<fieldset class="color__fieldset color__fieldset--row">
+		<select bind:value={easingFn} title="Easing" class="select">
 			<option value="linear">Linear</option>
 			<option value="quadInOut">Quad In Out</option>
 			<option value="quadIn">Quad In</option>
 			<option value="quadOut">Quad Out</option>
 		</select>
 
-		<input type="number" bind:value={steps} title="Steps" />
-	</div>
+		<input class="input" type="number" bind:value={steps} title="Steps" />
+	</fieldset>
 
-	<div class="variants">
+	<Divider />
+
+	<fieldset class="color__fieldset color__fieldset--variants">
 		{#each variants as variant}
-			<div class="variant__box" style={`background-color: ${variant.toHex()}`}>
-				<p class="variant__text">{variant.toHex()}</p>
+			<div class="variant" style={`background-color: ${variant.toHex()}`}>
+				<p class="variant__color">{variant.toHex()}</p>
 				<ButtonCopy content={variant.toHex()} />
 			</div>
 		{/each}
-	</div>
-</form>
+	</fieldset>
+</section>
 
-<style>
-	.color__token {
-		display: flex;
-		gap: 5px;
-	}
-
-	.color__token input {
-		width: 100%;
-	}
-
-	form.color {
+<style lang="postcss">
+	section.color {
 		/* These are the styles of the ColorPicker component */
 		:global(.color-picker .wrapper) {
-			margin: 0;
-			border: none;
+			@apply m-0 border-none;
 		}
+
 		:global(.text-input) {
-			display: none;
+			@apply hidden;
 		}
-		width: fit-content;
-		padding: 10px;
-		border: 1px solid rgba(0, 0, 0, 0.25);
-		border-radius: 10px;
+
+		@apply w-fit border-r;
 	}
 
 	fieldset.color__fieldset {
-		display: flex;
-		flex-direction: column;
-		gap: 5px;
-		border: none;
-		padding: 0;
-		margin: 0;
+		@apply m-0 flex flex-col gap-1 border-none p-2;
+	}
+
+	fieldset.color__fieldset--row {
+		@apply flex-row gap-2;
+	}
+
+	fieldset.color__fieldset--variants {
+		@apply gap-0 p-0;
+	}
+
+	.variant {
+		@apply flex flex-row items-center justify-between gap-2 p-2;
+	}
+
+	.color__input-copy,
+	.color__input-item {
+		@apply flex flex-row items-center gap-2;
 	}
 
 	.color__input-item {
-		display: flex;
-		gap: 10px;
-	}
-
-	.color__input-item input {
-		width: 100%;
+		@apply gap-2;
 	}
 
 	.color__input-copy {
-		display: flex;
-		gap: 5px;
-		width: 100%;
+		@apply gap-1;
 	}
 
-	.variants__controls {
-		margin-top: 10px;
-		width: 100%;
-		display: flex;
-		gap: 5px;
-	}
-
-	.variants {
-		display: flex;
-		flex-direction: column;
-		gap: 5px;
-		margin-top: 10px;
-	}
-
-	.variants__controls select,
-	.variants__controls input {
-		width: 100%;
-	}
-
-	.variant__box {
-		display: flex;
-		align-items: center;
-		padding: 0 10px;
-		height: 30px;
-		border-radius: 5px;
-		border: 1px solid rgba(0, 0, 0, 0.1);
-	}
-
-	.variant__text {
-		color: white;
-	}
-
-	.variant__box {
-		justify-content: space-between;
+	.select,
+	.input {
+		@apply w-full rounded-md border px-3 py-1.5;
 	}
 </style>
