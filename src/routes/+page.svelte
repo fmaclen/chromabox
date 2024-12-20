@@ -47,7 +47,7 @@
 	}
 
 	.colors {
-		@apply grid grid-flow-col;
+		@apply grid grid-flow-col overflow-auto flex-grow bg-blue-500 max-w-max;
 	}
 
 	.button {

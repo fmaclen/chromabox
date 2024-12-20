@@ -26,8 +26,8 @@
 	{/if}
 </svelte:head>
 
-{#if PUBLIC_IS_DEMO}
-	<div class="layout">
+<div class="layout">
+	{#if PUBLIC_IS_DEMO}
 		<header class="header">
 			<h1>Chromabox</h1>
 			<h2>The ultimate color palette generator for designers & developers</h2>
@@ -51,14 +51,16 @@
 				<a href="https://fernando.is" target="_blank">Contact</a>
 			</nav>
 		</footer>
-	</div>
-{:else}
-	<slot />
-{/if}
+	{:else}
+		<main class="main">
+			<slot />
+		</main>
+	{/if}
+</div>
 
 <style lang="postcss">
 	.layout {
-		@apply grid h-full min-h-screen grid-rows-[max-content_auto_max-content] gap-16 bg-stone-50 py-16;
+		@apply grid h-screen gap-16 bg-stone-50;
 	}
 
 	.header {
@@ -78,7 +80,8 @@
 	}
 
 	.main {
-		@apply mx-16 max-h-[75vh] rounded-lg border;
+		@apply overflow-auto rounded-lg border;
+		@apply flex h-full flex-col;
 	}
 
 	.footer {
