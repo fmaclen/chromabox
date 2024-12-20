@@ -6,6 +6,7 @@
 
 	import ColorCard from './ColorCard.svelte';
 	import Favicon from './Favicon.svelte';
+	import Divider from '$lib/components/Divider.svelte';
 
 	let colors: Colord[] = $state([]);
 
@@ -27,7 +28,7 @@
 	</button>
 </div>
 
-<hr class="hr" />
+<Divider />
 
 <div class="colors">
 	<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
@@ -48,9 +49,5 @@
 	.button {
 		@apply cursor-pointer rounded-md border px-3 py-1.5 text-sm font-semibold tracking-tight;
 		@apply disabled:cursor-not-allowed disabled:opacity-50;
-	}
-
-	.hr {
-		@apply border-b border-t-0;
 	}
 </style>
