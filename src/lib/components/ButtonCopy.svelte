@@ -1,12 +1,7 @@
 <script lang="ts">
+	import Button from './Button.svelte';
+
 	let { content }: { content: string } = $props();
 </script>
 
-<button
-	type="button"
-	title="Copy"
-	class="button-copy"
-	onclick={() => navigator.clipboard.writeText(content)}
->
-	Copy
-</button>
+<Button title="Copy" onclick={() => navigator.clipboard.writeText(content)}>Copy</Button>

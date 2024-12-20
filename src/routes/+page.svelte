@@ -2,6 +2,7 @@
 	import { colord, type Colord } from 'colord';
 	import { onMount } from 'svelte';
 
+	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 	import { generateRandomColor } from '$lib/utils';
 
@@ -20,12 +21,10 @@
 <Favicon {colors} />
 
 <div class="palette">
-	<button class="button" type="button" onclick={() => colors.push(colord(generateRandomColor()))}>
+	<Button title="New color" onclick={() => colors.push(colord(generateRandomColor()))}>
 		New color
-	</button>
-	<button class="button" type="button" onclick={() => (colors = [])} disabled={!colors.length}>
-		Reset
-	</button>
+	</Button>
+	<Button title="Reset" onclick={() => (colors = [])} disabled={!colors.length}>Reset</Button>
 </div>
 
 <Divider />

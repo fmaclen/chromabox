@@ -140,6 +140,10 @@
 		@apply w-fit border-r;
 	}
 
+	fieldset.color__fieldset {
+		@apply flex flex-col gap-1 border-none p-0 m-0;
+	}
+
 	.color__token {
 		display: flex;
 		gap: 5px;
@@ -149,14 +153,7 @@
 		width: 100%;
 	}
 
-	fieldset.color__fieldset {
-		display: flex;
-		flex-direction: column;
-		gap: 5px;
-		border: none;
-		padding: 0;
-		margin: 0;
-	}
+
 
 	.color__input-item {
 		display: flex;
