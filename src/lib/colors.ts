@@ -19,7 +19,7 @@ export interface Swatch {
 	hslString: string;
 }
 
-export function colordToSwatch(colord: Colord): Swatch {
+function colordToSwatch(colord: Colord): Swatch {
 	return {
 		hex: colord.toHex(),
 		rgb: colord.toRgb(),
@@ -29,7 +29,7 @@ export function colordToSwatch(colord: Colord): Swatch {
 	};
 }
 
-export function colordToColor(colord: Colord): Color {
+function colordToColor(colord: Colord): Color {
 	return {
 		source: colordToSwatch(colord),
 		easingFn: 'linear',
@@ -41,4 +41,16 @@ export function colordToColor(colord: Colord): Color {
 
 export function stringToColor(colorString: string): Color {
 	return colordToColor(colord(colorString));
+}
+
+export function getClosestCSSColorName(colorString: string): string {
+	return colord(colorString).toName({ closest: true }) ?? '';
+}
+
+export function isColorValid(colorString: string): boolean {
+	return colord(colorString).isValid();
+}
+
+export function hslToColor(hsl: { h: number; s: number; l: number }): Color {
+	return colordToColor(colord({ ...hsl }));
 }

@@ -1,21 +1,23 @@
 <script lang="ts">
-	import { colord, extend } from 'colord';
-	import namesPlugin from 'colord/plugins/names';
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
-	import { colordToSwatch, stringToColor, type Color, type Swatch } from '$lib/colors';
+	import {
+		getClosestCSSColorName,
+		hslToColor,
+		isColorValid,
+		stringToColor,
+		type Color,
+		type Swatch
+	} from '$lib/colors';
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 
 	let { color = $bindable() }: { color: Color } = $props();
 
-	// It seems that the ColorPicker component doesn't work as expected when binded
-	// to the 'color: Colord' prop. However, it does update the color value when it is
-	// binded to the 'hex: string' prop.
 	let hex = $state(color.source.hex);
 
-	const tokenNamePlaceholder = $derived(colord(color.source.hex).toName({ closest: true }));
+	const tokenNamePlaceholder = $derived(getClosestCSSColorName(color.source.hex));
 
 	$effect(() => {
 		// Update the picker when the color is changed through the inputs
@@ -41,18 +43,12 @@
 			const rangePercentage = RANGE * (1 - easedProgress);
 			const lightness = MIN_LIGHTNESS + rangePercentage;
 
-			const variant = colord({
-				h: hsl.h,
-				s: hsl.s,
-				l: lightness
-			});
-			colorVariants.push(colordToSwatch(variant));
+			const variant = hslToColor({ ...hsl, l: lightness });
+			colorVariants.push(variant.source);
 		}
 
 		return colorVariants;
 	});
-
-	extend([namesPlugin]);
 
 	const easingFns = {
 		linear,
@@ -63,8 +59,7 @@
 
 	function handleColorInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (!(event.target instanceof HTMLInputElement)) return;
-		if (colord(event.target.value).isValid())
-			color.source = stringToColor(event.target.value).source;
+		if (isColorValid(event.target.value)) color.source = stringToColor(event.target.value).source;
 	}
 </script>
 
