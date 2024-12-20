@@ -2,11 +2,11 @@
 	import { colord, type Colord } from 'colord';
 	import { onMount } from 'svelte';
 
+	import Divider from '$lib/components/Divider.svelte';
 	import { generateRandomColor } from '$lib/utils';
 
 	import ColorCard from './ColorCard.svelte';
 	import Favicon from './Favicon.svelte';
-	import Divider from '$lib/components/Divider.svelte';
 
 	let colors: Colord[] = $state([]);
 
@@ -43,7 +43,7 @@
 	}
 
 	.colors {
-		@apply flex flex-row overflow-auto flex-grow;
+		@apply flex flex-grow flex-row overflow-auto;
 	}
 
 	.button {

@@ -72,7 +72,7 @@
 	}
 
 	.demo-header {
-		@apply container mx-auto flex flex-col items-center gap-4 text-center my-32;
+		@apply container mx-auto my-32 flex flex-col items-center gap-4 text-center;
 
 		h1 {
 			@apply text-6xl font-bold tracking-tighter;
@@ -97,7 +97,7 @@
 	}
 
 	.demo-footer {
-		@apply container mx-auto flex flex-row items-center justify-center gap-4 my-16;
+		@apply container mx-auto my-16 flex flex-row items-center justify-center gap-4;
 
 		nav {
 			@apply ml-auto flex flex-row items-center justify-center gap-4;
