@@ -15,18 +15,13 @@
 
 	let { color = $bindable() }: { color: Color } = $props();
 
-	let hex = $state(color.source.hex);
-
 	const tokenNamePlaceholder = $derived(getClosestCSSColorName(color.source.hex));
 
 	$effect(() => {
-		// Update the picker when the color is changed through the inputs
-		hex = color.source.hex;
-	});
-
-	$effect(() => {
-		// Update the inputs when the color is changed through the picker
-		color.source = stringToColor(hex).source;
+		// When the color is changed through the color picker, update all the other formats
+		// but not hex since it would create an infinite loop.
+		const { hex: _, ...otherFormats } = stringToColor(color.source.hex).source;
+		Object.assign(color.source, otherFormats);
 	});
 
 	const variants: Swatch[] = $derived.by(() => {
@@ -69,7 +64,12 @@
 		<ButtonCopy content={color.tokenName} />
 	</fieldset>
 
-	<ColorPicker bind:hex components={ChromeVariant} isDialog={false} sliderDirection="horizontal" />
+	<ColorPicker
+		bind:hex={color.source.hex}
+		components={ChromeVariant}
+		isDialog={false}
+		sliderDirection="horizontal"
+	/>
 
 	<fieldset class="color__fieldset">
 		<div class="color__input-item">
