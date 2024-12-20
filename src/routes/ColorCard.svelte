@@ -5,6 +5,7 @@
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
+	import Divider from '$lib/components/Divider.svelte';
 
 	let { color = $bindable() }: { color: Colord } = $props();
 
@@ -66,7 +67,7 @@
 	}
 </script>
 
-<form class="color">
+<section class="color">
 	<div class="color__token">
 		<input bind:value={tokenName} placeholder={tokenNamePlaceholder} />
 		<ButtonCopy content={tokenName} />
@@ -100,6 +101,8 @@
 		</div>
 	</fieldset>
 
+	<Divider />
+
 	<div class="variants__controls">
 		<select bind:value={easingFn} title="Easing">
 			<option value="linear">Linear</option>
@@ -111,6 +114,8 @@
 		<input type="number" bind:value={steps} title="Steps" />
 	</div>
 
+	<Divider />
+
 	<div class="variants">
 		{#each variants as variant}
 			<div class="variant__box" style={`background-color: ${variant.toHex()}`}>
@@ -119,10 +124,10 @@
 			</div>
 		{/each}
 	</div>
-</form>
+</section>
 
 <style lang="postcss">
-	form.color {
+	section.color {
 		/* These are the styles of the ColorPicker component */
 		:global(.color-picker .wrapper) {
 			margin: 0;
@@ -132,7 +137,7 @@
 			display: none;
 		}
 
-		@apply w-fit border-r p-2.5;
+		@apply w-fit border-r;
 	}
 
 	.color__token {
