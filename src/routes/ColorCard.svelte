@@ -2,26 +2,21 @@
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
-	import {
-		getClosestCSSColorName,
-		hslToColor,
-		isColorValid,
-		stringToColor,
-		type Color,
-		type Swatch
-	} from '$lib/colors';
+	import { getColorsState, type Color, type Swatch } from '$lib/colors.svelte';
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 
 	let { color = $bindable() }: { color: Color } = $props();
 
-	const tokenNamePlaceholder = $derived(getClosestCSSColorName(color.source.hex));
+	const paletteStore = getColorsState();
+
+	const tokenNamePlaceholder = $derived(paletteStore.getClosestCSSColorName(color.source.hex));
 
 	$effect(() => {
 		// When the color is changed through the color picker, update all the other formats
 		// but not hex since it would create an infinite loop.
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { hex: _, ...otherFormats } = stringToColor(color.source.hex).source;
+		const { hex: _, ...otherFormats } = paletteStore.stringToColor(color.source.hex).source;
 		Object.assign(color.source, otherFormats);
 	});
 
@@ -39,7 +34,7 @@
 			const rangePercentage = RANGE * (1 - easedProgress);
 			const lightness = MIN_LIGHTNESS + rangePercentage;
 
-			const variant = hslToColor({ ...hsl, l: lightness });
+			const variant = paletteStore.hslToColor({ ...hsl, l: lightness });
 			colorVariants.push(variant.source);
 		}
 
@@ -55,7 +50,8 @@
 
 	function handleColorInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (!(event.target instanceof HTMLInputElement)) return;
-		if (isColorValid(event.target.value)) color.source = stringToColor(event.target.value).source;
+		if (paletteStore.isColorValid(event.target.value))
+			color.source = paletteStore.stringToColor(event.target.value).source;
 	}
 </script>
 

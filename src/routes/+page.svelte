@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 
 	import { PUBLIC_IS_DEMO } from '$env/static/public';
-	import { stringToColor, type Color } from '$lib/colors';
+	import { getColorsState } from '$lib/colors.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 	import { generateRandomColor } from '$lib/utils';
@@ -10,31 +10,38 @@
 	import ColorCard from './ColorCard.svelte';
 	import Favicon from './Favicon.svelte';
 
-	let colors: Color[] = $state([]);
+	const paletteStore = getColorsState();
 
 	const DEFAULT_COLOR_PALETTE = ['#008CFF', '#A600FF', '#F600FF', '#FF0004', '#FF9000', '#FFBF00'];
 
 	onMount(() => {
 		if (!PUBLIC_IS_DEMO) return;
-		colors = DEFAULT_COLOR_PALETTE.map((color) => stringToColor(color));
+		paletteStore.colors = DEFAULT_COLOR_PALETTE.map((color) => paletteStore.stringToColor(color));
 	});
 </script>
 
-<Favicon {colors} />
+<Favicon colors={paletteStore.colors} />
 
 <div class="palette">
-	<Button title="New color" onclick={() => colors.push(stringToColor(generateRandomColor()))}>
+	<Button
+		title="New color"
+		onclick={() => paletteStore.colors.push(paletteStore.stringToColor(generateRandomColor()))}
+	>
 		New color
 	</Button>
-	<Button title="Reset" onclick={() => (colors = [])} disabled={!colors.length}>Reset</Button>
+	<Button
+		title="Reset"
+		onclick={() => (paletteStore.colors = [])}
+		disabled={!paletteStore.colors.length}>Reset</Button
+	>
 </div>
 
 <Divider />
 
 <div class="colors">
 	<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-	{#each colors as _, index}
-		<ColorCard bind:color={colors[index]} />
+	{#each paletteStore.colors as _, index}
+		<ColorCard bind:color={paletteStore.colors[index]} />
 	{/each}
 </div>
 

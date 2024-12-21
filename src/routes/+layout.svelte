@@ -7,6 +7,11 @@
 		PUBLIC_PLAUSIBLE_DOMAIN,
 		PUBLIC_PLAUSIBLE_SRC
 	} from '$env/static/public';
+	import { setColorsState } from '$lib/colors.svelte';
+
+	let { children } = $props();
+
+	setColorsState();
 </script>
 
 <svelte:head>
@@ -42,7 +47,7 @@
 		</header>
 
 		<main class="main main--demo">
-			<slot />
+			{@render children()}
 		</main>
 
 		<footer class="demo-footer">
@@ -57,7 +62,7 @@
 {:else}
 	<div class="layout">
 		<main class="main">
-			<slot />
+			{@render children()}
 		</main>
 	</div>
 {/if}
