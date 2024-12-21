@@ -98,7 +98,7 @@
 	}
 
 	.main--demo {
-		@apply container mx-auto h-[1125px] overflow-hidden;
+		@apply container mx-auto h-[1142px] overflow-hidden;
 	}
 
 	.demo-footer {
