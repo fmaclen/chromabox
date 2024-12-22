@@ -1,58 +1,45 @@
 <script lang="ts">
-	import { colord, extend, type Colord } from 'colord';
-	import namesPlugin from 'colord/plugins/names';
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
+	import { getPaletteState, type Color, type Swatch } from '$lib/palette.svelte';
 
-	let { color = $bindable() }: { color: Colord } = $props();
+	let { color = $bindable() }: { color: Color } = $props();
 
-	// It seems that the ColorPicker component doesn't work as expected when binded
-	// to the 'color: Colord' prop. However, it does update the color value when it is
-	// binded to the 'hex: string' prop.
-	let hex = $state(color.toHex());
-	let tokenName = $state('');
-	let steps = $state(12);
-	let easingFn = $state('linear');
+	const paletteStore = getPaletteState();
 
-	const tokenNamePlaceholder = $derived(color.toName({ closest: true }));
+	const tokenNamePlaceholder = $derived(paletteStore.getClosestCSSColorName(color.source.hex));
 
 	$effect(() => {
-		hex = color.toHex();
+		// When the color is changed through the color picker, update all the other formats
+		// but not hex since it would create an infinite loop.
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { hex: _, ...otherFormats } = paletteStore.stringToColor(color.source.hex).source;
+		Object.assign(color.source, otherFormats);
 	});
 
-	$effect(() => {
-		color = colord(hex);
-	});
-
-	const variants: Colord[] = $derived.by(() => {
-		const colorVariants: Colord[] = [];
-		const hsl = color.toHsl();
+	const variants: Swatch[] = $derived.by(() => {
+		const colorVariants: Swatch[] = [];
+		const hsl = color.source.hsl;
 
 		const MIN_LIGHTNESS = 0;
 		const MAX_LIGHTNESS = 100;
 		const RANGE = MAX_LIGHTNESS - MIN_LIGHTNESS;
 
-		for (let i = 0; i < steps; i++) {
-			const progress = i / (steps - 1);
-			const easedProgress = easingFns[easingFn as keyof typeof easingFns](progress);
+		for (let i = 0; i < color.steps; i++) {
+			const progress = i / (color.steps - 1);
+			const easedProgress = easingFns[color.easingFn as keyof typeof easingFns](progress);
 			const rangePercentage = RANGE * (1 - easedProgress);
 			const lightness = MIN_LIGHTNESS + rangePercentage;
 
-			const variant = colord({
-				h: hsl.h,
-				s: hsl.s,
-				l: lightness
-			});
-			colorVariants.push(variant);
+			const variant = paletteStore.hslToColor({ ...hsl, l: lightness });
+			colorVariants.push(variant.source);
 		}
 
 		return colorVariants;
 	});
-
-	extend([namesPlugin]);
 
 	const easingFns = {
 		linear,
@@ -63,19 +50,25 @@
 
 	function handleColorInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (!(event.target instanceof HTMLInputElement)) return;
-		if (colord(event.target.value).isValid()) color = colord(event.target.value);
+		if (paletteStore.isColorValid(event.target.value))
+			color.source = paletteStore.stringToColor(event.target.value).source;
 	}
 </script>
 
 <section class="color">
 	<fieldset class="color__fieldset color__fieldset--row">
-		<input class="input" bind:value={tokenName} placeholder={tokenNamePlaceholder} />
-		<ButtonCopy content={tokenName} />
+		<input class="input" bind:value={color.tokenName} placeholder={tokenNamePlaceholder} />
+		<ButtonCopy content={color.tokenName} />
 	</fieldset>
 
 	<Divider />
 
-	<ColorPicker bind:hex components={ChromeVariant} isDialog={false} sliderDirection="horizontal" />
+	<ColorPicker
+		bind:hex={color.source.hex}
+		components={ChromeVariant}
+		isDialog={false}
+		sliderDirection="horizontal"
+	/>
 
 	<fieldset class="color__fieldset">
 		<div class="color__input-item">
@@ -85,10 +78,10 @@
 					class="input"
 					id="color-hex"
 					type="text"
-					value={color.toHex()}
+					value={color.source.hex}
 					onblur={handleColorInput}
 				/>
-				<ButtonCopy content={color.toHex()} />
+				<ButtonCopy content={color.source.hex} />
 			</div>
 		</div>
 
@@ -99,10 +92,10 @@
 					class="input"
 					id="color-rgb"
 					type="text"
-					value={color.toRgbString()}
+					value={color.source.rgbString}
 					onblur={handleColorInput}
 				/>
-				<ButtonCopy content={color.toRgbString()} />
+				<ButtonCopy content={color.source.rgbString} />
 			</div>
 		</div>
 
@@ -113,10 +106,10 @@
 					class="input"
 					id="color-hsl"
 					type="text"
-					value={color.toHslString()}
+					value={color.source.hslString}
 					onblur={handleColorInput}
 				/>
-				<ButtonCopy content={color.toHslString()} />
+				<ButtonCopy content={color.source.hslString} />
 			</div>
 		</div>
 	</fieldset>
@@ -124,23 +117,23 @@
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--row">
-		<select bind:value={easingFn} title="Easing" class="select">
+		<select bind:value={color.easingFn} title="Easing" class="select">
 			<option value="linear">Linear</option>
 			<option value="quadInOut">Quad In Out</option>
 			<option value="quadIn">Quad In</option>
 			<option value="quadOut">Quad Out</option>
 		</select>
 
-		<input class="input" type="number" bind:value={steps} title="Steps" />
+		<input class="input" type="number" bind:value={color.steps} title="Steps" />
 	</fieldset>
 
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--variants">
 		{#each variants as variant}
-			<div class="variant" style={`background-color: ${variant.toHex()}`}>
-				<p class="variant__color">{variant.toHex()}</p>
-				<ButtonCopy content={variant.toHex()} />
+			<div class="variant" style={`background-color: ${variant.hex}`}>
+				<p class="variant__color">{variant.hex}</p>
+				<ButtonCopy content={variant.hex} />
 			</div>
 		{/each}
 	</fieldset>
@@ -186,7 +179,7 @@
 	}
 
 	.color__input-copy {
-		@apply gap-1 w-full;
+		@apply w-full gap-1;
 	}
 
 	.select,
