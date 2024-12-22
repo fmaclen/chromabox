@@ -2,9 +2,9 @@
 	import { onMount } from 'svelte';
 
 	import { PUBLIC_IS_DEMO } from '$env/static/public';
-	import { getPaletteState } from '$lib/colors.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/Divider.svelte';
+	import { getPaletteState } from '$lib/palette.svelte';
 	import { generateRandomColor } from '$lib/utils';
 
 	import ColorCard from './ColorCard.svelte';

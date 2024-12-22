@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import type { Color } from '$lib/colors.svelte';
+	import type { Color } from '$lib/palette.svelte';
 
 	const DEFAULT_COLOR_TOP = '#999';
 	const DEFAULT_COLOR_LEFT = '#666';

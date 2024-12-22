@@ -7,7 +7,7 @@
 		PUBLIC_PLAUSIBLE_DOMAIN,
 		PUBLIC_PLAUSIBLE_SRC
 	} from '$env/static/public';
-	import { setPaletteState } from '$lib/colors.svelte';
+	import { setPaletteState } from '$lib/palette.svelte';
 
 	let { children } = $props();
 

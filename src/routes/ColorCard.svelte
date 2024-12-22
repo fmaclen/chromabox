@@ -2,9 +2,9 @@
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
-	import { getPaletteState, type Color, type Swatch } from '$lib/colors.svelte';
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
+	import { getPaletteState, type Color, type Swatch } from '$lib/palette.svelte';
 
 	let { color = $bindable() }: { color: Color } = $props();
 
