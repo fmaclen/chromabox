@@ -2,13 +2,13 @@
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
-	import { getColorsState, type Color, type Swatch } from '$lib/colors.svelte';
+	import { getPaletteState, type Color, type Swatch } from '$lib/colors.svelte';
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 
 	let { color = $bindable() }: { color: Color } = $props();
 
-	const paletteStore = getColorsState();
+	const paletteStore = getPaletteState();
 
 	const tokenNamePlaceholder = $derived(paletteStore.getClosestCSSColorName(color.source.hex));
 

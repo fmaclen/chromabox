@@ -60,12 +60,12 @@ export class Palette {
 	}
 }
 
-const COLORS_CONTEXT_KEY = Symbol('COLORS');
+const PALETTE_CONTEXT_KEY = Symbol('PALETTE');
 
-export function setColorsState() {
-	return setContext(COLORS_CONTEXT_KEY, new Palette());
+export function setPaletteState() {
+	return setContext(PALETTE_CONTEXT_KEY, new Palette());
 }
 
-export function getColorsState() {
-	return getContext<ReturnType<typeof setColorsState>>(COLORS_CONTEXT_KEY);
+export function getPaletteState() {
+	return getContext<ReturnType<typeof setPaletteState>>(PALETTE_CONTEXT_KEY);
 }

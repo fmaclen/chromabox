@@ -7,11 +7,11 @@
 		PUBLIC_PLAUSIBLE_DOMAIN,
 		PUBLIC_PLAUSIBLE_SRC
 	} from '$env/static/public';
-	import { setColorsState } from '$lib/colors.svelte';
+	import { setPaletteState } from '$lib/colors.svelte';
 
 	let { children } = $props();
 
-	setColorsState();
+	setPaletteState();
 </script>
 
 <svelte:head>

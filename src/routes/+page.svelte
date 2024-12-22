@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 
 	import { PUBLIC_IS_DEMO } from '$env/static/public';
-	import { getColorsState } from '$lib/colors.svelte';
+	import { getPaletteState } from '$lib/colors.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 	import { generateRandomColor } from '$lib/utils';
@@ -10,7 +10,7 @@
 	import ColorCard from './ColorCard.svelte';
 	import Favicon from './Favicon.svelte';
 
-	const paletteStore = getColorsState();
+	const paletteStore = getPaletteState();
 
 	const DEFAULT_COLOR_PALETTE = ['#008CFF', '#A600FF', '#F600FF', '#FF0004', '#FF9000', '#FFBF00'];
 
