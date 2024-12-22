@@ -39,9 +39,8 @@
 <Divider />
 
 <div class="colors">
-	<!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-	{#each paletteStore.colors as _, index}
-		<ColorCard bind:color={paletteStore.colors[index]} />
+	{#each paletteStore.colors as color}
+		<ColorCard bind:color />
 	{/each}
 </div>
 
