@@ -4,6 +4,12 @@ test.describe('Favicon', () => {
 	test('changes when colors change', async ({ page }) => {
 		await page.goto('/');
 
+		// Wait for favicon to have a non-empty href attribute
+		await page.waitForFunction(() => {
+			const favicon = document.querySelector('link[rel="icon"]');
+			return favicon && favicon.getAttribute('href')?.includes('data:image/svg+xml');
+		});
+
 		const favicon = page.locator('link[rel="icon"]');
 		const defaultColors = await favicon.getAttribute('href');
 		expect(defaultColors).toContain('data:image/svg+xml');
