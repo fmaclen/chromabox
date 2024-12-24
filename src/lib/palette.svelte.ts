@@ -1,4 +1,4 @@
-import { colord, extend, type Colord } from 'colord';
+import { colord, extend, random, type Colord } from 'colord';
 import namesPlugin from 'colord/plugins/names';
 import { getContext, setContext } from 'svelte';
 
@@ -43,6 +43,10 @@ export class Palette {
 		};
 	}
 
+	newColor() {
+		this.colors.push(this.stringToColor(random().toHex()));
+	}
+
 	stringToColor(colorString: string): Color {
 		return this.colordToColor(colord(colorString));
 	}
@@ -62,10 +66,10 @@ export class Palette {
 
 const PALETTE_CONTEXT_KEY = Symbol('PALETTE');
 
-export function setPaletteState() {
+export function setPaletteContext() {
 	return setContext(PALETTE_CONTEXT_KEY, new Palette());
 }
 
-export function getPaletteState() {
-	return getContext<ReturnType<typeof setPaletteState>>(PALETTE_CONTEXT_KEY);
+export function getPaletteContext() {
+	return getContext<ReturnType<typeof setPaletteContext>>(PALETTE_CONTEXT_KEY);
 }

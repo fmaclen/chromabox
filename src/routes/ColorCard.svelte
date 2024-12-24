@@ -5,11 +5,11 @@
 
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
-	import { getPaletteState, type Color, type Swatch } from '$lib/palette.svelte';
+	import { getPaletteContext, type Color, type Swatch } from '$lib/palette.svelte';
 
 	let { color = $bindable() }: { color: Color } = $props();
 
-	const paletteStore = getPaletteState();
+	const paletteStore = getPaletteContext();
 
 	const tokenNamePlaceholder = $derived(paletteStore.getClosestCSSColorName(color.source.hex));
 

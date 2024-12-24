@@ -7,11 +7,11 @@
 		PUBLIC_PLAUSIBLE_DOMAIN,
 		PUBLIC_PLAUSIBLE_SRC
 	} from '$env/static/public';
-	import { setPaletteState } from '$lib/palette.svelte';
+	import { setPaletteContext } from '$lib/palette.svelte';
 
 	let { children } = $props();
 
-	setPaletteState();
+	setPaletteContext();
 </script>
 
 <svelte:head>
