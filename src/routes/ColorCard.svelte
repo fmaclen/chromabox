@@ -62,7 +62,12 @@
 	out:fade={{ duration: 75 }}
 >
 	<fieldset class="color__fieldset color__fieldset--row">
-		<input class="input" bind:value={color.tokenName} placeholder={tokenNamePlaceholder} />
+		<input
+			name="token"
+			class="input"
+			bind:value={color.tokenName}
+			placeholder={tokenNamePlaceholder}
+		/>
 		<ButtonCopy content={color.tokenName} />
 	</fieldset>
 
@@ -77,59 +82,59 @@
 
 	<fieldset class="color__fieldset">
 		<div class="color__input-item">
-			<label for="color-hex">HEX</label>
-			<div class="color__input-copy">
+			<label class="color__input-label">
+				HEX
 				<input
+					name="hex"
 					class="input"
-					id="color-hex"
 					type="text"
 					value={color.source.hex}
 					onblur={handleColorInput}
 				/>
-				<ButtonCopy content={color.source.hex} />
-			</div>
+			</label>
+			<ButtonCopy content={color.source.hex} />
 		</div>
 
 		<div class="color__input-item">
-			<label for="color-rgb">RGB</label>
-			<div class="color__input-copy">
+			<label class="color__input-label">
+				RGB
 				<input
+					name="rgb"
 					class="input"
-					id="color-rgb"
 					type="text"
 					value={color.source.rgbString}
 					onblur={handleColorInput}
 				/>
-				<ButtonCopy content={color.source.rgbString} />
-			</div>
+			</label>
+			<ButtonCopy content={color.source.rgbString} />
 		</div>
 
 		<div class="color__input-item">
-			<label for="color-hsl">HSL</label>
-			<div class="color__input-copy">
+			<label class="color__input-label">
+				HSL
 				<input
+					name="hsl"
 					class="input"
-					id="color-hsl"
 					type="text"
 					value={color.source.hslString}
 					onblur={handleColorInput}
 				/>
-				<ButtonCopy content={color.source.hslString} />
-			</div>
+			</label>
+			<ButtonCopy content={color.source.hslString} />
 		</div>
 	</fieldset>
 
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--row">
-		<select bind:value={color.easingFn} title="Easing" class="select">
+		<select name="easing" bind:value={color.easingFn} title="Easing" class="select">
 			<option value="linear">Linear</option>
 			<option value="quadInOut">Quad In Out</option>
 			<option value="quadIn">Quad In</option>
 			<option value="quadOut">Quad Out</option>
 		</select>
 
-		<input class="input" type="number" bind:value={color.steps} title="Steps" />
+		<input name="steps" class="input" type="number" bind:value={color.steps} title="Steps" />
 	</fieldset>
 
 	<Divider />
@@ -182,17 +187,12 @@
 		@apply text-white;
 	}
 
-	.color__input-copy,
 	.color__input-item {
+		@apply flex flex-row items-center gap-1;
+	}
+
+	.color__input-label {
 		@apply flex flex-row items-center gap-2;
-	}
-
-	.color__input-item {
-		@apply gap-2;
-	}
-
-	.color__input-copy {
-		@apply w-full gap-1;
 	}
 
 	.select,
