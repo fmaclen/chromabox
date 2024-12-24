@@ -281,4 +281,16 @@ test.describe('Color card', () => {
 		await hexInput.blur();
 		await expect(tokenInput).toHaveAttribute('placeholder', 'aquamarine');
 	});
+
+	test('variants labels should have enough contrast', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+		await hexInput.fill('#fafafa');
+		await hexInput.blur();
+
+		const lightVariants = page.locator('.variant:not(.variant--dark)');
+		const darkVariants = page.locator('.variant--dark');
+
+		await expect(lightVariants).toHaveCount(6);
+		await expect(darkVariants).toHaveCount(6);
+	});
 });

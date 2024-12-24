@@ -18,6 +18,7 @@ export interface Swatch {
 	rgbString: string;
 	hsl: { h: number; s: number; l: number };
 	hslString: string;
+	isDark: boolean;
 }
 
 export class Palette {
@@ -29,7 +30,8 @@ export class Palette {
 			rgb: colord.toRgb(),
 			rgbString: colord.toRgbString(),
 			hsl: colord.toHsl(),
-			hslString: colord.toHslString()
+			hslString: colord.toHslString(),
+			isDark: colord.isDark()
 		};
 	}
 

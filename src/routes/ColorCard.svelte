@@ -136,7 +136,11 @@
 
 	<fieldset class="color__fieldset color__fieldset--variants">
 		{#each variants as variant}
-			<div class="variant" style={`background-color: ${variant.hex}`}>
+			<div
+				class="variant"
+				class:variant--dark={variant.isDark}
+				style={`background-color: ${variant.hex}`}
+			>
 				<p class="variant__color">{variant.hex}</p>
 				<ButtonCopy content={variant.hex} />
 			</div>
@@ -172,6 +176,10 @@
 
 	.variant {
 		@apply flex flex-row items-center justify-between gap-2 p-2;
+	}
+
+	.variant--dark {
+		@apply text-white;
 	}
 
 	.color__input-copy,
