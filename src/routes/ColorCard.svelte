@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
+	import { fade, fly } from 'svelte/transition';
 
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
@@ -55,7 +56,11 @@
 	}
 </script>
 
-<section class="color">
+<section
+	class="color"
+	in:fly={{ y: 64, duration: 150, easing: quadInOut }}
+	out:fade={{ duration: 75 }}
+>
 	<fieldset class="color__fieldset color__fieldset--row">
 		<input class="input" bind:value={color.tokenName} placeholder={tokenNamePlaceholder} />
 		<ButtonCopy content={color.tokenName} />
@@ -141,7 +146,7 @@
 
 <style lang="postcss">
 	section.color {
-		@apply max-w-min border-r;
+		@apply w-min border-r;
 
 		/* These are the styles of the ColorPicker component */
 		:global(.color-picker .wrapper) {

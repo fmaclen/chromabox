@@ -193,25 +193,25 @@ test.describe('Color card', () => {
 		const resetButton = page.getByRole('button', { name: 'Reset' });
 		const colors = page.locator('section.color');
 
-		expect((await colors.all()).length).toBe(0);
+		await expect(colors).toHaveCount(0);
 		await expect(resetButton).toBeDisabled();
 
 		await newColorButton.click();
-		expect((await colors.all()).length).toBe(1);
+		await expect(colors).toHaveCount(1);
 		await expect(resetButton).toBeEnabled();
 
 		await resetButton.click();
-		expect((await colors.all()).length).toBe(0);
+		await expect(colors).toHaveCount(0);
 		await expect(resetButton).toBeDisabled();
 
 		await newColorButton.click();
 		await newColorButton.click();
 		await newColorButton.click();
-		expect((await colors.all()).length).toBe(3);
+		await expect(colors).toHaveCount(3);
 		await expect(resetButton).toBeEnabled();
 
 		await resetButton.click();
-		expect((await colors.all()).length).toBe(0);
+		await expect(colors).toHaveCount(0);
 		await expect(resetButton).toBeDisabled();
 	});
 
