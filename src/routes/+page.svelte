@@ -7,6 +7,7 @@
 	import { getPaletteContext } from '$lib/palette.svelte';
 
 	import ColorCard from './ColorCard.svelte';
+	import ExportPanel from './ExportPanel.svelte';
 	import Favicon from './Favicon.svelte';
 
 	const paletteContext = getPaletteContext();
@@ -39,6 +40,8 @@
 		<ColorCard bind:color />
 	{/each}
 </div>
+
+<ExportPanel />
 
 <style lang="postcss">
 	.palette {
