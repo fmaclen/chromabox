@@ -99,6 +99,58 @@ test.describe('Export palette', () => {
 		expect(cssContent).not.toContain('--secondary-0: #00ff00');
 	});
 
+	test('should export to all available formats', async ({ page }) => {
+		await page.goto('/');
+		await page.getByRole('button', { name: 'New color' }).click();
+		await page.getByLabel('HEX', { exact: true }).fill('#ff0000');
+		await page.getByTitle('Steps').fill('3');
+
+		const cssContent = await page.getByRole('code').textContent();
+		expect(cssContent).toContain('--red-0: #ffffff;');
+		expect(cssContent).toContain('--red-1: #ff0000;');
+		expect(cssContent).toContain('--red-2: #000000;');
+		expect(cssContent).not.toContain('--red-3: #00ff00;');
+		expect(cssContent).not.toContain('$red-0: #ffffff;');
+		expect(cssContent).not.toContain('"red": {\n    "0": "#ffffff"\n  }');
+
+		// Check SCSS format
+		await page.getByRole('tab', { name: 'SCSS', exact: true }).click();
+		const scssContent = await page.getByRole('code').textContent();
+		expect(scssContent).toContain('$red-0: #ffffff;');
+		expect(scssContent).toContain('$red-1: #ff0000;');
+		expect(scssContent).toContain('$red-2: #000000;');
+		expect(scssContent).not.toContain('$red-3: #00ff00;');
+		expect(scssContent).not.toContain('--red-0: #ffffff;');
+		expect(scssContent).not.toContain('"red": {\n    "0": "#ffffff"\n  }');
+
+		// Check Tailwind format
+		await page.getByRole('tab', { name: 'Tailwind' }).click();
+		const tailwindContent = await page.getByRole('code').textContent();
+		expect(tailwindContent).toContain('module.exports = {');
+		expect(tailwindContent).toContain('"red-0": "#ffffff"');
+		expect(tailwindContent).toContain('"red-1": "#ff0000"');
+		expect(tailwindContent).toContain('"red-2": "#000000"');
+		expect(tailwindContent).not.toContain('"red-3": "#00ff00"');
+		expect(tailwindContent).not.toContain('--red-0: #ffffff;');
+		expect(tailwindContent).not.toContain('"red": {\n    "0": "#ffffff"\n  }');
+
+		// Check JSON format
+		await page.getByRole('tab', { name: 'JSON' }).click();
+		const jsonContent = await page.getByRole('code').textContent();
+		expect(jsonContent).toContain('"red": {\n    "0": "#ffffff"\n  }');
+		expect(jsonContent).toContain('"red": {\n    "1": "#ff0000"\n  }');
+		expect(jsonContent).toContain('"red": {\n    "2": "#000000"\n  }');
+		expect(jsonContent).not.toContain('"red": {\n    "3": "#00ff00"\n  }');
+		expect(jsonContent).not.toContain('--red-0: #ffffff;');
+		expect(jsonContent).not.toContain('$red-0: #ffffff;');
+		expect(jsonContent).not.toContain('"red-0": "#ffffff"');
+
+		// Verify all formats are different
+		expect(cssContent).not.toBe(scssContent);
+		expect(cssContent).not.toBe(tailwindContent);
+		expect(cssContent).not.toBe(jsonContent);
+	});
+
 	test('should copy export text to clipboard', async ({ page }) => {
 		await page.goto('/');
 		await page.getByRole('button', { name: 'New color' }).click();
