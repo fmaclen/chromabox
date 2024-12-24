@@ -1,14 +1,15 @@
 <script lang="ts">
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
 	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
+	import { fade, fly } from 'svelte/transition';
 
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
-	import { getPaletteState, type Color, type Swatch } from '$lib/palette.svelte';
+	import { getPaletteContext, type Color, type Swatch } from '$lib/palette.svelte';
 
 	let { color = $bindable() }: { color: Color } = $props();
 
-	const paletteStore = getPaletteState();
+	const paletteStore = getPaletteContext();
 
 	const tokenNamePlaceholder = $derived(paletteStore.getClosestCSSColorName(color.source.hex));
 
@@ -55,7 +56,11 @@
 	}
 </script>
 
-<section class="color">
+<section
+	class="color"
+	in:fly={{ y: 64, duration: 150, easing: quadInOut }}
+	out:fade={{ duration: 75 }}
+>
 	<fieldset class="color__fieldset color__fieldset--row">
 		<input class="input" bind:value={color.tokenName} placeholder={tokenNamePlaceholder} />
 		<ButtonCopy content={color.tokenName} />
@@ -131,7 +136,11 @@
 
 	<fieldset class="color__fieldset color__fieldset--variants">
 		{#each variants as variant}
-			<div class="variant" style={`background-color: ${variant.hex}`}>
+			<div
+				class="variant"
+				class:variant--dark={variant.isDark}
+				style={`background-color: ${variant.hex}`}
+			>
 				<p class="variant__color">{variant.hex}</p>
 				<ButtonCopy content={variant.hex} />
 			</div>
@@ -141,7 +150,7 @@
 
 <style lang="postcss">
 	section.color {
-		@apply max-w-min border-r;
+		@apply w-min border-r;
 
 		/* These are the styles of the ColorPicker component */
 		:global(.color-picker .wrapper) {
@@ -167,6 +176,10 @@
 
 	.variant {
 		@apply flex flex-row items-center justify-between gap-2 p-2;
+	}
+
+	.variant--dark {
+		@apply text-white;
 	}
 
 	.color__input-copy,
