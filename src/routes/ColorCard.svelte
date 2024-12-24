@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
-	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
+	import { quadInOut } from 'svelte/easing';
 	import { fade, fly } from 'svelte/transition';
 
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
@@ -9,50 +9,31 @@
 
 	let { color = $bindable() }: { color: Color } = $props();
 
-	const paletteStore = getPaletteContext();
+	const paletteContext = getPaletteContext();
 
-	const tokenNamePlaceholder = $derived(paletteStore.getClosestCSSColorName(color.source.hex));
+	const tokenNamePlaceholder = $derived(paletteContext.getClosestCSSColorName(color.source.hex));
 
 	$effect(() => {
 		// When the color is changed through the color picker, update all the other formats
 		// but not hex since it would create an infinite loop.
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { hex: _, ...otherFormats } = paletteStore.stringToColor(color.source.hex).source;
+		const { hex: _, ...otherFormats } = paletteContext.stringToColor(color.source.hex).source;
 		Object.assign(color.source, otherFormats);
 	});
 
-	const variants: Swatch[] = $derived.by(() => {
-		const colorVariants: Swatch[] = [];
-		const hsl = color.source.hsl;
-
-		const MIN_LIGHTNESS = 0;
-		const MAX_LIGHTNESS = 100;
-		const RANGE = MAX_LIGHTNESS - MIN_LIGHTNESS;
-
-		for (let i = 0; i < color.steps; i++) {
-			const progress = i / (color.steps - 1);
-			const easedProgress = easingFns[color.easingFn as keyof typeof easingFns](progress);
-			const rangePercentage = RANGE * (1 - easedProgress);
-			const lightness = MIN_LIGHTNESS + rangePercentage;
-
-			const variant = paletteStore.hslToColor({ ...hsl, l: lightness });
-			colorVariants.push(variant.source);
-		}
-
-		return colorVariants;
+	$effect(() => {
+		// This $effect is used to update the color variants.
+		// Assigning the variants without copying the object triggers an infinite render loop
+		// for some reason. Reference of this approach:
+		// https://github.com/sveltejs/svelte/issues/11938#issuecomment-2153699547
+		const colorCopy = color;
+		colorCopy.variants = paletteContext.generateVariants(color.source, color.steps, color.easingFn);
 	});
-
-	const easingFns = {
-		linear,
-		quadInOut,
-		quadIn,
-		quadOut
-	};
 
 	function handleColorInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (!(event.target instanceof HTMLInputElement)) return;
-		if (paletteStore.isColorValid(event.target.value))
-			color.source = paletteStore.stringToColor(event.target.value).source;
+		if (paletteContext.isColorValid(event.target.value))
+			color.source = paletteContext.stringToColor(event.target.value).source;
 	}
 </script>
 
@@ -140,7 +121,7 @@
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--variants">
-		{#each variants as variant}
+		{#each color.variants as variant}
 			<div
 				class="variant"
 				class:variant--dark={variant.isDark}

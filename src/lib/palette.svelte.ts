@@ -1,8 +1,11 @@
 import { colord, extend, random, type Colord } from 'colord';
 import namesPlugin from 'colord/plugins/names';
 import { getContext, setContext } from 'svelte';
+import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
 extend([namesPlugin]);
+
+const easingFns = { linear, quadInOut, quadIn, quadOut };
 
 export interface Color {
 	source: Swatch;
@@ -36,11 +39,14 @@ export class Palette {
 	}
 
 	private colordToColor(colord: Colord): Color {
+		const swatch = this.colordToSwatch(colord);
+		const steps = 12;
+		const easingFn = 'linear';
 		return {
-			source: this.colordToSwatch(colord),
-			easingFn: 'linear',
-			steps: 12,
-			variants: [],
+			source: swatch,
+			easingFn,
+			steps,
+			variants: this.generateVariants(swatch, steps, easingFn),
 			tokenName: ''
 		};
 	}
@@ -61,8 +67,27 @@ export class Palette {
 		return colord(colorString).isValid();
 	}
 
-	hslToColor(hsl: { h: number; s: number; l: number }): Color {
-		return this.colordToColor(colord({ ...hsl }));
+	hslToSwatch(hsl: { h: number; s: number; l: number }): Swatch {
+		return this.colordToSwatch(colord({ ...hsl }));
+	}
+
+	generateVariants(swatch: Swatch, steps: number, easingFn: string): Swatch[] {
+		const colorVariants: Swatch[] = [];
+
+		const MIN_LIGHTNESS = 0;
+		const MAX_LIGHTNESS = 100;
+		const RANGE = MAX_LIGHTNESS - MIN_LIGHTNESS;
+
+		for (let i = 0; i < steps; i++) {
+			const progress = i / (steps - 1);
+			const easedProgress = easingFns[easingFn as keyof typeof easingFns](progress);
+			const rangePercentage = RANGE * (1 - easedProgress);
+			const lightness = MIN_LIGHTNESS + rangePercentage;
+
+			colorVariants.push(this.hslToSwatch({ ...swatch.hsl, l: lightness }));
+		}
+
+		return colorVariants;
 	}
 }
 
