@@ -111,7 +111,7 @@ test.describe('Export palette', () => {
 		expect(cssContent).toContain('--red-2: #000000;');
 		expect(cssContent).not.toContain('--red-3: #00ff00;');
 		expect(cssContent).not.toContain('$red-0: #ffffff;');
-		expect(cssContent).not.toContain('"red": {\n    "0": "#ffffff"\n  }');
+		expect(cssContent).not.toContain('"red-0": "#ffffff",');
 
 		// Check SCSS format
 		await page.getByRole('tab', { name: 'SCSS', exact: true }).click();
@@ -121,7 +121,7 @@ test.describe('Export palette', () => {
 		expect(scssContent).toContain('$red-2: #000000;');
 		expect(scssContent).not.toContain('$red-3: #00ff00;');
 		expect(scssContent).not.toContain('--red-0: #ffffff;');
-		expect(scssContent).not.toContain('"red": {\n    "0": "#ffffff"\n  }');
+		expect(scssContent).not.toContain('"red-0": "#ffffff",');
 
 		// Check Tailwind format
 		await page.getByRole('tab', { name: 'Tailwind' }).click();
@@ -132,18 +132,17 @@ test.describe('Export palette', () => {
 		expect(tailwindContent).toContain('"red-2": "#000000"');
 		expect(tailwindContent).not.toContain('"red-3": "#00ff00"');
 		expect(tailwindContent).not.toContain('--red-0: #ffffff;');
-		expect(tailwindContent).not.toContain('"red": {\n    "0": "#ffffff"\n  }');
+		expect(tailwindContent).not.toContain('$red-0: #ffffff;');
 
 		// Check JSON format
 		await page.getByRole('tab', { name: 'JSON' }).click();
 		const jsonContent = await page.getByRole('code').textContent();
-		expect(jsonContent).toContain('"red": {\n    "0": "#ffffff"\n  }');
-		expect(jsonContent).toContain('"red": {\n    "1": "#ff0000"\n  }');
-		expect(jsonContent).toContain('"red": {\n    "2": "#000000"\n  }');
-		expect(jsonContent).not.toContain('"red": {\n    "3": "#00ff00"\n  }');
+		expect(jsonContent).toContain('"red-0": "#ffffff",');
+		expect(jsonContent).toContain('"red-1": "#ff0000",');
+		expect(jsonContent).toContain('"red-2": "#000000",');
+		expect(jsonContent).not.toContain('"red-3": "#00ff00",');
 		expect(jsonContent).not.toContain('--red-0: #ffffff;');
 		expect(jsonContent).not.toContain('$red-0: #ffffff;');
-		expect(jsonContent).not.toContain('"red-0": "#ffffff"');
 
 		// Verify all formats are different
 		expect(cssContent).not.toBe(scssContent);
