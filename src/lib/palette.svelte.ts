@@ -82,27 +82,23 @@ export class Palette {
 
 	private generateVariants(color: Color): Swatch[] {
 		const colorVariants: Swatch[] = [];
-		const hsl = color.source.hsl;
+		const { h, s } = color.source.hsl;
 
 		const MIN_LIGHTNESS = 0;
 		const MAX_LIGHTNESS = 100;
-		const RANGE = MAX_LIGHTNESS - MIN_LIGHTNESS;
+		const range = MAX_LIGHTNESS - MIN_LIGHTNESS;
 
 		for (let i = 0; i < color.steps; i++) {
 			const progress = i / (color.steps - 1);
-			const easedProgress = this.getEasingValue(color.easingFn, progress);
-			const rangePercentage = RANGE * (1 - easedProgress);
+			const easedProgress = easingFns[color.easingFn as keyof typeof easingFns](progress);
+			const rangePercentage = range * (1 - easedProgress);
 			const lightness = MIN_LIGHTNESS + rangePercentage;
 
-			const variant = this.hslToColor({ ...hsl, l: lightness });
+			const variant = this.hslToColor({ h, s, l: lightness });
 			colorVariants.push(variant.source);
 		}
 
 		return colorVariants;
-	}
-
-	private getEasingValue(easingFn: string, progress: number): number {
-		return easingFns[easingFn as keyof typeof easingFns](progress);
 	}
 }
 
