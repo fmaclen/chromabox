@@ -7,7 +7,7 @@
 	import Divider from '$lib/components/Divider.svelte';
 	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 
-	let { color = $bindable() }: { color: Color } = $props();
+	let { color = $bindable(), index }: { color: Color; index: number } = $props();
 
 	const palette = getPaletteContext();
 
@@ -36,7 +36,12 @@
 	out:fade={{ duration: 75 }}
 >
 	<fieldset class="color__fieldset color__fieldset--row">
-		<input class="input" bind:value={color.tokenName} placeholder={tokenNamePlaceholder} />
+		<input
+			class="input"
+			id={`color-token-${index}`}
+			bind:value={color.tokenName}
+			placeholder={tokenNamePlaceholder}
+		/>
 		<ButtonCopy content={color.tokenName} />
 	</fieldset>
 
@@ -47,15 +52,16 @@
 		components={ChromeVariant}
 		isDialog={false}
 		sliderDirection="horizontal"
+		name={`color-picker-${index}`}
 	/>
 
 	<fieldset class="color__fieldset">
 		<div class="color__input-item">
-			<label for="color-hex">HEX</label>
+			<label for={`color-hex-${index}`}>HEX</label>
 			<div class="color__input-copy">
 				<input
 					class="input"
-					id="color-hex"
+					id={`color-hex-${index}`}
 					type="text"
 					value={color.source.hex}
 					onblur={handleColorInput}
@@ -65,11 +71,11 @@
 		</div>
 
 		<div class="color__input-item">
-			<label for="color-rgb">RGB</label>
+			<label for={`color-rgb-${index}`}>RGB</label>
 			<div class="color__input-copy">
 				<input
 					class="input"
-					id="color-rgb"
+					id={`color-rgb-${index}`}
 					type="text"
 					value={color.source.rgbString}
 					onblur={handleColorInput}
@@ -79,11 +85,11 @@
 		</div>
 
 		<div class="color__input-item">
-			<label for="color-hsl">HSL</label>
+			<label for={`color-hsl-${index}`}>HSL</label>
 			<div class="color__input-copy">
 				<input
 					class="input"
-					id="color-hsl"
+					id={`color-hsl-${index}`}
 					type="text"
 					value={color.source.hslString}
 					onblur={handleColorInput}
@@ -96,14 +102,21 @@
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--row">
-		<select bind:value={color.easingFn} title="Easing" class="select">
+		<select title="Easing" id={`color-easing-${index}`} bind:value={color.easingFn} class="select">
 			<option value="linear">Linear</option>
 			<option value="quadInOut">Quad In Out</option>
 			<option value="quadIn">Quad In</option>
 			<option value="quadOut">Quad Out</option>
 		</select>
 
-		<input class="input" type="number" bind:value={color.steps} min={0} title="Steps" />
+		<input
+			title="Steps"
+			class="input"
+			type="number"
+			id={`color-steps-${index}`}
+			bind:value={color.steps}
+			min={0}
+		/>
 	</fieldset>
 
 	<Divider />

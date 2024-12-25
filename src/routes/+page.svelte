@@ -21,8 +21,8 @@
 <Divider />
 
 <div class="colors">
-	{#each palette.colors as color}
-		<ColorCard bind:color />
+	{#each palette.colors as color, index}
+		<ColorCard bind:color {index} />
 	{/each}
 </div>
 
