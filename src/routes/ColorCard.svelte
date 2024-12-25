@@ -1,32 +1,32 @@
 <script lang="ts">
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
-	import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
+	import { quadInOut } from 'svelte/easing';
 	import { fade, fly } from 'svelte/transition';
 
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
-	import { getPaletteContext, type Color, type Swatch } from '$lib/palette.svelte';
+	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 
 	let { color = $bindable() }: { color: Color } = $props();
 
-	const paletteStore = getPaletteContext();
+	const palette = getPaletteContext();
 
-	const tokenNamePlaceholder = $derived(paletteStore.getClosestCSSColorName(color.source.hex));
+	const tokenNamePlaceholder = $derived(palette.getClosestCSSColorName(color.source.hex));
 
 	$effect(() => {
 		// When the color is changed through the color picker, update all the other formats
 		// but not hex since it would create an infinite loop.
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { hex: _, ...otherFormats } = paletteStore.stringToColor(color.source.hex).source;
+		const { hex: _, ...otherFormats } = palette.stringToColor(color.source.hex).source;
 		Object.assign(color.source, otherFormats);
 	});
 
-	$effect(() => paletteStore.updateColorVariants(color));
+	$effect(() => palette.updateColorVariants(color));
 
 	function handleColorInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (!(event.target instanceof HTMLInputElement)) return;
-		if (paletteStore.isColorValid(event.target.value))
-			color.source = paletteStore.stringToColor(event.target.value).source;
+		if (palette.isColorValid(event.target.value))
+			color.source = palette.stringToColor(event.target.value).source;
 	}
 </script>
 

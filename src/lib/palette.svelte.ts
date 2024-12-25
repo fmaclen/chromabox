@@ -3,8 +3,11 @@ import namesPlugin from 'colord/plugins/names';
 import { getContext, setContext } from 'svelte';
 import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
+import { PUBLIC_IS_DEMO } from '$env/static/public';
+
 extend([namesPlugin]);
 
+const DEFAULT_COLOR_PALETTE = ['#008CFF', '#A600FF', '#F600FF', '#FF0004', '#FF9000', '#FFBF00'];
 const easingFns = { linear, quadInOut, quadIn, quadOut };
 
 export interface Color {
@@ -26,6 +29,11 @@ export interface Swatch {
 
 export class Palette {
 	colors = $state<Color[]>([]);
+
+	constructor() {
+		if (!PUBLIC_IS_DEMO) return;
+		this.colors = DEFAULT_COLOR_PALETTE.map((color) => this.stringToColor(color));
+	}
 
 	newColor() {
 		this.colors.push(this.stringToColor(random().toHex()));
