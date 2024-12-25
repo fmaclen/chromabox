@@ -13,9 +13,9 @@
 
 <div class="palette">
 	<Button title="New color" onclick={() => palette.newColor()}>New color</Button>
-	<Button title="Reset" onclick={() => (palette.colors = [])} disabled={!palette.colors.length}
-		>Reset</Button
-	>
+	<Button title="Reset" onclick={() => (palette.colors = [])} disabled={!palette.colors.length}>
+		Reset
+	</Button>
 </div>
 
 <Divider />

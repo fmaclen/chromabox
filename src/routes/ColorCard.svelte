@@ -103,7 +103,7 @@
 			<option value="quadOut">Quad Out</option>
 		</select>
 
-		<input class="input" type="number" bind:value={color.steps} title="Steps" />
+		<input class="input" type="number" bind:value={color.steps} min={0} title="Steps" />
 	</fieldset>
 
 	<Divider />
