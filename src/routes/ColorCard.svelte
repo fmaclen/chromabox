@@ -21,33 +21,7 @@
 		Object.assign(color.source, otherFormats);
 	});
 
-	const variants: Swatch[] = $derived.by(() => {
-		const colorVariants: Swatch[] = [];
-		const hsl = color.source.hsl;
-
-		const MIN_LIGHTNESS = 0;
-		const MAX_LIGHTNESS = 100;
-		const RANGE = MAX_LIGHTNESS - MIN_LIGHTNESS;
-
-		for (let i = 0; i < color.steps; i++) {
-			const progress = i / (color.steps - 1);
-			const easedProgress = easingFns[color.easingFn as keyof typeof easingFns](progress);
-			const rangePercentage = RANGE * (1 - easedProgress);
-			const lightness = MIN_LIGHTNESS + rangePercentage;
-
-			const variant = paletteStore.hslToColor({ ...hsl, l: lightness });
-			colorVariants.push(variant.source);
-		}
-
-		return colorVariants;
-	});
-
-	const easingFns = {
-		linear,
-		quadInOut,
-		quadIn,
-		quadOut
-	};
+	$effect(() => paletteStore.updateColorVariants(color));
 
 	function handleColorInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (!(event.target instanceof HTMLInputElement)) return;
@@ -135,7 +109,7 @@
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--variants">
-		{#each variants as variant}
+		{#each color.variants as variant}
 			<div
 				class="variant"
 				class:variant--dark={variant.isDark}
