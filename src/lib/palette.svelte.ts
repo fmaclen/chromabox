@@ -1,8 +1,14 @@
 import { colord, extend, random, type Colord } from 'colord';
 import namesPlugin from 'colord/plugins/names';
 import { getContext, setContext } from 'svelte';
+import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
+
+import { PUBLIC_IS_DEMO } from '$env/static/public';
 
 extend([namesPlugin]);
+
+const DEFAULT_COLOR_PALETTE = ['#008CFF', '#A600FF', '#F600FF', '#FF0004', '#FF9000', '#FFBF00'];
+const easingFns = { linear, quadInOut, quadIn, quadOut };
 
 export interface Color {
 	source: Swatch;
@@ -23,6 +29,35 @@ export interface Swatch {
 
 export class Palette {
 	colors = $state<Color[]>([]);
+
+	constructor() {
+		if (!PUBLIC_IS_DEMO) return;
+		this.colors = DEFAULT_COLOR_PALETTE.map((color) => this.stringToColor(color));
+	}
+
+	newColor() {
+		this.colors.push(this.stringToColor(random().toHex()));
+	}
+
+	stringToColor(colorString: string): Color {
+		return this.colordToColor(colord(colorString));
+	}
+
+	getClosestCSSColorName(colorString: string): string {
+		return colord(colorString).toName({ closest: true }) ?? '';
+	}
+
+	isColorValid(colorString: string): boolean {
+		return colord(colorString).isValid();
+	}
+
+	hslToColor(hsl: { h: number; s: number; l: number }): Color {
+		return this.colordToColor(colord({ ...hsl }));
+	}
+
+	updateColorVariants(color: Color) {
+		color.variants = this.generateVariants(color);
+	}
 
 	private colordToSwatch(colord: Colord): Swatch {
 		return {
@@ -45,24 +80,25 @@ export class Palette {
 		};
 	}
 
-	newColor() {
-		this.colors.push(this.stringToColor(random().toHex()));
-	}
+	private generateVariants(color: Color): Swatch[] {
+		const colorVariants: Swatch[] = [];
+		const { h, s } = color.source.hsl;
 
-	stringToColor(colorString: string): Color {
-		return this.colordToColor(colord(colorString));
-	}
+		const MIN_LIGHTNESS = 0;
+		const MAX_LIGHTNESS = 100;
+		const range = MAX_LIGHTNESS - MIN_LIGHTNESS;
 
-	getClosestCSSColorName(colorString: string): string {
-		return colord(colorString).toName({ closest: true }) ?? '';
-	}
+		for (let i = 0; i < color.steps; i++) {
+			const progress = i / (color.steps - 1);
+			const easedProgress = easingFns[color.easingFn as keyof typeof easingFns](progress);
+			const rangePercentage = range * (1 - easedProgress);
+			const lightness = MIN_LIGHTNESS + rangePercentage;
 
-	isColorValid(colorString: string): boolean {
-		return colord(colorString).isValid();
-	}
+			const variant = this.hslToColor({ h, s, l: lightness });
+			colorVariants.push(variant.source);
+		}
 
-	hslToColor(hsl: { h: number; s: number; l: number }): Color {
-		return this.colordToColor(colord({ ...hsl }));
+		return colorVariants;
 	}
 }
 

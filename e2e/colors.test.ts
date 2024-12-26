@@ -85,6 +85,10 @@ test.describe('Color card', () => {
 		await expect(variants).toHaveCount(12);
 		await expect(variants).not.toHaveCount(7);
 
+		await stepsInput.fill('-1');
+		await expect(variants).toHaveCount(0);
+		await expect(stepsInput).toHaveAttribute('min', '0');
+
 		await stepsInput.fill('7');
 		await expect(variants).toHaveCount(7);
 		await expect(variants).not.toHaveCount(12);
