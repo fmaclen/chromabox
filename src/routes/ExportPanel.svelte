@@ -4,13 +4,13 @@
 
 	type Format = 'CSS' | 'SCSS' | 'Tailwind' | 'JSON';
 
-	const paletteContext = getPaletteContext();
+	const palette = getPaletteContext();
 
 	let activeFormat = $state<Format>('CSS');
 	let textToExport = $state<string>('');
 
 	$effect(() => {
-		textToExport = formatExport(paletteContext.colors);
+		textToExport = formatExport(palette.colors);
 	});
 
 	const formats: Format[] = ['CSS', 'SCSS', 'Tailwind', 'JSON'];
@@ -36,7 +36,7 @@
 				color.variants
 					.map((variant, index) =>
 						formatVariant(
-							color.tokenName || paletteContext.getClosestCSSColorName(color.source.hex),
+							color.tokenName || palette.getClosestCSSColorName(color.source.hex),
 							index,
 							variant.hex
 						)
