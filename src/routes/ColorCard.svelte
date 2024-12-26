@@ -39,8 +39,8 @@
 		<input
 			class="input"
 			id={`color-token-${index}`}
-			bind:value={color.tokenName}
 			placeholder={tokenNamePlaceholder}
+			bind:value={color.tokenName}
 		/>
 		<ButtonCopy content={color.tokenName} />
 	</fieldset>
@@ -52,7 +52,6 @@
 		components={ChromeVariant}
 		isDialog={false}
 		sliderDirection="horizontal"
-		name={`color-picker-${index}`}
 	/>
 
 	<fieldset class="color__fieldset">
@@ -61,8 +60,8 @@
 			<div class="color__input-copy">
 				<input
 					class="input"
-					id={`color-hex-${index}`}
 					type="text"
+					id={`color-hex-${index}`}
 					value={color.source.hex}
 					onblur={handleColorInput}
 				/>
@@ -75,8 +74,8 @@
 			<div class="color__input-copy">
 				<input
 					class="input"
-					id={`color-rgb-${index}`}
 					type="text"
+					id={`color-rgb-${index}`}
 					value={color.source.rgbString}
 					onblur={handleColorInput}
 				/>
@@ -89,8 +88,8 @@
 			<div class="color__input-copy">
 				<input
 					class="input"
-					id={`color-hsl-${index}`}
 					type="text"
+					id={`color-hsl-${index}`}
 					value={color.source.hslString}
 					onblur={handleColorInput}
 				/>
@@ -102,7 +101,7 @@
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--row">
-		<select title="Easing" id={`color-easing-${index}`} bind:value={color.easingFn} class="select">
+		<select title="Easing" class="select" id={`color-easing-${index}`} bind:value={color.easingFn}>
 			<option value="linear">Linear</option>
 			<option value="quadInOut">Quad In Out</option>
 			<option value="quadIn">Quad In</option>
@@ -113,9 +112,9 @@
 			title="Steps"
 			class="input"
 			type="number"
+			min={0}
 			id={`color-steps-${index}`}
 			bind:value={color.steps}
-			min={0}
 		/>
 	</fieldset>
 
