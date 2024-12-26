@@ -59,45 +59,42 @@
 			<label for={`color-hex-${index}`}>HEX</label>
 			<div class="color__input-copy">
 				<input
-					name="hex"
 					class="input"
 					type="text"
 					id={`color-hex-${index}`}
 					value={color.source.hex}
 					onblur={handleColorInput}
 				/>
-			</label>
-			<ButtonCopy content={color.source.hex} />
+				<ButtonCopy content={color.source.hex} />
+			</div>
 		</div>
 
 		<div class="color__input-item">
 			<label for={`color-rgb-${index}`}>RGB</label>
 			<div class="color__input-copy">
 				<input
-					name="rgb"
 					class="input"
 					type="text"
 					id={`color-rgb-${index}`}
 					value={color.source.rgbString}
 					onblur={handleColorInput}
 				/>
-			</label>
-			<ButtonCopy content={color.source.rgbString} />
+				<ButtonCopy content={color.source.rgbString} />
+			</div>
 		</div>
 
 		<div class="color__input-item">
 			<label for={`color-hsl-${index}`}>HSL</label>
 			<div class="color__input-copy">
 				<input
-					name="hsl"
 					class="input"
 					type="text"
 					id={`color-hsl-${index}`}
 					value={color.source.hslString}
 					onblur={handleColorInput}
 				/>
-			</label>
-			<ButtonCopy content={color.source.hslString} />
+				<ButtonCopy content={color.source.hslString} />
+			</div>
 		</div>
 	</fieldset>
 
@@ -171,11 +168,8 @@
 		@apply text-white;
 	}
 
+	.color__input-copy,
 	.color__input-item {
-		@apply flex flex-row items-center gap-1;
-	}
-
-	.color__input-label {
 		@apply flex flex-row items-center gap-2;
 	}
 
