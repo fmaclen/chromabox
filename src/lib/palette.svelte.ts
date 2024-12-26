@@ -3,8 +3,11 @@ import namesPlugin from 'colord/plugins/names';
 import { getContext, setContext } from 'svelte';
 import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
+import { PUBLIC_IS_DEMO } from '$env/static/public';
+
 extend([namesPlugin]);
 
+const DEFAULT_COLOR_PALETTE = ['#008CFF', '#A600FF', '#F600FF', '#FF0004', '#FF9000', '#FFBF00'];
 const easingFns = { linear, quadInOut, quadIn, quadOut };
 
 export interface Color {
@@ -26,6 +29,35 @@ export interface Swatch {
 
 export class Palette {
 	colors = $state<Color[]>([]);
+
+	constructor() {
+		if (!PUBLIC_IS_DEMO) return;
+		this.colors = DEFAULT_COLOR_PALETTE.map((color) => this.stringToColor(color));
+	}
+
+	newColor() {
+		this.colors.push(this.stringToColor(random().toHex()));
+	}
+
+	stringToColor(colorString: string): Color {
+		return this.colordToColor(colord(colorString));
+	}
+
+	getClosestCSSColorName(colorString: string): string {
+		return colord(colorString).toName({ closest: true }) ?? '';
+	}
+
+	isColorValid(colorString: string): boolean {
+		return colord(colorString).isValid();
+	}
+
+	hslToColor(hsl: { h: number; s: number; l: number }): Color {
+		return this.colordToColor(colord({ ...hsl }));
+	}
+
+	updateColorVariants(color: Color) {
+		color.variants = this.generateVariants(color);
+	}
 
 	private colordToSwatch(colord: Colord): Swatch {
 		return {
@@ -51,40 +83,22 @@ export class Palette {
 		};
 	}
 
-	newColor() {
-		this.colors.push(this.stringToColor(random().toHex()));
-	}
-
-	stringToColor(colorString: string): Color {
-		return this.colordToColor(colord(colorString));
-	}
-
-	getClosestCSSColorName(colorString: string): string {
-		return colord(colorString).toName({ closest: true }) ?? '';
-	}
-
-	isColorValid(colorString: string): boolean {
-		return colord(colorString).isValid();
-	}
-
-	hslToSwatch(hsl: { h: number; s: number; l: number }): Swatch {
-		return this.colordToSwatch(colord({ ...hsl }));
-	}
-
-	generateVariants(swatch: Swatch, steps: number, easingFn: string): Swatch[] {
+	private generateVariants(color: Color): Swatch[] {
 		const colorVariants: Swatch[] = [];
+		const { h, s } = color.source.hsl;
 
 		const MIN_LIGHTNESS = 0;
 		const MAX_LIGHTNESS = 100;
-		const RANGE = MAX_LIGHTNESS - MIN_LIGHTNESS;
+		const range = MAX_LIGHTNESS - MIN_LIGHTNESS;
 
-		for (let i = 0; i < steps; i++) {
-			const progress = i / (steps - 1);
-			const easedProgress = easingFns[easingFn as keyof typeof easingFns](progress);
-			const rangePercentage = RANGE * (1 - easedProgress);
+		for (let i = 0; i < color.steps; i++) {
+			const progress = i / (color.steps - 1);
+			const easedProgress = easingFns[color.easingFn as keyof typeof easingFns](progress);
+			const rangePercentage = range * (1 - easedProgress);
 			const lightness = MIN_LIGHTNESS + rangePercentage;
 
-			colorVariants.push(this.hslToSwatch({ ...swatch.hsl, l: lightness }));
+			const variant = this.hslToColor({ h, s, l: lightness });
+			colorVariants.push(variant.source);
 		}
 
 		return colorVariants;

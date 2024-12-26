@@ -7,33 +7,26 @@
 	import Divider from '$lib/components/Divider.svelte';
 	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 
-	let { color = $bindable() }: { color: Color } = $props();
+	let { color = $bindable(), index }: { color: Color; index: number } = $props();
 
-	const paletteContext = getPaletteContext();
+	const palette = getPaletteContext();
 
-	const tokenNamePlaceholder = $derived(paletteContext.getClosestCSSColorName(color.source.hex));
+	const tokenNamePlaceholder = $derived(palette.getClosestCSSColorName(color.source.hex));
 
 	$effect(() => {
 		// When the color is changed through the color picker, update all the other formats
 		// but not hex since it would create an infinite loop.
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { hex: _, ...otherFormats } = paletteContext.stringToColor(color.source.hex).source;
+		const { hex: _, ...otherFormats } = palette.stringToColor(color.source.hex).source;
 		Object.assign(color.source, otherFormats);
 	});
 
-	$effect(() => {
-		// This $effect is used to update the color variants.
-		// Assigning the variants without copying the object triggers an infinite render loop
-		// for some reason. Reference of this approach:
-		// https://github.com/sveltejs/svelte/issues/11938#issuecomment-2153699547
-		const colorCopy = color;
-		colorCopy.variants = paletteContext.generateVariants(color.source, color.steps, color.easingFn);
-	});
+	$effect(() => palette.updateColorVariants(color));
 
 	function handleColorInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (!(event.target instanceof HTMLInputElement)) return;
-		if (paletteContext.isColorValid(event.target.value))
-			color.source = paletteContext.stringToColor(event.target.value).source;
+		if (palette.isColorValid(event.target.value))
+			color.source = palette.stringToColor(event.target.value).source;
 	}
 </script>
 
@@ -44,10 +37,10 @@
 >
 	<fieldset class="color__fieldset color__fieldset--row">
 		<input
-			name="token"
 			class="input"
-			bind:value={color.tokenName}
+			id={`color-token-${index}`}
 			placeholder={tokenNamePlaceholder}
+			bind:value={color.tokenName}
 		/>
 		<ButtonCopy content={color.tokenName} />
 	</fieldset>
@@ -63,12 +56,13 @@
 
 	<fieldset class="color__fieldset">
 		<div class="color__input-item">
-			<label class="color__input-label">
-				HEX
+			<label for={`color-hex-${index}`}>HEX</label>
+			<div class="color__input-copy">
 				<input
 					name="hex"
 					class="input"
 					type="text"
+					id={`color-hex-${index}`}
 					value={color.source.hex}
 					onblur={handleColorInput}
 				/>
@@ -77,12 +71,13 @@
 		</div>
 
 		<div class="color__input-item">
-			<label class="color__input-label">
-				RGB
+			<label for={`color-rgb-${index}`}>RGB</label>
+			<div class="color__input-copy">
 				<input
 					name="rgb"
 					class="input"
 					type="text"
+					id={`color-rgb-${index}`}
 					value={color.source.rgbString}
 					onblur={handleColorInput}
 				/>
@@ -91,12 +86,13 @@
 		</div>
 
 		<div class="color__input-item">
-			<label class="color__input-label">
-				HSL
+			<label for={`color-hsl-${index}`}>HSL</label>
+			<div class="color__input-copy">
 				<input
 					name="hsl"
 					class="input"
 					type="text"
+					id={`color-hsl-${index}`}
 					value={color.source.hslString}
 					onblur={handleColorInput}
 				/>
@@ -108,14 +104,21 @@
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--row">
-		<select name="easing" bind:value={color.easingFn} title="Easing" class="select">
+		<select title="Easing" class="select" id={`color-easing-${index}`} bind:value={color.easingFn}>
 			<option value="linear">Linear</option>
 			<option value="quadInOut">Quad In Out</option>
 			<option value="quadIn">Quad In</option>
 			<option value="quadOut">Quad Out</option>
 		</select>
 
-		<input name="steps" class="input" type="number" bind:value={color.steps} title="Steps" />
+		<input
+			title="Steps"
+			class="input"
+			type="number"
+			min={0}
+			id={`color-steps-${index}`}
+			bind:value={color.steps}
+		/>
 	</fieldset>
 
 	<Divider />
