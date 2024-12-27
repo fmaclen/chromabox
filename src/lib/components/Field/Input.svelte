@@ -39,6 +39,6 @@
 
 <style lang="postcss">
 	.field-input {
-		@apply block w-full rounded-md border p-1.5 text-xs;
+		@apply block w-full rounded border p-1.5 text-xs;
 	}
 </style>
