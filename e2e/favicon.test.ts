@@ -32,13 +32,43 @@ test.describe('Favicon', () => {
 		expect(threeColors).not.toBe(oneColor);
 		expect(threeColors).not.toBe(twoColors);
 
-		// Favicon supports only 3 colors, so the fourth color is ignored
+		// Add a fourth color
 		await page.getByRole('button', { name: 'New color' }).click();
 		const fourColors = await favicon.getAttribute('href');
 		expect(fourColors).not.toBe(defaultColors);
 		expect(fourColors).not.toBe(oneColor);
 		expect(fourColors).not.toBe(twoColors);
-		expect(fourColors).toBe(threeColors);
+		expect(fourColors).not.toBe(threeColors);
+
+		// Add a fifth color
+		await page.getByRole('button', { name: 'New color' }).click();
+		const fiveColors = await favicon.getAttribute('href');
+		expect(fiveColors).not.toBe(defaultColors);
+		expect(fiveColors).not.toBe(oneColor);
+		expect(fiveColors).not.toBe(twoColors);
+		expect(fiveColors).not.toBe(threeColors);
+		expect(fiveColors).not.toBe(fourColors);
+
+		// Add a sixth color
+		await page.getByRole('button', { name: 'New color' }).click();
+		const sixColors = await favicon.getAttribute('href');
+		expect(sixColors).not.toBe(defaultColors);
+		expect(sixColors).not.toBe(oneColor);
+		expect(sixColors).not.toBe(twoColors);
+		expect(sixColors).not.toBe(threeColors);
+		expect(sixColors).not.toBe(fourColors);
+		expect(sixColors).not.toBe(fiveColors);
+
+		// Favicon supports only 6 colors, so the seventh color is ignored
+		await page.getByRole('button', { name: 'New color' }).click();
+		const sevenColors = await favicon.getAttribute('href');
+		expect(sevenColors).not.toBe(defaultColors);
+		expect(sevenColors).not.toBe(oneColor);
+		expect(sevenColors).not.toBe(twoColors);
+		expect(sevenColors).not.toBe(threeColors);
+		expect(sevenColors).not.toBe(fourColors);
+		expect(sevenColors).not.toBe(fiveColors);
+		expect(sevenColors).toBe(sixColors);
 
 		// Update the first color from the color picker
 		const colorCard = page.locator('.color').first();
