@@ -24,17 +24,21 @@
 	}: Props = $props();
 </script>
 
-<div class="field-input">
-	<input
-		bind:value
-		class="input"
-		{type}
-		{disabled}
-		{placeholder}
-		{required}
-		{id}
-		{accept}
-		{onchange}
-		{onblur}
-	/>
-</div>
+<input
+	bind:value
+	class="field-input"
+	{type}
+	{disabled}
+	{placeholder}
+	{required}
+	{id}
+	{accept}
+	{onchange}
+	{onblur}
+/>
+
+<style lang="postcss">
+	.field-input {
+		@apply block w-full rounded-md border px-3 py-1.5;
+	}
+</style>

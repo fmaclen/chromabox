@@ -17,6 +17,6 @@
 
 <style lang="postcss">
 	.field-label {
-		@apply text-xs font-medium uppercase tracking-widest opacity-40;
+		@apply text-xs font-medium uppercase tracking-wide opacity-50;
 	}
 </style>

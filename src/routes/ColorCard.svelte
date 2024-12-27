@@ -39,7 +39,6 @@
 >
 	<fieldset class="color__fieldset color__fieldset--row">
 		<Field>
-			<Field.Label id={`color-token-${index}`}>Token name</Field.Label>
 			<Field.Input
 				id={`color-token-${index}`}
 				placeholder={tokenNamePlaceholder}
