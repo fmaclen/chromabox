@@ -5,7 +5,10 @@ export const baseConfig = defineConfig({
 		command: 'npm run build && npm run preview',
 		port: 4173
 	},
+	workers: process.env.CI ? 1 : undefined,
+	retries: process.env.CI ? 2 : 0,
 	use: {
+		viewport: { width: 1280, height: 1024 },
 		trace: 'retain-on-failure'
 	},
 	testDir: 'e2e',
