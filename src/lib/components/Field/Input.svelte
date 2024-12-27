@@ -8,6 +8,7 @@
 		required?: boolean;
 		accept?: string;
 		onchange?: (e: Event) => void;
+		onblur?: (e: Event) => void;
 	}
 
 	let {
@@ -18,7 +19,8 @@
 		required = false,
 		id = '',
 		accept = '',
-		onchange
+		onchange,
+		onblur
 	}: Props = $props();
 </script>
 
@@ -33,5 +35,6 @@
 		{id}
 		{accept}
 		{onchange}
+		{onblur}
 	/>
 </div>

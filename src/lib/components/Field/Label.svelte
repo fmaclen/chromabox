@@ -14,3 +14,9 @@
 		{@render children()}
 	</label>
 {/if}
+
+<style lang="postcss">
+	.field-label {
+		@apply text-xs font-medium uppercase tracking-widest opacity-40;
+	}
+</style>

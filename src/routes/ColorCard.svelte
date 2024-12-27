@@ -6,6 +6,7 @@
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 	import { getPaletteContext, type Color } from '$lib/palette.svelte';
+	import Field from '$lib/components/Field';
 
 	let { color = $bindable(), index }: { color: Color; index: number } = $props();
 
@@ -23,10 +24,11 @@
 
 	$effect(() => palette.updateColorVariants(color));
 
-	function handleColorInput(event: Event & { currentTarget: EventTarget & HTMLInputElement }) {
-		if (!(event.target instanceof HTMLInputElement)) return;
-		if (palette.isColorValid(event.target.value))
-			color.source = palette.stringToColor(event.target.value).source;
+	function handleColorInput(event: Event) {
+		const target = event.target as HTMLInputElement;
+		if (palette.isColorValid(target.value)) {
+			color.source = palette.stringToColor(target.value).source;
+		}
 	}
 </script>
 
@@ -36,13 +38,15 @@
 	out:fade={{ duration: 75 }}
 >
 	<fieldset class="color__fieldset color__fieldset--row">
-		<input
-			class="input"
-			id={`color-token-${index}`}
-			placeholder={tokenNamePlaceholder}
-			bind:value={color.tokenName}
-		/>
-		<ButtonCopy content={color.tokenName} />
+		<Field>
+			<Field.Label id={`color-token-${index}`}>Token name</Field.Label>
+			<Field.Input
+				id={`color-token-${index}`}
+				placeholder={tokenNamePlaceholder}
+				bind:value={color.tokenName}
+			/>
+			<ButtonCopy content={color.tokenName} />
+		</Field>
 	</fieldset>
 
 	<Divider />
@@ -55,47 +59,35 @@
 	/>
 
 	<fieldset class="color__fieldset">
-		<div class="color__input-item">
-			<label for={`color-hex-${index}`}>HEX</label>
-			<div class="color__input-copy">
-				<input
-					class="input"
-					type="text"
-					id={`color-hex-${index}`}
-					value={color.source.hex}
-					onblur={handleColorInput}
-				/>
-				<ButtonCopy content={color.source.hex} />
-			</div>
-		</div>
+		<Field>
+			<Field.Label id={`color-hex-${index}`}>HEX</Field.Label>
+			<Field.Input
+				id={`color-hex-${index}`}
+				value={color.source.hex}
+				onblur={handleColorInput}
+			/>
+			<ButtonCopy content={color.source.hex} />
+		</Field>
 
-		<div class="color__input-item">
-			<label for={`color-rgb-${index}`}>RGB</label>
-			<div class="color__input-copy">
-				<input
-					class="input"
-					type="text"
-					id={`color-rgb-${index}`}
-					value={color.source.rgbString}
-					onblur={handleColorInput}
-				/>
-				<ButtonCopy content={color.source.rgbString} />
-			</div>
-		</div>
+		<Field>
+			<Field.Label id={`color-rgb-${index}`}>RGB</Field.Label>
+			<Field.Input
+				id={`color-rgb-${index}`}
+				value={color.source.rgbString}
+				onblur={handleColorInput}
+			/>
+			<ButtonCopy content={color.source.rgbString} />
+		</Field>
 
-		<div class="color__input-item">
-			<label for={`color-hsl-${index}`}>HSL</label>
-			<div class="color__input-copy">
-				<input
-					class="input"
-					type="text"
-					id={`color-hsl-${index}`}
-					value={color.source.hslString}
-					onblur={handleColorInput}
-				/>
-				<ButtonCopy content={color.source.hslString} />
-			</div>
-		</div>
+		<Field>
+			<Field.Label id={`color-hsl-${index}`}>HSL</Field.Label>
+			<Field.Input
+				id={`color-hsl-${index}`}
+				value={color.source.hslString}
+				onblur={handleColorInput}
+			/>
+			<ButtonCopy content={color.source.hslString} />
+		</Field>
 	</fieldset>
 
 	<Divider />
@@ -166,19 +158,6 @@
 
 	.variant--dark {
 		@apply text-white;
-	}
-
-	.color__input-copy,
-	.color__input-item {
-		@apply flex flex-row items-center gap-2;
-	}
-
-	.color__input-item {
-		@apply gap-2;
-	}
-
-	.color__input-copy {
-		@apply w-full gap-1;
 	}
 
 	.select,

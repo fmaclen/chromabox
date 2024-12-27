@@ -226,21 +226,21 @@ test.describe('Color card', () => {
 		await hexInput.blur();
 
 		await page
-			.locator('.color__input-item', { hasText: 'HEX' })
+			.locator('.field', { hasText: 'HEX' })
 			.getByRole('button', { name: 'Copy' })
 			.click();
 		const hexClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(hexClipboard).toBe('#ff0000');
 
 		await page
-			.locator('.color__input-item', { hasText: 'RGB' })
+			.locator('.field', { hasText: 'RGB' })
 			.getByRole('button', { name: 'Copy' })
 			.click();
 		const rgbClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(rgbClipboard).toBe('rgb(255, 0, 0)');
 
 		await page
-			.locator('.color__input-item', { hasText: 'HSL' })
+			.locator('.field', { hasText: 'HSL' })
 			.getByRole('button', { name: 'Copy' })
 			.click();
 		const hslClipboard = await page.evaluate(() => navigator.clipboard.readText());

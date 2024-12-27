@@ -11,3 +11,9 @@
 <div class="field">
 	{@render children()}
 </div>
+
+<style lang="postcss">
+	.field {
+		@apply flex items-center gap-2;
+	}
+</style>
