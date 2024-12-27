@@ -3,31 +3,26 @@
 
 	import type { Color } from '$lib/palette.svelte';
 
-	const DEFAULT_COLOR_1 = '#EAEAEA';
-	const DEFAULT_COLOR_2 = '#CCCCCC';
-	const DEFAULT_COLOR_3 = '#999999';
-	const DEFAULT_COLOR_4 = '#666666';
-	const DEFAULT_COLOR_5 = '#333333';
-	const DEFAULT_COLOR_6 = '#222222';
+	const DEFAULT_COLORS = {
+		color1: '#EAEAEA',
+		color2: '#CCCCCC',
+		color3: '#999999',
+		color4: '#666666',
+		color5: '#333333',
+		color6: '#222222'
+	};
 
 	let { colors }: { colors: Color[] } = $props();
 	let faviconElement: HTMLLinkElement | undefined = $state();
-	let box = $state({
-		color1: DEFAULT_COLOR_1,
-		color2: DEFAULT_COLOR_2,
-		color3: DEFAULT_COLOR_3,
-		color4: DEFAULT_COLOR_4,
-		color5: DEFAULT_COLOR_5,
-		color6: DEFAULT_COLOR_6
-	});
+	let box = $state(DEFAULT_COLORS);
 
 	$effect(() => {
-		box.color1 = colors[0]?.source.hex || DEFAULT_COLOR_1;
-		box.color2 = colors[1]?.source.hex || DEFAULT_COLOR_2;
-		box.color3 = colors[2]?.source.hex || DEFAULT_COLOR_3;
-		box.color4 = colors[3]?.source.hex || DEFAULT_COLOR_4;
-		box.color5 = colors[4]?.source.hex || DEFAULT_COLOR_5;
-		box.color6 = colors[5]?.source.hex || DEFAULT_COLOR_6;
+		box.color1 = colors[0]?.source.hex || DEFAULT_COLORS.color1;
+		box.color2 = colors[1]?.source.hex || DEFAULT_COLORS.color2;
+		box.color3 = colors[2]?.source.hex || DEFAULT_COLORS.color3;
+		box.color4 = colors[3]?.source.hex || DEFAULT_COLORS.color4;
+		box.color5 = colors[4]?.source.hex || DEFAULT_COLORS.color5;
+		box.color6 = colors[5]?.source.hex || DEFAULT_COLORS.color6;
 		setFavicon();
 	});
 
