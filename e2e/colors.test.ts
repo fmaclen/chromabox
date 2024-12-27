@@ -225,24 +225,15 @@ test.describe('Color card', () => {
 		await hexInput.fill('#ff0000');
 		await hexInput.blur();
 
-		await page
-			.locator('.field', { hasText: 'HEX' })
-			.getByRole('button', { name: 'Copy' })
-			.click();
+		await page.locator('.field', { hasText: 'HEX' }).getByRole('button', { name: 'Copy' }).click();
 		const hexClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(hexClipboard).toBe('#ff0000');
 
-		await page
-			.locator('.field', { hasText: 'RGB' })
-			.getByRole('button', { name: 'Copy' })
-			.click();
+		await page.locator('.field', { hasText: 'RGB' }).getByRole('button', { name: 'Copy' }).click();
 		const rgbClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(rgbClipboard).toBe('rgb(255, 0, 0)');
 
-		await page
-			.locator('.field', { hasText: 'HSL' })
-			.getByRole('button', { name: 'Copy' })
-			.click();
+		await page.locator('.field', { hasText: 'HSL' }).getByRole('button', { name: 'Copy' }).click();
 		const hslClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(hslClipboard).toBe('hsl(0, 100%, 50%)');
 

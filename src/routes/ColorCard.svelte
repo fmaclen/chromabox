@@ -5,8 +5,8 @@
 
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
-	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 	import Field from '$lib/components/Field';
+	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 
 	let { color = $bindable(), index }: { color: Color; index: number } = $props();
 
@@ -60,11 +60,7 @@
 	<fieldset class="color__fieldset">
 		<Field>
 			<Field.Label id={`color-hex-${index}`}>HEX</Field.Label>
-			<Field.Input
-				id={`color-hex-${index}`}
-				value={color.source.hex}
-				onblur={handleColorInput}
-			/>
+			<Field.Input id={`color-hex-${index}`} value={color.source.hex} onblur={handleColorInput} />
 			<ButtonCopy content={color.source.hex} />
 		</Field>
 
