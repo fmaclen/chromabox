@@ -3,10 +3,11 @@
 		id: string;
 		value?: string | File | null | number;
 		disabled?: boolean;
+		title?: string;
 		placeholder?: string;
 		type?: 'text' | 'password' | 'email' | 'number' | 'date' | 'url' | 'file';
 		required?: boolean;
-		accept?: string;
+		min?: number;
 		onchange?: (e: Event) => void;
 		onblur?: (e: Event) => void;
 	}
@@ -14,13 +15,14 @@
 	let {
 		value = $bindable(''),
 		disabled = false,
-		placeholder = '',
+		title,
+		placeholder,
 		type = 'text',
 		required = false,
-		id = '',
-		accept = '',
+		id,
+		min,
 		onchange,
-		onblur
+		onblur,
 	}: Props = $props();
 </script>
 
@@ -29,10 +31,11 @@
 	class="field-input"
 	{type}
 	{disabled}
+	{title}
 	{placeholder}
 	{required}
 	{id}
-	{accept}
+	{min}
 	{onchange}
 	{onblur}
 />

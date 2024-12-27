@@ -13,8 +13,12 @@
 	let { id, value = $bindable(''), disabled, placeholder, required, children }: Props = $props();
 </script>
 
-<div class="field-select">
-	<select {id} bind:value {disabled} {placeholder} {required}>
-		{@render children()}
-	</select>
-</div>
+<select class="field-select" {id} bind:value {disabled} {placeholder} {required}>
+	{@render children()}
+</select>
+
+<style lang="postcss">
+	.field-select {
+		@apply block w-full rounded border p-1.5 text-xs;
+	}
+</style>

@@ -88,21 +88,24 @@
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--row">
-		<select title="Easing" class="select" id={`color-easing-${index}`} bind:value={color.easingFn}>
-			<option value="linear">Linear</option>
-			<option value="quadInOut">Quad In Out</option>
-			<option value="quadIn">Quad In</option>
-			<option value="quadOut">Quad Out</option>
-		</select>
+		<Field>
+			<Field.Select placeholder="Easing" id={`color-easing-${index}`} bind:value={color.easingFn}>
+				<option value="linear" selected>Linear</option>
+				<option value="quadInOut">Quad In Out</option>
+				<option value="quadIn">Quad In</option>
+				<option value="quadOut">Quad Out</option>
+			</Field.Select>
+		</Field>
 
-		<input
-			title="Steps"
-			class="input"
-			type="number"
-			min={0}
-			id={`color-steps-${index}`}
-			bind:value={color.steps}
-		/>
+		<Field>
+			<Field.Input
+				placeholder="Steps"
+				type="number"
+				min={0}
+				id={`color-steps-${index}`}
+				bind:value={color.steps}
+			/>
+		</Field>
 	</fieldset>
 
 	<Divider />
@@ -153,10 +156,5 @@
 
 	.variant--dark {
 		@apply text-white;
-	}
-
-	.select,
-	.input {
-		@apply w-full rounded-md border px-3 py-1.5;
 	}
 </style>

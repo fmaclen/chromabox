@@ -17,6 +17,6 @@
 
 <style lang="postcss">
 	.field-label {
-		@apply text-xs font-semibold uppercase tracking-wider min-w-[6ch];
+		@apply min-w-[6ch] font-mono text-xs font-medium uppercase tracking-wider opacity-50;
 	}
 </style>
