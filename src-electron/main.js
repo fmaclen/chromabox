@@ -8,8 +8,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 function createWindow() {
 	const mainWindow = new BrowserWindow({
 		width: 1366,
-		height: 900
+		height: 900,
+		minWidth: 640,
+		minHeight: 480
 	});
+
+	// Hides the menu bar in Windows
+	mainWindow.menuBarVisible = false;
 
 	// Load the built static site from /build directory
 	mainWindow.loadFile(path.join(__dirname, '../build/index.html'));
