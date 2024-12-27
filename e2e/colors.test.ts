@@ -266,7 +266,7 @@ test.describe('Color card', () => {
 
 	test('should display correct token name placeholder based on color', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
-		const tokenInput = page.locator('.color__fieldset:first-child .input');
+		const tokenInput = page.locator('#color-token-0');
 
 		await hexInput.fill('#ff0000');
 		await hexInput.blur();
