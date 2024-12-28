@@ -15,7 +15,7 @@
 
 <style lang="postcss">
 	.button {
-		@apply cursor-pointer rounded-md border px-3 py-1.5 font-semibold tracking-tight;
+		@apply cursor-pointer rounded-md border px-3 py-1.5 text-xs font-semibold tracking-tight;
 		@apply disabled:cursor-not-allowed disabled:opacity-50;
 	}
 </style>
