@@ -43,8 +43,9 @@
 				id={`color-token-${index}`}
 				placeholder={tokenNamePlaceholder}
 				bind:value={color.tokenName}
-			/>
-			<ButtonCopy content={color.tokenName} />
+			>
+				<ButtonCopy content={color.tokenName} />
+			</Field.Input>
 		</Field>
 	</fieldset>
 
@@ -60,8 +61,9 @@
 	<fieldset class="color__fieldset">
 		<Field>
 			<Field.Label id={`color-hex-${index}`}>HEX</Field.Label>
-			<Field.Input id={`color-hex-${index}`} value={color.source.hex} onblur={handleColorInput} />
-			<ButtonCopy content={color.source.hex} />
+			<Field.Input id={`color-hex-${index}`} value={color.source.hex} onblur={handleColorInput}>
+				<ButtonCopy content={color.source.hex} />
+			</Field.Input>
 		</Field>
 
 		<Field>
@@ -70,8 +72,9 @@
 				id={`color-rgb-${index}`}
 				value={color.source.rgbString}
 				onblur={handleColorInput}
-			/>
-			<ButtonCopy content={color.source.rgbString} />
+			>
+				<ButtonCopy content={color.source.rgbString} />
+			</Field.Input>
 		</Field>
 
 		<Field>
@@ -80,8 +83,9 @@
 				id={`color-hsl-${index}`}
 				value={color.source.hslString}
 				onblur={handleColorInput}
-			/>
-			<ButtonCopy content={color.source.hslString} />
+			>
+				<ButtonCopy content={color.source.hslString} />
+			</Field.Input>
 		</Field>
 	</fieldset>
 
@@ -151,7 +155,11 @@
 	}
 
 	.variant {
-		@apply flex flex-row items-center justify-between gap-2 p-2;
+		@apply flex flex-row items-center justify-between gap-2;
+	}
+
+	.variant__color {
+		@apply px-2 py-3 opacity-90 font-mono text-xs;
 	}
 
 	.variant--dark {
