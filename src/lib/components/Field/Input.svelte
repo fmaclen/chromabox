@@ -51,7 +51,7 @@
 
 <style lang="postcss">
 	.container {
-		@apply flex w-full items-center rounded border focus-within:outline outline-2;
+		@apply flex w-full items-center rounded border outline-2 focus-within:outline;
 	}
 
 	.field-input {

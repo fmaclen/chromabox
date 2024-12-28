@@ -42,7 +42,11 @@
 				<a class="button" href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">
 					Buy now
 				</a>
-				<a class="button button--secondary" href="https://github.com/fmaclen/chromabox#self-hosting" target="_blank">
+				<a
+					class="button button--secondary"
+					href="https://github.com/fmaclen/chromabox#self-hosting"
+					target="_blank"
+				>
 					Self-host
 				</a>
 			</nav>
@@ -86,24 +90,23 @@
 		}
 
 		h2 {
-			@apply text-2xl font-light tracking-wider text-balance;
+			@apply text-balance text-2xl font-light tracking-wider;
 		}
 	}
-
 
 	.demo-header__titles {
 		@apply flex flex-col gap-3;
 	}
 
 	.button {
-		@apply rounded-md bg-stone-900 px-8 py-3 font-semibold text-stone-50 text-lg shadow;
+		@apply rounded-md bg-stone-900 px-8 py-3 text-lg font-semibold text-stone-50 shadow;
 		@apply hover:scale-105 hover:shadow-lg;
 		@apply active:scale-95 active:shadow-none;
 		@apply transition-all duration-100;
 	}
 
 	.button--secondary {
-		@apply bg-transparent border border-stone-900/25 text-stone-900;
+		@apply border border-stone-900/25 bg-transparent text-stone-900;
 	}
 
 	.main {

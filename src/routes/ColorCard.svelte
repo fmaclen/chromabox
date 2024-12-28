@@ -162,7 +162,7 @@
 	}
 
 	.variant__color {
-		@apply px-2 py-3 opacity-90 font-mono text-xs;
+		@apply px-2 py-3 font-mono text-xs opacity-90;
 	}
 
 	.variant--dark {
