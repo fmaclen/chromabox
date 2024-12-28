@@ -173,6 +173,13 @@
 		@apply flex flex-row items-center gap-2;
 	}
 
+	.color__input-item {
+		@apply gap-2;
+	}
+	.color__input-copy {
+		@apply w-full gap-1;
+	}
+
 	.select,
 	.input {
 		@apply w-full rounded-md border px-3 py-1.5;
