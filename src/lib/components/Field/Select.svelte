@@ -28,6 +28,6 @@
 
 <style lang="postcss">
 	.field-select {
-		@apply block w-full rounded border p-1.5 font-mono text-xs;
+		@apply block h-full w-full rounded border p-1.5 font-mono text-xs;
 	}
 </style>
