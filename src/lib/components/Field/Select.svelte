@@ -19,6 +19,6 @@
 
 <style lang="postcss">
 	.field-select {
-		@apply block w-full rounded border p-1.5 text-xs;
+		@apply block w-full rounded border p-1.5 font-mono text-xs;
 	}
 </style>

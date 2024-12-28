@@ -39,6 +39,7 @@
 >
 	<fieldset class="color__fieldset color__fieldset--row">
 		<Field>
+			<div class="swatch" style={`background-color: ${color.source.hex}`}></div>
 			<Field.Input
 				id={`color-token-${index}`}
 				placeholder={tokenNamePlaceholder}
@@ -154,6 +155,10 @@
 
 	fieldset.color__fieldset--variants {
 		@apply gap-0 p-0;
+	}
+
+	.swatch {
+		@apply h-8 w-1 rounded-sm;
 	}
 
 	.variant {

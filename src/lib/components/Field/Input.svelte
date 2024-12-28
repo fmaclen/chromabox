@@ -55,6 +55,6 @@
 	}
 
 	.field-input {
-		@apply block w-full p-2 text-xs outline-none;
+		@apply block w-full bg-transparent p-2 font-mono text-xs outline-none;
 	}
 </style>
