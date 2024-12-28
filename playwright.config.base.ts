@@ -8,7 +8,7 @@ export const baseConfig = defineConfig({
 	workers: process.env.CI ? 1 : undefined,
 	retries: process.env.CI ? 2 : 0,
 	use: {
-		viewport: { width: 1280, height: 1024 },
+		viewport: { width: 1366, height: 900 },
 		trace: 'retain-on-failure'
 	},
 	testDir: 'e2e',
