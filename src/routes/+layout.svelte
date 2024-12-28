@@ -34,13 +34,15 @@
 {#if PUBLIC_IS_DEMO}
 	<div class="layout layout--demo">
 		<header class="demo-header">
-			<h1>Chromabox</h1>
-			<h2>The ultimate color palette generator for designers & developers</h2>
+			<div class="demo-header__titles">
+				<h1>Chromabox</h1>
+				<h2>The ultimate color palette generator for designers & developers</h2>
+			</div>
 			<nav class="flex flex-row items-center justify-center gap-2">
 				<a class="button" href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">
 					Buy now
 				</a>
-				<a class="button" href="https://github.com/fmaclen/chromabox#self-hosting" target="_blank">
+				<a class="button button--secondary" href="https://github.com/fmaclen/chromabox#self-hosting" target="_blank">
 					Self-host
 				</a>
 			</nav>
@@ -77,19 +79,31 @@
 	}
 
 	.demo-header {
-		@apply container mx-auto my-32 flex flex-col items-center gap-4 text-center;
+		@apply container mx-auto my-32 flex flex-col items-center gap-16 text-center;
 
 		h1 {
 			@apply text-6xl font-bold tracking-tighter;
 		}
 
 		h2 {
-			@apply text-2xl font-light tracking-wider;
+			@apply text-2xl font-light tracking-wider text-balance;
 		}
 	}
 
+
+	.demo-header__titles {
+		@apply flex flex-col gap-3;
+	}
+
 	.button {
-		@apply rounded-md bg-stone-900 px-6 py-2 font-semibold text-stone-50;
+		@apply rounded-md bg-stone-900 px-8 py-3 font-semibold text-stone-50 text-lg shadow;
+		@apply hover:scale-105 hover:shadow-lg;
+		@apply active:scale-95 active:shadow-none;
+		@apply transition-all duration-100;
+	}
+
+	.button--secondary {
+		@apply bg-transparent border border-stone-900/25 text-stone-900;
 	}
 
 	.main {
@@ -98,7 +112,7 @@
 	}
 
 	.main--demo {
-		@apply container mx-auto h-[1071px] overflow-hidden;
+		@apply container mx-auto min-h-[1018px] overflow-hidden shadow-2xl;
 	}
 
 	.demo-footer {
