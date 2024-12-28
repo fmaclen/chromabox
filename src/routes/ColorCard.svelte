@@ -44,7 +44,9 @@
 				placeholder={tokenNamePlaceholder}
 				bind:value={color.tokenName}
 			>
-				<ButtonCopy content={color.tokenName} />
+				{#if color.tokenName}
+					<ButtonCopy content={color.tokenName} />
+				{/if}
 			</Field.Input>
 		</Field>
 	</fieldset>
