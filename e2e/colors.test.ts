@@ -34,12 +34,16 @@ test.describe('Color card', () => {
 
 	test('should update color when changing hex value', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
+		const swatch = page.locator('.swatch');
+		await expect(swatch).toBeVisible();
+		await expect(swatch).not.toHaveAttribute('style', /background-color: #ff0000/);
 
 		await hexInput.fill('#FF0000');
 		await hexInput.blur();
 
 		await expect(rgbInput).toHaveValue('rgb(255, 0, 0)');
 		await expect(hslInput).toHaveValue('hsl(0, 100%, 50%)');
+		await expect(swatch).toHaveAttribute('style', /background-color: #ff0000/);
 	});
 
 	test('should update color when changing RGB value', async ({ page }) => {
