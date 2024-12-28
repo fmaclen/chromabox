@@ -81,7 +81,7 @@ test.describe('Color card', () => {
 	test('should display correct number of variants based on steps input', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
 		const variants = page.locator('.variant');
-		const stepsInput = page.getByPlaceholder('Steps');
+		const stepsInput = page.getByLabel('Steps');
 		await expect(variants).toHaveCount(12);
 		await expect(variants).not.toHaveCount(7);
 
@@ -101,7 +101,7 @@ test.describe('Color card', () => {
 
 	test('should update lightness variants when changing easing function', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
-		const easingSelect = page.getByPlaceholder('Easing');
+		const easingSelect = page.getByLabel('Easing');
 
 		// Set colors for consistent testing
 		const originalColor = '#ff0000';
@@ -171,7 +171,7 @@ test.describe('Color card', () => {
 	test('should maintain number of variants when updating color input', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
 
-		await page.getByPlaceholder('Steps').fill('4');
+		await page.getByLabel('Steps').fill('4');
 		const variants = page.locator('.variant');
 		await expect(variants).toHaveCount(4);
 
@@ -237,7 +237,7 @@ test.describe('Color card', () => {
 		const hslClipboard = await page.evaluate(() => navigator.clipboard.readText());
 		expect(hslClipboard).toBe('hsl(0, 100%, 50%)');
 
-		await page.getByPlaceholder('Steps').fill('3');
+		await page.getByLabel('Steps').fill('3');
 
 		// Test copying first variant (should be white)
 		await page.locator('.variant').nth(0).getByRole('button', { name: 'Copy' }).click();
@@ -275,6 +275,13 @@ test.describe('Color card', () => {
 		await hexInput.fill('#7fffd5');
 		await hexInput.blur();
 		await expect(tokenInput).toHaveAttribute('placeholder', 'aquamarine');
+
+		// Copy button shouldn't be visible if token input is empty
+		const tokenField = page.getByTitle('Token');
+		await expect(tokenField.getByRole('button', { name: 'Copy' })).not.toBeVisible();
+
+		await tokenInput.fill('border');
+		await expect(tokenField.getByRole('button', { name: 'Copy' })).toBeVisible();
 	});
 
 	test('variants labels should have enough contrast', async ({ page }) => {

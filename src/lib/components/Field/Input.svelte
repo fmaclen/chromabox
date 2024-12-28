@@ -30,17 +30,17 @@
 	}: Props = $props();
 </script>
 
-<div class="container">
+<div class="field-input" {title}>
 	<input
 		bind:value
-		class="field-input"
+		class="field-input__input"
 		{type}
 		{disabled}
-		{title}
 		{placeholder}
 		{required}
 		{id}
 		{min}
+		aria-label={title}
 		{onchange}
 		{onblur}
 	/>
@@ -50,11 +50,11 @@
 </div>
 
 <style lang="postcss">
-	.container {
+	.field-input {
 		@apply flex w-full items-center rounded border outline-2 focus-within:outline;
 	}
 
-	.field-input {
+	.field-input__input {
 		@apply block w-full bg-transparent p-2 font-mono text-xs outline-none;
 	}
 </style>

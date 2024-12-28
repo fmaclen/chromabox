@@ -41,6 +41,7 @@
 		<Field>
 			<div class="swatch" style={`background-color: ${color.source.hex}`}></div>
 			<Field.Input
+				title="Token"
 				id={`color-token-${index}`}
 				placeholder={tokenNamePlaceholder}
 				bind:value={color.tokenName}
@@ -96,7 +97,7 @@
 
 	<fieldset class="color__fieldset color__fieldset--row">
 		<Field>
-			<Field.Select placeholder="Easing" id={`color-easing-${index}`} bind:value={color.easingFn}>
+			<Field.Select title="Easing" id={`color-easing-${index}`} bind:value={color.easingFn}>
 				<option value="linear" selected>Linear</option>
 				<option value="quadInOut">Quad In Out</option>
 				<option value="quadIn">Quad In</option>
@@ -106,6 +107,7 @@
 
 		<Field>
 			<Field.Input
+				title="Steps"
 				placeholder="Steps"
 				type="number"
 				min={0}
