@@ -22,7 +22,7 @@
 		id,
 		min,
 		onchange,
-		onblur,
+		onblur
 	}: Props = $props();
 </script>
 
