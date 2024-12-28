@@ -158,7 +158,7 @@
 
 	.variant {
 		@apply flex flex-row items-center justify-between gap-2;
-		@apply -mx-1 px-2;
+		@apply -mx-[1px] px-[2px];
 	}
 
 	.variant__color {

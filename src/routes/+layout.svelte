@@ -115,7 +115,7 @@
 	}
 
 	.main--demo {
-		@apply container mx-auto min-h-[1018px] overflow-hidden shadow-2xl;
+		@apply container mx-auto h-[1018px] overflow-hidden shadow-2xl;
 	}
 
 	.demo-footer {
