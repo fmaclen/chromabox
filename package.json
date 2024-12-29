@@ -12,6 +12,7 @@
 		"lint": "prettier --check . && eslint .",
 		"test:e2e": "playwright test --trace on --ignore-snapshots --grep-invert @demo",
 		"test:e2e:demo": "playwright test --config=playwright.config.demo.ts --trace on --ignore-snapshots --grep @demo",
+		"test:snapshots": "playwright test --update-snapshots -g 'take screenshot'",
 		"test": "npm run test:e2e && npm run test:e2e:demo",
 		"electron": "vite build && electron .",
 		"electron:build": "vite build && electron-builder"
