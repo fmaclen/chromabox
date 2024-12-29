@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 
-	import { VIEWPORT_SIZE } from '$lib';
+	import { STORE_URL, VIEWPORT_SIZE } from '$lib';
 
 	import {
 		PUBLIC_IS_DEMO,
@@ -42,7 +42,7 @@
 				<h2>The ultimate color palette generator for designers & developers</h2>
 			</div>
 			<nav class="flex flex-row items-center justify-center gap-2">
-				<a class="button" href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">
+				<a class="button" href={STORE_URL} target="_blank">
 					Buy now
 				</a>
 				<a
@@ -62,7 +62,7 @@
 		<footer class="demo-footer">
 			<p>&copy; {new Date().getFullYear()} Chromabox</p>
 			<nav>
-				<A href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Gumroad</A>
+				<A href={STORE_URL} target="_blank">Gumroad</A>
 				<A href="https://github.com/fmaclen/chromabox" target="_blank">GitHub</A>
 				<A href="https://fernando.is" target="_blank">Contact</A>
 			</nav>
