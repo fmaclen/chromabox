@@ -1,13 +1,12 @@
 # Chromabox
 
-Chromabox helps developers create and export color palettes for web projects.
+Generate color variations and export them as Tailwind, SCSS, or CSS variables.
+Designed for front-end developers and code-inclined designers.
 
-Generate color variations, preview them in context, and export them to Tailwind, SCSS, or CSS variables.
-
-- ⚡️ [Live demo](https://hollama.fernando.is)
+- ⚡️ [Live demo](https://chromabox.fernando.is)
   - _No sign-up required_
-- 🖥️ Download for [macOS, Windows & Linux](https://github.com/fmaclen/hollama/releases)
-- 🐳 [Self-hosting](SELF_HOSTING.md)
+- 🖥️ Download for [macOS, Windows & Linux](https://fmaclen.gumroad.com/l/chromabox)
+- 🐳 [Self-hosting](#self-hosting)
 
 ![Chromabox screenshot](e2e/docs.test.ts-snapshots/palette-darwin.png)
 
