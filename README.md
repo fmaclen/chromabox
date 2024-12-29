@@ -12,9 +12,9 @@ Designed for front-end developers and code-inclined designers.
 
 ## Self-hosting
 
-Chromabox is available as a self-hosted SvelteKit app.
-You can self-host it by cloning the repo and running it locally.
-And you'll need [Node.js](https://nodejs.org) installed.
+Chromabox can be run on your own computer as a SvelteKit app.
+To do this, clone the repository and run it locally.
+Make sure you have [Node.js](https://nodejs.org) installed.
 
 ```bash
 git clone https://github.com/fmaclen/chromabox.git
