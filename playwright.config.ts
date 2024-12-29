@@ -11,5 +11,10 @@ export default {
 	workers: process.env.CI ? 1 : undefined,
 	retries: process.env.CI ? 2 : 0,
 	testDir: 'e2e',
-	timeout: 5000
+	timeout: 5000,
+	expect: {
+		toMatchSnapshot: {
+			maxDiffPixels: 900
+		}
+	}
 };

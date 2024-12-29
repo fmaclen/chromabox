@@ -1,15 +1,21 @@
 # Chromabox
 
-A color palette generator for designers & developers.
+Chromabox helps developers create and export color palettes for web projects.
 
-![Chromabox screenshot](docs/palette.png)
+Generate color variations, preview them in context, and export them to Tailwind, SCSS, or CSS variables.
+
+- ⚡️ [Live demo](https://hollama.fernando.is)
+  - _No sign-up required_
+- 🖥️ Download for [macOS, Windows & Linux](https://github.com/fmaclen/hollama/releases)
+- 🐳 [Self-hosting](SELF_HOSTING.md)
+
+![Chromabox screenshot](e2e/docs.test.ts-snapshots/palette-darwin.png)
 
 ## Self-hosting
 
-Chromabox is available as a SvelteKit app.
+Chromabox is available as a self-hosted SvelteKit app.
 You can self-host it by cloning the repo and running it locally.
-
-You'll need [Node v22](https://nodejs.org) or higher.
+And you'll need [Node.js](https://nodejs.org) installed.
 
 ```bash
 git clone https://github.com/fmaclen/chromabox.git
@@ -19,4 +25,4 @@ npm run build
 npm run preview
 ```
 
-Then, visit `http://localhost:4173` to use the app.
+Then, visit `http://localhost:4173` to open the app.

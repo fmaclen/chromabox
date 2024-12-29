@@ -25,6 +25,6 @@ test.describe('Docs', () => {
 
 		await page.waitForTimeout(150); // Wait for transition to finish
 		await colorBar.nth(0).scrollIntoViewIfNeeded();
-		await page.screenshot({ path: 'docs/palette.png' });
+		expect(await page.screenshot()).toMatchSnapshot({ name: 'palette.png' });
 	});
 });
