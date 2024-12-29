@@ -63,7 +63,7 @@
 </script>
 
 <aside class="export-panel">
-	<h2 class="export-panel__title">Export Palette</h2>
+	<h2 class="export-panel__title">Export palette</h2>
 	<Divider />
 
 	<div role="tablist" class="export-panel__tabs">
