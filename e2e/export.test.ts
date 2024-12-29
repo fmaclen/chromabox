@@ -5,7 +5,7 @@ test.describe('Export palette', () => {
 		await page.goto('/');
 		await page.getByRole('button', { name: 'New color' }).click();
 		await page.getByLabel('HEX', { exact: true }).fill('#ff0000');
-		await page.getByTitle('Steps').fill('3');
+		await page.getByLabel('Steps').fill('3');
 
 		const exportPanel = page.locator('aside.export-panel');
 		await expect(exportPanel).toBeVisible();
@@ -21,7 +21,7 @@ test.describe('Export palette', () => {
 		// Use default placeholder
 		await page.getByRole('button', { name: 'New color' }).click();
 		await page.getByLabel('HEX', { exact: true }).fill('#ff0000');
-		await page.getByTitle('Steps').fill('3');
+		await page.getByLabel('Steps').fill('3');
 		await expect(exportPanel).toContainText('red-0');
 		await expect(exportPanel).toContainText('red-1');
 		await expect(exportPanel).toContainText('red-2');
@@ -35,7 +35,7 @@ test.describe('Export palette', () => {
 		await page.getByRole('button', { name: 'New color' }).click();
 		await page.getByLabel('HEX', { exact: true }).fill('#ff0000');
 		await page.getByRole('textbox').first().fill('myredcolor');
-		await page.getByTitle('Steps').fill('3');
+		await page.getByLabel('Steps').fill('3');
 		await expect(exportPanel).toContainText('myredcolor-0');
 		await expect(exportPanel).toContainText('myredcolor-1');
 		await expect(exportPanel).toContainText('myredcolor-2');
@@ -48,8 +48,8 @@ test.describe('Export palette', () => {
 		await page.goto('/');
 		await page.getByRole('button', { name: 'New color' }).click();
 		await page.getByLabel('HEX', { exact: true }).fill('#ff0000');
-		await page.getByTitle('Steps').fill('12');
-		await page.getByTitle('Easing').selectOption('quadInOut');
+		await page.getByLabel('Steps').fill('12');
+		await page.getByLabel('Easing').selectOption('quadInOut');
 
 		// Only check a few key variants instead of all 12
 		const exportPanel = page.locator('aside.export-panel');
@@ -67,15 +67,15 @@ test.describe('Export palette', () => {
 		await page.getByRole('button', { name: 'New color' }).click();
 		const firstColor = page.locator('section.color').nth(0);
 		await firstColor.getByLabel('HEX', { exact: true }).fill('#0000ff');
-		await firstColor.getByTitle('Steps').fill('5');
-		await firstColor.getByTitle('Easing').selectOption('quadIn');
+		await firstColor.getByLabel('Steps').fill('5');
+		await firstColor.getByLabel('Easing').selectOption('quadIn');
 		await firstColor.getByRole('textbox').first().fill('primary');
 
 		await page.getByRole('button', { name: 'New color' }).click();
 		const secondColor = page.locator('section.color').nth(1);
 		await secondColor.getByLabel('HEX', { exact: true }).fill('#00ff00');
-		await secondColor.getByTitle('Steps').fill('7');
-		await secondColor.getByTitle('Easing').selectOption('quadOut');
+		await secondColor.getByLabel('Steps').fill('7');
+		await secondColor.getByLabel('Easing').selectOption('quadOut');
 		await secondColor.getByRole('textbox').first().fill('secondary');
 
 		await page.getByRole('tab', { name: 'CSS', exact: true }).click();
@@ -103,7 +103,7 @@ test.describe('Export palette', () => {
 		await page.goto('/');
 		await page.getByRole('button', { name: 'New color' }).click();
 		await page.getByLabel('HEX', { exact: true }).fill('#ff0000');
-		await page.getByTitle('Steps').fill('3');
+		await page.getByLabel('Steps').fill('3');
 
 		const cssContent = await page.getByRole('code').textContent();
 		expect(cssContent).toContain('--red-0: #ffffff;');
@@ -154,7 +154,7 @@ test.describe('Export palette', () => {
 		await page.goto('/');
 		await page.getByRole('button', { name: 'New color' }).click();
 		await page.getByLabel('HEX', { exact: true }).fill('#ff0000');
-		await page.getByTitle('Steps').fill('5');
+		await page.getByLabel('Steps').fill('5');
 
 		await page.getByRole('tab', { name: 'CSS', exact: true }).click();
 		await page.locator('aside.export-panel').getByRole('button', { name: 'Copy' }).click();
