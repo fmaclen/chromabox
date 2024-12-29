@@ -59,7 +59,7 @@
 	}
 
 	.palette__colors-export {
-		@apply relative flex flex-grow flex-row overflow-auto h-full;
+		@apply relative flex h-full flex-grow flex-row overflow-auto;
 	}
 
 	.colors {

@@ -14,6 +14,6 @@
 
 <style lang="postcss">
 	.empty-message {
-		@apply text-balance text-center opacity-50;
+		@apply text-balance text-center opacity-60;
 	}
 </style>
