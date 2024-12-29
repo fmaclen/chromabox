@@ -3,10 +3,10 @@
 
 	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/Divider.svelte';
+	import EmptyMessage from '$lib/components/EmptyMessage.svelte';
 	import { getPaletteContext } from '$lib/palette.svelte';
 
 	import ColorCard from './ColorCard.svelte';
-	import EmptyMessage from '$lib/components/EmptyMessage.svelte';
 	import ExportPanel from './ExportPanel.svelte';
 	import Favicon from './Favicon.svelte';
 

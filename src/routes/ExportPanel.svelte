@@ -2,10 +2,10 @@
 	import { STORE_URL } from '$lib';
 
 	import { PUBLIC_IS_DEMO } from '$env/static/public';
-	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
-	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 	import A from '$lib/components/A.svelte';
+	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import EmptyMessage from '$lib/components/EmptyMessage.svelte';
+	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 
 	type Format = 'CSS' | 'SCSS' | 'Tailwind' | 'JSON';
 
@@ -81,7 +81,7 @@
 		{#if PUBLIC_IS_DEMO && ['CSS', 'SCSS', 'Tailwind'].includes(activeFormat)}
 			<EmptyMessage>
 				{activeFormat} export is available in the
-				<A href={STORE_URL}> full version </A>.
+				<A href={STORE_URL}>full version</A>.
 			</EmptyMessage>
 		{:else}
 			<pre><code>{textToExport}</code></pre>
