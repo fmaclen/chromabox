@@ -42,9 +42,7 @@
 				<h2>The ultimate color palette generator for designers & developers</h2>
 			</div>
 			<nav class="flex flex-row items-center justify-center gap-2">
-				<a class="button" href={STORE_URL} target="_blank">
-					Buy now
-				</a>
+				<a class="button" href={STORE_URL} target="_blank"> Buy now </a>
 				<a
 					class="button button--secondary"
 					href="https://github.com/fmaclen/chromabox#self-hosting"
