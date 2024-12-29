@@ -13,7 +13,10 @@ test.describe('Docs', () => {
 
 		await page.goto('/');
 		const colorBar = page.locator('.color');
-		for (const { color, index } of DEFAULT_COLOR_PALETTE.map((color, index) => ({ color, index }))) {
+		for (const { color, index } of DEFAULT_COLOR_PALETTE.map((color, index) => ({
+			color,
+			index
+		}))) {
 			await page.getByRole('button', { name: 'New color' }).click();
 			await colorBar.nth(index).getByLabel('HEX', { exact: true }).fill(color);
 			await colorBar.nth(index).getByLabel('HEX', { exact: true }).blur();
