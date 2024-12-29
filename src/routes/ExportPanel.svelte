@@ -6,7 +6,6 @@
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 	import EmptyMessage from '$lib/components/EmptyMessage.svelte';
-	import Field from '$lib/components/Field/Field.svelte';
 	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 
 	type Format = 'CSS' | 'SCSS' | 'Tailwind' | 'JSON';
@@ -82,21 +81,21 @@
 
 	<Divider />
 
-	<div class="export-panel__content">
+	<section class="export-panel__output">
 		{#if PUBLIC_IS_DEMO && ['CSS', 'SCSS', 'Tailwind'].includes(activeFormat)}
-			<EmptyMessage>
-				{activeFormat} export is available in the
-				<A href={STORE_URL}>full version</A>.
-			</EmptyMessage>
+			<section class="empty-section">
+				<EmptyMessage>
+					{activeFormat} export is only available in the
+					<A href={STORE_URL}>full version</A>.
+				</EmptyMessage>
+			</section>
 		{:else}
-			<div class="export-panel__code">
-				<pre class="export-panel__pre">{textToExport}</pre>
-				<div class="export-panel__copy">
-					<ButtonCopy content={textToExport} />
-				</div>
+			<pre class="export-panel__pre">{textToExport}</pre>
+			<div class="export-panel__copy">
+				<ButtonCopy content={textToExport} />
 			</div>
 		{/if}
-	</div>
+	</section>
 </aside>
 
 <style lang="postcss">
@@ -119,16 +118,12 @@
 		@apply flex gap-1.5 p-2.5;
 	}
 
-	.export-panel__content {
-		@apply box-border h-full p-2.5;
-	}
-
-	.export-panel__code {
-		@apply relative flex h-full flex-row overflow-y-auto rounded border;
+	.export-panel__output {
+		@apply relative box-border flex h-full flex-row overflow-y-auto rounded;
 	}
 
 	pre.export-panel__pre {
-		@apply absolute inset-0 w-full p-2 font-mono text-xs;
+		@apply absolute inset-0 w-full p-2.5 font-mono text-xs;
 	}
 
 	.export-panel__copy {
@@ -144,5 +139,9 @@
 
 	[role='tab'][aria-selected='true'] {
 		@apply bg-stone-900 text-stone-50;
+	}
+
+	.empty-section {
+		@apply absolute inset-0 flex items-center justify-center p-10;
 	}
 </style>

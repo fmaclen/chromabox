@@ -55,7 +55,10 @@
 			</nav>
 		</header>
 
-		<main class="main main--demo" style="height: {VIEWPORT_SIZE.height + TOP_BOTTOM_BORDERS_OFFSET}px;">
+		<main
+			class="main main--demo"
+			style="height: {VIEWPORT_SIZE.height + TOP_BOTTOM_BORDERS_OFFSET}px;"
+		>
 			{@render children()}
 		</main>
 

@@ -68,5 +68,6 @@
 
 	.empty-section {
 		@apply absolute inset-0 flex items-center justify-center;
+		@apply mr-80; /* HACK: offsets the width of ExportPanel */
 	}
 </style>
