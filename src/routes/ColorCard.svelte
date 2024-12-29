@@ -39,12 +39,17 @@
 >
 	<fieldset class="color__fieldset color__fieldset--row">
 		<Field>
+			<div class="swatch" style={`background-color: ${color.source.hex}`}></div>
 			<Field.Input
+				title="Token"
 				id={`color-token-${index}`}
 				placeholder={tokenNamePlaceholder}
 				bind:value={color.tokenName}
-			/>
-			<ButtonCopy content={color.tokenName} />
+			>
+				{#if color.tokenName}
+					<ButtonCopy content={color.tokenName} />
+				{/if}
+			</Field.Input>
 		</Field>
 	</fieldset>
 
@@ -60,8 +65,9 @@
 	<fieldset class="color__fieldset">
 		<Field>
 			<Field.Label id={`color-hex-${index}`}>HEX</Field.Label>
-			<Field.Input id={`color-hex-${index}`} value={color.source.hex} onblur={handleColorInput} />
-			<ButtonCopy content={color.source.hex} />
+			<Field.Input id={`color-hex-${index}`} value={color.source.hex} onblur={handleColorInput}>
+				<ButtonCopy content={color.source.hex} />
+			</Field.Input>
 		</Field>
 
 		<Field>
@@ -70,8 +76,9 @@
 				id={`color-rgb-${index}`}
 				value={color.source.rgbString}
 				onblur={handleColorInput}
-			/>
-			<ButtonCopy content={color.source.rgbString} />
+			>
+				<ButtonCopy content={color.source.rgbString} />
+			</Field.Input>
 		</Field>
 
 		<Field>
@@ -80,8 +87,9 @@
 				id={`color-hsl-${index}`}
 				value={color.source.hslString}
 				onblur={handleColorInput}
-			/>
-			<ButtonCopy content={color.source.hslString} />
+			>
+				<ButtonCopy content={color.source.hslString} />
+			</Field.Input>
 		</Field>
 	</fieldset>
 
@@ -89,7 +97,7 @@
 
 	<fieldset class="color__fieldset color__fieldset--row">
 		<Field>
-			<Field.Select placeholder="Easing" id={`color-easing-${index}`} bind:value={color.easingFn}>
+			<Field.Select title="Easing" id={`color-easing-${index}`} bind:value={color.easingFn}>
 				<option value="linear" selected>Linear</option>
 				<option value="quadInOut">Quad In Out</option>
 				<option value="quadIn">Quad In</option>
@@ -99,6 +107,7 @@
 
 		<Field>
 			<Field.Input
+				title="Steps"
 				placeholder="Steps"
 				type="number"
 				min={0}
@@ -150,8 +159,17 @@
 		@apply gap-0 p-0;
 	}
 
+	.swatch {
+		@apply h-8 w-1 rounded-sm;
+	}
+
 	.variant {
-		@apply flex flex-row items-center justify-between gap-2 p-2;
+		@apply flex flex-row items-center justify-between gap-2;
+		@apply -mx-[1px] px-[2px];
+	}
+
+	.variant__color {
+		@apply px-2 py-3 font-mono text-xs opacity-90;
 	}
 
 	.variant--dark {

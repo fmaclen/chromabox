@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
+
 	interface Props {
 		id: string;
 		value?: string | File | null | number;
@@ -10,6 +12,7 @@
 		min?: number;
 		onchange?: (e: Event) => void;
 		onblur?: (e: Event) => void;
+		children?: Snippet;
 	}
 
 	let {
@@ -22,26 +25,36 @@
 		id,
 		min,
 		onchange,
-		onblur
+		onblur,
+		children
 	}: Props = $props();
 </script>
 
-<input
-	bind:value
-	class="field-input"
-	{type}
-	{disabled}
-	{title}
-	{placeholder}
-	{required}
-	{id}
-	{min}
-	{onchange}
-	{onblur}
-/>
+<div class="field-input" {title}>
+	<input
+		bind:value
+		class="field-input__input"
+		{type}
+		{disabled}
+		{placeholder}
+		{required}
+		{id}
+		{min}
+		aria-label={title}
+		{onchange}
+		{onblur}
+	/>
+	{#if children}
+		{@render children()}
+	{/if}
+</div>
 
 <style lang="postcss">
 	.field-input {
-		@apply block w-full rounded border p-1.5 text-xs;
+		@apply flex w-full items-center rounded border outline-2 focus-within:outline;
+	}
+
+	.field-input__input {
+		@apply block w-full bg-transparent p-2 font-mono text-xs outline-none;
 	}
 </style>
