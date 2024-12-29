@@ -7,6 +7,7 @@
 		PUBLIC_PLAUSIBLE_DOMAIN,
 		PUBLIC_PLAUSIBLE_SRC
 	} from '$env/static/public';
+	import A from '$lib/components/A.svelte';
 	import { setPaletteContext } from '$lib/palette.svelte';
 
 	let { children } = $props();
@@ -59,9 +60,9 @@
 		<footer class="demo-footer">
 			<p>&copy; {new Date().getFullYear()} Chromabox</p>
 			<nav>
-				<a href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Gumroad</a>
-				<a href="https://github.com/fmaclen/chromabox" target="_blank">GitHub</a>
-				<a href="https://fernando.is" target="_blank">Contact</a>
+				<A href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Gumroad</A>
+				<A href="https://github.com/fmaclen/chromabox" target="_blank">GitHub</A>
+				<A href="https://fernando.is" target="_blank">Contact</A>
 			</nav>
 		</footer>
 	</div>
