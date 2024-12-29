@@ -111,12 +111,12 @@
 	}
 
 	.main {
-		@apply overflow-auto rounded-lg border;
+		@apply overflow-auto;
 		@apply flex h-full flex-col;
 	}
 
 	.main--demo {
-		@apply container mx-auto h-[1018px] overflow-hidden shadow-2xl;
+		@apply container mx-auto h-[1018px] overflow-hidden rounded-lg border shadow-2xl;
 	}
 
 	.demo-footer {
