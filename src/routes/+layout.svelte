@@ -1,6 +1,8 @@
 <script lang="ts">
 	import '../app.css';
 
+	import { VIEWPORT_SIZE } from '$lib';
+
 	import {
 		PUBLIC_IS_DEMO,
 		PUBLIC_PLAUSIBLE_API,
@@ -53,7 +55,7 @@
 			</nav>
 		</header>
 
-		<main class="main main--demo">
+		<main class="main main--demo" style="height: {VIEWPORT_SIZE.height}px;">
 			{@render children()}
 		</main>
 
@@ -116,7 +118,7 @@
 	}
 
 	.main--demo {
-		@apply container mx-auto h-[1018px] overflow-hidden rounded-lg border shadow-2xl;
+		@apply container mx-auto overflow-hidden rounded-lg border shadow-2xl;
 	}
 
 	.demo-footer {
