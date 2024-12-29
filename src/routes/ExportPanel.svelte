@@ -5,6 +5,7 @@
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 	import A from '$lib/components/A.svelte';
+	import EmptyMessage from '$lib/components/EmptyMessage.svelte';
 
 	type Format = 'CSS' | 'SCSS' | 'Tailwind' | 'JSON';
 
@@ -78,10 +79,10 @@
 
 	<div class="export-panel__content">
 		{#if PUBLIC_IS_DEMO && ['CSS', 'SCSS', 'Tailwind'].includes(activeFormat)}
-			<p class="export-panel__demo-message">
+			<EmptyMessage>
 				{activeFormat} export is available in the
 				<A href={STORE_URL}> full version </A>.
-			</p>
+			</EmptyMessage>
 		{:else}
 			<pre><code>{textToExport}</code></pre>
 			<ButtonCopy content={textToExport} />

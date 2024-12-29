@@ -6,6 +6,7 @@
 	import { getPaletteContext } from '$lib/palette.svelte';
 
 	import ColorCard from './ColorCard.svelte';
+	import EmptyMessage from '$lib/components/EmptyMessage.svelte';
 	import ExportPanel from './ExportPanel.svelte';
 	import Favicon from './Favicon.svelte';
 
@@ -39,7 +40,9 @@
 
 <div class="colors">
 	{#if !palette.colors.length}
-		<p class="empty" transition:fade={{ duration: 100 }}>No colors in the palette</p>
+		<section class="empty-section" transition:fade={{ duration: 100 }}>
+			<EmptyMessage>No colors in the palette</EmptyMessage>
+		</section>
 	{/if}
 	{#each palette.colors as color, index}
 		<ColorCard bind:color {index} />
@@ -57,7 +60,7 @@
 		@apply relative flex flex-grow flex-row overflow-auto;
 	}
 
-	.empty {
-		@apply absolute inset-0 flex items-center justify-center text-balance text-center opacity-50;
+	.empty-section {
+		@apply absolute inset-0 flex items-center justify-center;
 	}
 </style>
