@@ -1,6 +1,6 @@
 {
 	"name": "chromabox",
-	"version": "0.9.0",
+	"version": "0.11.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -10,8 +10,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
-		"test:e2e": "playwright test --grep-invert @demo",
-		"test:e2e:demo": "playwright test --config=playwright.config.demo.ts --grep @demo",
+		"test:e2e": "playwright test --trace on --grep-invert @demo",
+		"test:e2e:demo": "playwright test --config=playwright.config.demo.ts --trace on --grep @demo",
 		"test": "npm run test:e2e && npm run test:e2e:demo",
 		"electron": "vite build && electron .",
 		"electron:build": "vite build && electron-builder"
