@@ -6,6 +6,7 @@
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 	import EmptyMessage from '$lib/components/EmptyMessage.svelte';
+	import Field from '$lib/components/Field/Field.svelte';
 	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 
 	type Format = 'CSS' | 'SCSS' | 'Tailwind' | 'JSON';
@@ -88,15 +89,25 @@
 				<A href={STORE_URL}>full version</A>.
 			</EmptyMessage>
 		{:else}
-			<pre><code>{textToExport}</code></pre>
-			<ButtonCopy content={textToExport} />
+			<div class="export-panel__code">
+				<pre class="export-panel__pre">{textToExport}</pre>
+				<div class="export-panel__copy">
+					<ButtonCopy content={textToExport} />
+				</div>
+			</div>
 		{/if}
 	</div>
 </aside>
 
 <style lang="postcss">
 	.export-panel {
-		@apply sticky right-0 z-10 h-full border-l bg-white;
+		@apply sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-auto border-l bg-white;
+
+		/* Offsets the border of the last `ColorCard` */
+		@apply -ml-[1px];
+
+		/* HACK: h2, divider, tabs, divider, code */
+		@apply grid-rows-[max-content_max-content_max-content_max-content_auto];
 	}
 
 	h2.export-panel__title {
@@ -109,11 +120,19 @@
 	}
 
 	.export-panel__content {
-		@apply relative p-2.5;
+		@apply box-border h-full p-2.5;
 	}
 
-	pre {
-		@apply h-full overflow-x-auto border font-mono text-xs;
+	.export-panel__code {
+		@apply relative flex h-full flex-row overflow-y-auto rounded border;
+	}
+
+	pre.export-panel__pre {
+		@apply absolute inset-0 w-full p-2 font-mono text-xs;
+	}
+
+	.export-panel__copy {
+		@apply sticky right-0 top-0 ml-auto h-max;
 	}
 
 	button.button[role='tab'] {
