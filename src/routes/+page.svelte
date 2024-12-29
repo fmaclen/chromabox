@@ -38,26 +38,32 @@
 
 <Divider />
 
-<div class="colors">
-	{#if !palette.colors.length}
-		<section class="empty-section" transition:fade={{ duration: 100 }}>
-			<EmptyMessage>No colors in the palette</EmptyMessage>
-		</section>
-	{/if}
-	{#each palette.colors as color, index}
-		<ColorCard bind:color {index} />
-	{/each}
-</div>
+<div class="palette__colors-export">
+	<div class="colors">
+		{#if !palette.colors.length}
+			<section class="empty-section" transition:fade={{ duration: 100 }}>
+				<EmptyMessage>No colors in the palette</EmptyMessage>
+			</section>
+		{/if}
+		{#each palette.colors as color, index}
+			<ColorCard bind:color {index} />
+		{/each}
+	</div>
 
-<ExportPanel />
+	<ExportPanel />
+</div>
 
 <style lang="postcss">
 	.palette {
 		@apply flex gap-1.5 p-2.5;
 	}
 
+	.palette__colors-export {
+		@apply relative flex flex-grow flex-row overflow-auto h-full;
+	}
+
 	.colors {
-		@apply relative flex flex-grow flex-row overflow-auto;
+		@apply flex flex-grow flex-row;
 	}
 
 	.empty-section {

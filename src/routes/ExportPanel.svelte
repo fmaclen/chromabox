@@ -4,6 +4,7 @@
 	import { PUBLIC_IS_DEMO } from '$env/static/public';
 	import A from '$lib/components/A.svelte';
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
+	import Divider from '$lib/components/Divider.svelte';
 	import EmptyMessage from '$lib/components/EmptyMessage.svelte';
 	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 
@@ -63,6 +64,7 @@
 
 <aside class="export-panel">
 	<h2 class="export-panel__title">Export Palette</h2>
+	<Divider />
 
 	<div role="tablist" class="export-panel__tabs">
 		{#each formats as format}
@@ -77,6 +79,8 @@
 		{/each}
 	</div>
 
+	<Divider />
+
 	<div class="export-panel__content">
 		{#if PUBLIC_IS_DEMO && ['CSS', 'SCSS', 'Tailwind'].includes(activeFormat)}
 			<EmptyMessage>
@@ -90,45 +94,36 @@
 	</div>
 </aside>
 
-<style>
+<style lang="postcss">
 	.export-panel {
-		position: fixed;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		width: 300px;
-		background: white;
-		border-left: 1px solid rgba(0, 0, 0, 0.1);
-		padding: 20px;
-		overflow-y: auto;
+		@apply sticky right-0 z-10 h-full border-l bg-white;
 	}
 
-	.export-panel__title {
-		margin-bottom: 20px;
+	h2.export-panel__title {
+		@apply flex items-center gap-1.5 px-2.5 font-bold tracking-tight;
+		@apply h-[50px]; /* Aligned with the first row in `ColorCard` */
 	}
 
 	.export-panel__tabs {
-		display: flex;
-		gap: 5px;
-		margin-bottom: 20px;
+		@apply flex gap-1.5 p-2.5;
 	}
 
 	.export-panel__content {
-		position: relative;
-	}
-
-	.export-panel__demo-message {
-		margin-bottom: 20px;
+		@apply relative p-2.5;
 	}
 
 	pre {
-		background: #f5f5f5;
-		padding: 10px;
-		border-radius: 5px;
-		overflow-x: auto;
+		@apply h-full overflow-x-auto border font-mono text-xs;
+	}
+
+	button.button[role='tab'] {
+		@apply flex cursor-pointer items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-semibold tracking-tight;
+		@apply disabled:cursor-not-allowed disabled:opacity-50;
+		@apply active:scale-90;
+		@apply transition-all duration-100;
 	}
 
 	[role='tab'][aria-selected='true'] {
-		background: #f5f5f5;
+		@apply bg-stone-900 text-stone-50;
 	}
 </style>
