@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
+
 	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 	import { getPaletteContext } from '$lib/palette.svelte';
@@ -36,6 +38,9 @@
 <Divider />
 
 <div class="colors">
+	{#if !palette.colors.length}
+		<p class="empty" transition:fade={{ duration: 100 }}>No colors in the palette</p>
+	{/if}
 	{#each palette.colors as color, index}
 		<ColorCard bind:color {index} />
 	{/each}
@@ -49,6 +54,10 @@
 	}
 
 	.colors {
-		@apply flex flex-grow flex-row overflow-auto;
+		@apply relative flex flex-grow flex-row overflow-auto;
+	}
+
+	.empty {
+		@apply absolute inset-0 flex items-center justify-center text-balance text-center opacity-50;
 	}
 </style>

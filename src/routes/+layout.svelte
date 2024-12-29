@@ -1,12 +1,15 @@
 <script lang="ts">
 	import '../app.css';
 
+	import { STORE_URL, VIEWPORT_SIZE } from '$lib';
+
 	import {
 		PUBLIC_IS_DEMO,
 		PUBLIC_PLAUSIBLE_API,
 		PUBLIC_PLAUSIBLE_DOMAIN,
 		PUBLIC_PLAUSIBLE_SRC
 	} from '$env/static/public';
+	import A from '$lib/components/A.svelte';
 	import { setPaletteContext } from '$lib/palette.svelte';
 
 	let { children } = $props();
@@ -39,9 +42,7 @@
 				<h2>The ultimate color palette generator for designers & developers</h2>
 			</div>
 			<nav class="flex flex-row items-center justify-center gap-2">
-				<a class="button" href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">
-					Buy now
-				</a>
+				<a class="button" href={STORE_URL} target="_blank"> Buy now </a>
 				<a
 					class="button button--secondary"
 					href="https://github.com/fmaclen/chromabox#self-hosting"
@@ -52,16 +53,16 @@
 			</nav>
 		</header>
 
-		<main class="main main--demo">
+		<main class="main main--demo" style="height: {VIEWPORT_SIZE.height}px;">
 			{@render children()}
 		</main>
 
 		<footer class="demo-footer">
 			<p>&copy; {new Date().getFullYear()} Chromabox</p>
 			<nav>
-				<a href="https://fmaclen.gumroad.com/l/chromabox" target="_blank">Gumroad</a>
-				<a href="https://github.com/fmaclen/chromabox" target="_blank">GitHub</a>
-				<a href="https://fernando.is" target="_blank">Contact</a>
+				<A href={STORE_URL} target="_blank">Gumroad</A>
+				<A href="https://github.com/fmaclen/chromabox" target="_blank">GitHub</A>
+				<A href="https://fernando.is" target="_blank">Contact</A>
 			</nav>
 		</footer>
 	</div>
@@ -110,12 +111,12 @@
 	}
 
 	.main {
-		@apply overflow-auto rounded-lg border;
+		@apply overflow-auto;
 		@apply flex h-full flex-col;
 	}
 
 	.main--demo {
-		@apply container mx-auto h-[1018px] overflow-hidden shadow-2xl;
+		@apply container mx-auto overflow-hidden rounded-lg border shadow-2xl;
 	}
 
 	.demo-footer {
