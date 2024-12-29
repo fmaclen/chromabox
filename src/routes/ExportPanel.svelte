@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { STORE_URL } from '$lib';
+
 	import { PUBLIC_IS_DEMO } from '$env/static/public';
 	import ButtonCopy from '$lib/components/ButtonCopy.svelte';
 	import { getPaletteContext, type Color } from '$lib/palette.svelte';
+	import A from '$lib/components/A.svelte';
 
 	type Format = 'CSS' | 'SCSS' | 'Tailwind' | 'JSON';
 
@@ -77,9 +80,7 @@
 		{#if PUBLIC_IS_DEMO && ['CSS', 'SCSS', 'Tailwind'].includes(activeFormat)}
 			<p class="export-panel__demo-message">
 				{activeFormat} export is available in the
-				<a class="export-panel__demo-link" href="https://fmaclen.gumroad.com/l/chromabox">
-					full version
-				</a>.
+				<A href={STORE_URL}> full version </A>.
 			</p>
 		{:else}
 			<pre><code>{textToExport}</code></pre>
@@ -117,10 +118,6 @@
 
 	.export-panel__demo-message {
 		margin-bottom: 20px;
-	}
-
-	.export-panel__demo-link {
-		color: #0066b9;
 	}
 
 	pre {
