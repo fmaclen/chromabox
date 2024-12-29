@@ -8,6 +8,8 @@ Designed for front-end developers and code-inclined designers.
 - 🖥️ Download for [macOS, Windows & Linux](https://fmaclen.gumroad.com/l/chromabox)
 - 🐳 [Self-hosting](#self-hosting)
 
+---
+
 ![Chromabox screenshot](e2e/docs.test.ts-snapshots/palette-darwin.png)
 
 ## Self-hosting
