@@ -63,21 +63,22 @@
 </script>
 
 <aside class="export-panel">
-	<h2 class="export-panel__title">Export palette</h2>
-	<Divider />
+	<nav class="export-panel__nav">
+		<h2 class="export-panel__title">Export</h2>
 
-	<div role="tablist" class="export-panel__tabs">
-		{#each formats as format}
-			<button
-				class="button"
-				role="tab"
-				aria-selected={activeFormat === format}
-				onclick={() => (activeFormat = format)}
-			>
-				{format}
-			</button>
-		{/each}
-	</div>
+		<div role="tablist" class="export-panel__tabs">
+			{#each formats as format}
+				<button
+					class="button"
+					role="tab"
+					aria-selected={activeFormat === format}
+					onclick={() => (activeFormat = format)}
+				>
+					{format}
+				</button>
+			{/each}
+		</div>
+	</nav>
 
 	<Divider />
 
@@ -104,30 +105,35 @@
 
 <style lang="postcss">
 	.export-panel {
-		@apply sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-auto border-l bg-chromeo-100;
+		@apply bg-chromeo-100 sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-auto border-l;
 
 		/* Offsets the border of the last `ColorCard` */
 		@apply -ml-[1px];
 
 		/* HACK: h2, divider, tabs, divider, code */
-		@apply grid-rows-[max-content_max-content_max-content_max-content_auto];
+		@apply grid-rows-[max-content_max-content_auto];
+	}
+
+	nav.export-panel__nav {
+		@apply flex items-center py-2 px-2.5 gap-2;
 	}
 
 	h2.export-panel__title {
-		@apply flex items-center gap-1.5 px-2.5 font-bold tracking-tight;
-		@apply h-[48px]; /* Aligned with the first row in `ColorCard` */
+		@apply text-xs font-medium tracking-wide opacity-60;
+		/* @apply flex items-center gap-1.5 px-2.5 font-bold tracking-tight; */
+		/* @apply h-[48px]; Aligned with the first row in `ColorCard` */
 	}
 
 	.export-panel__tabs {
-		@apply flex gap-1.5 p-2.5;
+		@apply flex p-1 bg-chromeo-300 w-full justify-evenly rounded-md;
 	}
 
 	.export-panel__output {
-		@apply relative box-border flex h-full flex-row overflow-y-auto rounded bg-chromeo-200;
+		@apply relative box-border flex h-full flex-row overflow-y-auto;
 	}
 
 	pre.export-panel__pre {
-		@apply absolute inset-0 w-full p-2.5 font-mono text-xs;
+		@apply absolute inset-0 w-full p-2 font-mono text-xs;
 	}
 
 	.export-panel__copy {
@@ -135,7 +141,7 @@
 	}
 
 	button.button[role='tab'] {
-		@apply flex cursor-pointer items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-semibold tracking-tight;
+		@apply flex cursor-pointer items-center gap-2 rounded p-1 text-xs font-semibold tracking-tight flex-grow justify-center;
 		@apply disabled:cursor-not-allowed disabled:opacity-50;
 		@apply active:scale-90;
 		@apply transition-all duration-100;

@@ -116,7 +116,7 @@
 	}
 
 	.main {
-		@apply overflow-auto bg-chromeo-300;
+		@apply overflow-auto;
 		@apply flex h-full flex-col;
 	}
 

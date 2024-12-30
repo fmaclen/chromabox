@@ -17,6 +17,6 @@
 
 <style lang="postcss">
 	.field-label {
-		@apply min-w-[6ch] text-xs font-medium tracking-wide opacity-50;
+		@apply min-w-[6ch] text-xs font-medium tracking-wide opacity-60;
 	}
 </style>
