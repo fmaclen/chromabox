@@ -86,7 +86,7 @@
 			<section class="empty-section">
 				<EmptyMessage>
 					{activeFormat} export is only available in the
-					<A href={STORE_URL}>full version</A>.
+					<A href={STORE_URL} target="_blank">full version</A>.
 				</EmptyMessage>
 			</section>
 		{:else}
