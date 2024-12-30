@@ -3,32 +3,33 @@
 @import 'tailwindcss/utilities';
 
 :root {
-  --chromeo-50: 254 254 254;
-  --chromeo-100: 250 250 250;
-  --chromeo-200: 245 245 245;
-  --chromeo-300: 237 237 237;
-  --chromeo-400: 227 227 227;
-  --chromeo-500: 214 214 214;
-  --chromeo-600: 199 199 199;
-  --chromeo-700: 182 182 182;
-  --chromeo-800: 163 163 163;
-  --chromeo-900: 142 142 142;
+	--chromeo-50: 0 0% 99%;
+	--chromeo-100: 0 0% 98%;
+	--chromeo-200: 0 0% 95%;
+	--chromeo-300: 0 0% 91%;
+	--chromeo-400: 0 0% 85%;
+	--chromeo-500: 0 0% 79%;
+	--chromeo-600: 0 0% 30%;
+	--chromeo-700: 0 0% 20%;
+	--chromeo-800: 0 0% 15%;
+	--chromeo-900: 0 0% 12%;
+	--chromeo-950: 0 0% 10%;
 }
 
 html.dark {
-  --chromeo-50: 5 5 5;
-  --chromeo-100: 10 10 10;
-  --chromeo-200: 18 18 18;
-  --chromeo-300: 41 41 41;
-  --chromeo-400: 56 56 56;
-  --chromeo-500: 73 73 73;
-  --chromeo-600: 89 89 89;
-  --chromeo-700: 113 113 113;
-  --chromeo-800: 150 150 150;
-  --chromeo-900: 200 200 200;
-  --chromeo-950: 235 235 235;
+	--chromeo-50: 0 0% 10%;
+	--chromeo-100: 0 0% 12%;
+	--chromeo-200: 0 0% 15%;
+	--chromeo-300: 0 0% 20%;
+	--chromeo-400: 0 0% 30%;
+	--chromeo-500: 0 0% 40%;
+	--chromeo-600: 0 0% 50%;
+	--chromeo-700: 0 0% 60%;
+	--chromeo-800: 0 0% 70%;
+	--chromeo-900: 0 0% 80%;
+	--chromeo-950: 0 0% 90%;
 }
 
 body.body {
-  @apply bg-chromeo-400 text-chromeo-800;
+	@apply bg-chromeo-400 text-chromeo-800;
 }

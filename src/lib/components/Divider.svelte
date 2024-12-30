@@ -2,6 +2,6 @@
 
 <style lang="postcss">
 	.divider {
-		@apply border-b border-t-0 border-chromeo-400;
+		@apply border-b border-t-0;
 	}
 </style>

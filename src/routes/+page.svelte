@@ -47,7 +47,7 @@
 
 <style lang="postcss">
 	.palette {
-		@apply flex gap-1.5 p-2.5 bg-chromeo-100;
+		@apply flex gap-1.5 bg-chromeo-100 p-2.5;
 	}
 
 	.colors {
