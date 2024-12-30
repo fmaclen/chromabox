@@ -104,7 +104,7 @@
 
 <style lang="postcss">
 	.export-panel {
-		@apply sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-auto border-l bg-white;
+		@apply sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-auto border-l bg-chromeo-100;
 
 		/* Offsets the border of the last `ColorCard` */
 		@apply -ml-[1px];
@@ -115,7 +115,7 @@
 
 	h2.export-panel__title {
 		@apply flex items-center gap-1.5 px-2.5 font-bold tracking-tight;
-		@apply h-[50px]; /* Aligned with the first row in `ColorCard` */
+		@apply h-[48px]; /* Aligned with the first row in `ColorCard` */
 	}
 
 	.export-panel__tabs {
@@ -123,7 +123,7 @@
 	}
 
 	.export-panel__output {
-		@apply relative box-border flex h-full flex-row overflow-y-auto rounded;
+		@apply relative box-border flex h-full flex-row overflow-y-auto rounded bg-chromeo-200;
 	}
 
 	pre.export-panel__pre {
@@ -142,7 +142,7 @@
 	}
 
 	[role='tab'][aria-selected='true'] {
-		@apply bg-stone-900 text-stone-50;
+		@apply bg-chromeo-900 text-chromeo-50;
 	}
 
 	.empty-section {
