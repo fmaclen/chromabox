@@ -51,12 +51,12 @@ export class Palette {
 		return colord(colorString).isValid();
 	}
 
-	hslToColor(hsl: { h: number; s: number; l: number }): Color {
-		return this.colordToColor(colord({ ...hsl }));
+	updateColorVariants(color: Color) {
+		color.variants = this.generateVariants(color.source, color.steps, color.easingFn);
 	}
 
-	updateColorVariants(color: Color) {
-		color.variants = this.generateVariants(color);
+	private hslToSwatch(hsl: { h: number; s: number; l: number }): Swatch {
+		return this.colordToSwatch(colord({ ...hsl }));
 	}
 
 	private colordToSwatch(colord: Colord): Swatch {
@@ -71,31 +71,34 @@ export class Palette {
 	}
 
 	private colordToColor(colord: Colord): Color {
+		const swatch = this.colordToSwatch(colord);
+		const steps = 12;
+		const easingFn = 'linear';
 		return {
-			source: this.colordToSwatch(colord),
-			easingFn: 'linear',
-			steps: 12,
-			variants: [],
+			source: swatch,
+			easingFn,
+			steps,
+			variants: this.generateVariants(swatch, steps, easingFn),
 			tokenName: ''
 		};
 	}
 
-	private generateVariants(color: Color): Swatch[] {
+	private generateVariants(swatch: Swatch, steps: number, easingFn: string): Swatch[] {
 		const colorVariants: Swatch[] = [];
-		const { h, s } = color.source.hsl;
+		const { h, s } = swatch.hsl;
 
 		const MIN_LIGHTNESS = 0;
 		const MAX_LIGHTNESS = 100;
 		const range = MAX_LIGHTNESS - MIN_LIGHTNESS;
 
-		for (let i = 0; i < color.steps; i++) {
-			const progress = i / (color.steps - 1);
-			const easedProgress = easingFns[color.easingFn as keyof typeof easingFns](progress);
+		for (let i = 0; i < steps; i++) {
+			const progress = i / (steps - 1);
+			const easedProgress = easingFns[easingFn as keyof typeof easingFns](progress);
 			const rangePercentage = range * (1 - easedProgress);
 			const lightness = MIN_LIGHTNESS + rangePercentage;
 
-			const variant = this.hslToColor({ h, s, l: lightness });
-			colorVariants.push(variant.source);
+			const variant = this.hslToSwatch({ h, s, l: lightness });
+			colorVariants.push(variant);
 		}
 
 		return colorVariants;
