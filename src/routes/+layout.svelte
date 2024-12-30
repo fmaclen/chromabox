@@ -87,11 +87,11 @@
 		@apply container mx-auto my-32 flex flex-col items-center gap-16 text-center;
 
 		h1 {
-			@apply text-6xl font-bold tracking-tighter;
+			@apply text-6xl font-bold tracking-tighter text-themed-950;
 		}
 
 		h2 {
-			@apply text-balance text-2xl font-light tracking-wider;
+			@apply text-balance text-2xl font-light tracking-wider text-themed-950/75;
 		}
 	}
 
@@ -100,14 +100,14 @@
 	}
 
 	.button {
-		@apply rounded-md bg-themed-900 px-8 py-3 text-lg font-semibold text-themed-50 shadow;
+		@apply rounded-md bg-themed-950 px-8 py-3 text-lg font-semibold text-themed-50 shadow;
 		@apply hover:scale-105 hover:shadow-lg;
 		@apply active:scale-95 active:shadow-none;
 		@apply transition-all duration-100;
 	}
 
 	.button--secondary {
-		@apply border border-themed-900 bg-transparent text-themed-900;
+		@apply border border-themed-700 bg-transparent text-themed-950;
 	}
 
 	.main {

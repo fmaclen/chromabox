@@ -16,7 +16,8 @@ export default {
           600: 'rgb(var(--themed-600) / <alpha-value>)',
           700: 'rgb(var(--themed-700) / <alpha-value>)',
           800: 'rgb(var(--themed-800) / <alpha-value>)',
-          900: 'rgb(var(--themed-900) / <alpha-value>)'
+          900: 'rgb(var(--themed-900) / <alpha-value>)',
+          950: 'rgb(var(--themed-950) / <alpha-value>)'
         }
       }
     },
