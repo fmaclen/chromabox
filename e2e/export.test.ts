@@ -168,4 +168,14 @@ test.describe('Export palette', () => {
 		expect(clipboardText).not.toContain('--red-5');
 		expect(clipboardText).not.toContain('--red-0: #ff0000');
 	});
+
+	test('should show empty message when no colors in palette', async ({ page }) => {
+		await page.goto('/');
+		const exportPanel = page.locator('aside.export-panel');
+		await expect(exportPanel).toBeVisible();
+		await expect(exportPanel.getByText('No color variants to be exported')).toBeVisible();
+
+		await page.getByRole('button', { name: 'New color' }).click();
+		await expect(exportPanel.getByText('No color variants to be exported')).not.toBeVisible();
+	});
 });
