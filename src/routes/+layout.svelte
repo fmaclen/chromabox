@@ -116,7 +116,7 @@
 	}
 
 	.main--demo {
-		@apply container mx-auto overflow-hidden rounded-lg border shadow-2xl;
+		@apply container mx-auto overflow-hidden rounded-lg shadow-2xl;
 	}
 
 	.demo-footer {
