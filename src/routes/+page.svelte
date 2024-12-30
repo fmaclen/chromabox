@@ -84,7 +84,7 @@
 
 <style lang="postcss">
 	.toolbar {
-		@apply bg-chromeo-100 flex justify-between gap-2.5 p-2.5;
+		@apply flex justify-between gap-2.5 bg-chromeo-100 p-2.5;
 	}
 
 	.toolbar__nav {
