@@ -51,8 +51,8 @@
 
 <style lang="postcss">
 	.field-input {
-		@apply bg-themed-300 flex w-full items-center rounded outline-2;
-		@apply focus-within:bg-themed-50 focus-within:outline;
+		@apply bg-chromeo-300 flex w-full items-center rounded outline-2;
+		@apply focus-within:bg-chromeo-50 focus-within:outline;
 	}
 
 	.field-input__input {

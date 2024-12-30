@@ -140,7 +140,7 @@
 		/* These are the styles of the ColorPicker component */
 
 		:global(.color-picker > *) {
-			@apply bg-themed-100 rounded-none;
+			@apply bg-chromeo-100 rounded-none;
 		}
 
 		:global(.color-picker .wrapper) {
@@ -153,7 +153,7 @@
 	}
 
 	fieldset.color__fieldset {
-		@apply bg-themed-100 m-0 flex flex-col gap-1 border-none p-2;
+		@apply bg-chromeo-100 m-0 flex flex-col gap-1 border-none p-2;
 	}
 
 	fieldset.color__fieldset--row {
