@@ -79,7 +79,7 @@ test.describe('Export palette', () => {
 		await secondColor.getByRole('textbox').first().fill('secondary');
 
 		await page.getByRole('tab', { name: 'CSS', exact: true }).click();
-		const cssContent = await page.getByRole('code').textContent();
+		const cssContent = await page.locator('pre.export-panel__pre').textContent();
 		expect(cssContent).toContain('--primary-0: #ffffff');
 		expect(cssContent).toContain('--primary-1: #dfdfff');
 		expect(cssContent).toContain('--primary-2: #8080ff');
@@ -105,7 +105,7 @@ test.describe('Export palette', () => {
 		await page.getByLabel('HEX', { exact: true }).fill('#ff0000');
 		await page.getByLabel('Steps').fill('3');
 
-		const cssContent = await page.getByRole('code').textContent();
+		const cssContent = await page.locator('pre.export-panel__pre').textContent();
 		expect(cssContent).toContain('--red-0: #ffffff;');
 		expect(cssContent).toContain('--red-1: #ff0000;');
 		expect(cssContent).toContain('--red-2: #000000;');
@@ -115,7 +115,7 @@ test.describe('Export palette', () => {
 
 		// Check SCSS format
 		await page.getByRole('tab', { name: 'SCSS', exact: true }).click();
-		const scssContent = await page.getByRole('code').textContent();
+		const scssContent = await page.locator('pre.export-panel__pre').textContent();
 		expect(scssContent).toContain('$red-0: #ffffff;');
 		expect(scssContent).toContain('$red-1: #ff0000;');
 		expect(scssContent).toContain('$red-2: #000000;');
@@ -125,7 +125,7 @@ test.describe('Export palette', () => {
 
 		// Check Tailwind format
 		await page.getByRole('tab', { name: 'Tailwind' }).click();
-		const tailwindContent = await page.getByRole('code').textContent();
+		const tailwindContent = await page.locator('pre.export-panel__pre').textContent();
 		expect(tailwindContent).toContain('module.exports = {');
 		expect(tailwindContent).toContain('"red-0": "#ffffff"');
 		expect(tailwindContent).toContain('"red-1": "#ff0000"');
@@ -136,7 +136,7 @@ test.describe('Export palette', () => {
 
 		// Check JSON format
 		await page.getByRole('tab', { name: 'JSON' }).click();
-		const jsonContent = await page.getByRole('code').textContent();
+		const jsonContent = await page.locator('pre.export-panel__pre').textContent();
 		expect(jsonContent).toContain('"red-0": "#ffffff",');
 		expect(jsonContent).toContain('"red-1": "#ff0000",');
 		expect(jsonContent).toContain('"red-2": "#000000",');
