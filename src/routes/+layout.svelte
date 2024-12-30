@@ -100,18 +100,18 @@
 	}
 
 	.button {
-		@apply rounded-md bg-stone-900 px-8 py-3 text-lg font-semibold text-stone-50 shadow;
+		@apply rounded-md bg-themed-900 px-8 py-3 text-lg font-semibold text-themed-50 shadow;
 		@apply hover:scale-105 hover:shadow-lg;
 		@apply active:scale-95 active:shadow-none;
 		@apply transition-all duration-100;
 	}
 
 	.button--secondary {
-		@apply border border-stone-900/25 bg-transparent text-stone-900;
+		@apply border border-themed-900 bg-transparent text-themed-900;
 	}
 
 	.main {
-		@apply overflow-auto;
+		@apply overflow-auto bg-themed-300;
 		@apply flex h-full flex-col;
 	}
 

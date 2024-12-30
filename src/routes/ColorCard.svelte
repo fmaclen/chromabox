@@ -138,6 +138,11 @@
 		@apply w-min border-r;
 
 		/* These are the styles of the ColorPicker component */
+
+		:global(.color-picker > *) {
+			@apply bg-themed-100 rounded-none;
+		}
+
 		:global(.color-picker .wrapper) {
 			@apply m-0 border-none p-2;
 		}
@@ -148,7 +153,7 @@
 	}
 
 	fieldset.color__fieldset {
-		@apply m-0 flex flex-col gap-1 border-none p-2;
+		@apply bg-themed-100 m-0 flex flex-col gap-1 border-none p-2;
 	}
 
 	fieldset.color__fieldset--row {
