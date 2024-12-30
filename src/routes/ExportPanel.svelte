@@ -12,7 +12,7 @@
 
 	const palette = getPaletteContext();
 
-	let activeFormat = $state<Format>('CSS');
+	let activeFormat = $state<Format>(PUBLIC_IS_DEMO ? 'JSON' : 'CSS');
 	let textToExport = $state<string>('');
 
 	$effect(() => {
