@@ -12,6 +12,8 @@
 	import A from '$lib/components/A.svelte';
 	import { setPaletteContext } from '$lib/palette.svelte';
 
+	const TOP_BOTTOM_BORDERS_OFFSET = 2;
+
 	let { children } = $props();
 
 	setPaletteContext();
@@ -53,7 +55,10 @@
 			</nav>
 		</header>
 
-		<main class="main main--demo" style="height: {VIEWPORT_SIZE.height}px;">
+		<main
+			class="main main--demo"
+			style="height: {VIEWPORT_SIZE.height + TOP_BOTTOM_BORDERS_OFFSET}px;"
+		>
 			{@render children()}
 		</main>
 

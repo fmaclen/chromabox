@@ -3,9 +3,11 @@
 
 	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/Divider.svelte';
+	import EmptyMessage from '$lib/components/EmptyMessage.svelte';
 	import { getPaletteContext } from '$lib/palette.svelte';
 
 	import ColorCard from './ColorCard.svelte';
+	import ExportPanel from './ExportPanel.svelte';
 	import Favicon from './Favicon.svelte';
 
 	const palette = getPaletteContext();
@@ -36,13 +38,19 @@
 
 <Divider />
 
-<div class="colors">
-	{#if !palette.colors.length}
-		<p class="empty" transition:fade={{ duration: 100 }}>No colors in the palette</p>
-	{/if}
-	{#each palette.colors as color, index}
-		<ColorCard bind:color {index} />
-	{/each}
+<div class="palette__colors-export">
+	<div class="colors">
+		{#if !palette.colors.length}
+			<section class="empty-section" transition:fade={{ duration: 100 }}>
+				<EmptyMessage>No colors in the palette</EmptyMessage>
+			</section>
+		{/if}
+		{#each palette.colors as color, index}
+			<ColorCard bind:color {index} />
+		{/each}
+	</div>
+
+	<ExportPanel />
 </div>
 
 <style lang="postcss">
@@ -50,11 +58,16 @@
 		@apply flex gap-1.5 p-2.5;
 	}
 
-	.colors {
-		@apply relative flex flex-grow flex-row overflow-auto;
+	.palette__colors-export {
+		@apply relative flex h-full flex-grow flex-row overflow-auto;
 	}
 
-	.empty {
-		@apply absolute inset-0 flex items-center justify-center text-balance text-center opacity-50;
+	.colors {
+		@apply flex flex-grow flex-row;
+	}
+
+	.empty-section {
+		@apply absolute inset-0 flex items-center justify-center;
+		@apply mr-80; /* HACK: offsets the width of ExportPanel */
 	}
 </style>
