@@ -13,6 +13,7 @@
 	const palette = getPaletteContext();
 
 	let theme = $state<'light' | 'dark'>('dark');
+	const hasNoColors = $derived(!palette.colors.length);
 
 	function toggleTheme() {
 		theme = theme === 'light' ? 'dark' : 'light';
@@ -24,7 +25,7 @@
 
 <div class="toolbar">
 	<nav class="toolbar__nav">
-		<Button title="New color" onclick={() => palette.newColor()}>
+		<Button title="New color" variant={hasNoColors ? 'primary' : undefined} onclick={() => palette.newColor()}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24">
 				<path
 					fill="currentColor"
@@ -69,7 +70,7 @@
 
 <div class="palette__colors-export">
 	<div class="colors">
-		{#if !palette.colors.length}
+		{#if hasNoColors}
 			<section class="empty-section" transition:fade={{ duration: 100 }}>
 				<EmptyMessage>No colors in the palette</EmptyMessage>
 			</section>

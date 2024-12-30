@@ -18,6 +18,9 @@ export default {
 					800: 'hsl(var(--chromeo-800) / <alpha-value>)',
 					900: 'hsl(var(--chromeo-900) / <alpha-value>)',
 					950: 'hsl(var(--chromeo-950) / <alpha-value>)'
+				},
+				accent: {
+					DEFAULT: 'hsl(var(--accent) / <alpha-value>)'
 				}
 			}
 		},

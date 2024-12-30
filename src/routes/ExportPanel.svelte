@@ -148,7 +148,7 @@
 	}
 
 	[role='tab'][aria-selected='true'] {
-		@apply bg-chromeo-900 text-chromeo-50;
+		@apply bg-chromeo-950 text-chromeo-50;
 	}
 
 	.empty-section {
