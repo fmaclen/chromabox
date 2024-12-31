@@ -10,7 +10,7 @@
 	import EmptyMessage from '$lib/components/EmptyMessage.svelte';
 	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 
-	type Format = 'CSS' | 'SCSS' | 'Tailwind' | 'JSON';
+	type Format = 'Tailwind' | 'CSS' | 'SCSS' | 'JSON';
 
 	const palette = getPaletteContext();
 
@@ -21,16 +21,16 @@
 		textToExport = formatExport(palette.colors);
 	});
 
-	const formats: Format[] = ['CSS', 'SCSS', 'Tailwind', 'JSON'];
+	const formats: Format[] = ['Tailwind', 'CSS', 'SCSS', 'JSON'];
 
 	function formatVariant(tokenName: string, variantIndex: number, hex: string) {
 		switch (activeFormat) {
+			case 'Tailwind':
+				return `        "${tokenName}-${variantIndex}": "${hex}",`;
 			case 'CSS':
 				return `--${tokenName}-${variantIndex}: ${hex};`;
 			case 'SCSS':
 				return `$${tokenName}-${variantIndex}: ${hex};`;
-			case 'Tailwind':
-				return `        "${tokenName}-${variantIndex}": "${hex}",`;
 			case 'JSON':
 				return `  "${tokenName}-${variantIndex}": "${hex}",`;
 		}
@@ -70,8 +70,6 @@
 	out:fade={{ duration: 75 }}
 >
 	<nav class="export-panel__nav">
-		<h2 class="export-panel__title">Export</h2>
-
 		<div role="tablist" class="export-panel__tabs">
 			{#each formats as format}
 				<button
@@ -117,17 +115,11 @@
 	}
 
 	nav.export-panel__nav {
-		@apply flex items-center gap-2 px-2.5 py-2;
-	}
-
-	h2.export-panel__title {
-		@apply text-xs font-medium tracking-wide opacity-60;
-		/* @apply flex items-center gap-1.5 px-2.5 font-bold tracking-tight; */
-		/* @apply h-[48px]; Aligned with the first row in `ColorCard` */
+		@apply flex items-center gap-2;
 	}
 
 	.export-panel__tabs {
-		@apply flex w-full justify-evenly rounded-md bg-chromeo-300 p-1;
+		@apply flex w-full justify-evenly;
 	}
 
 	.export-panel__output {
@@ -143,14 +135,15 @@
 	}
 
 	button.button[role='tab'] {
-		@apply flex flex-grow cursor-pointer items-center justify-center gap-2 rounded p-1 text-xs font-semibold tracking-tight;
+		@apply flex flex-grow cursor-pointer items-center justify-center gap-2 border-y-2 border-y-transparent bg-chromeo-200 p-1 text-xs font-semibold tracking-tight;
+		@apply p-2;
 		@apply disabled:cursor-not-allowed disabled:opacity-50;
 		@apply active:scale-90;
 		@apply transition-all duration-100;
 	}
 
-	[role='tab'][aria-selected='true'] {
-		@apply bg-chromeo-950 text-chromeo-50;
+	button.button[role='tab'][aria-selected='true'] {
+		@apply z-10 -my-0.5 border-b-2 border-b-accent bg-chromeo-50 text-accent;
 	}
 
 	.empty-section {
