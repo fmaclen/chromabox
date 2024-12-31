@@ -260,6 +260,20 @@ test.describe('Color card', () => {
 		await expect(variants.last()).toHaveAttribute('style', /background-color: #9f6060/);
 	});
 
+	test('should reverse variants range', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+		const variants = page.locator('.variant');
+		const reverseButton = page.getByRole('button', { name: 'Reverse' });
+		await expect(variants.first()).toHaveAttribute('style', /background-color: #ffffff/);
+		await expect(variants.last()).toHaveAttribute('style', /background-color: #000000/);
+
+		await reverseButton.click();
+		await expect(variants.first()).toHaveAttribute('style', /background-color: #000000/);
+		await expect(variants.last()).toHaveAttribute('style', /background-color: #ffffff/);
+		await expect(variants.first()).not.toHaveAttribute('style', /background-color: #ffffff/);
+		await expect(variants.last()).not.toHaveAttribute('style', /background-color: #000000/);
+	});
+
 	test('should remove multiple colors when clicking Reset', async ({ page }) => {
 		const newColorButton = page.getByRole('button', { name: 'New color' });
 		const resetButton = page.getByRole('button', { name: 'Reset' });
