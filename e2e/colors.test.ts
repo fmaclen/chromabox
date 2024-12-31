@@ -227,7 +227,7 @@ test.describe('Color card', () => {
 		await expect(variants.last()).not.toHaveAttribute('style', /background-color: #000000/);
 
 		// Test hue variants (0-360 degrees)
-		await propertySelect.selectOption('h');
+		await propertySelect.selectOption('Hue');
 		await minInput.fill('0');
 		await maxInput.fill('360');
 		await expect(variants.first()).toHaveAttribute('style', /background-color: #ff0000/);
@@ -245,7 +245,7 @@ test.describe('Color card', () => {
 		await expect(variants.last()).toHaveAttribute('style', /background-color: #00ff00/);
 
 		// Test saturation variants (0-100%)
-		await propertySelect.selectOption('s');
+		await propertySelect.selectOption('Saturation');
 		await minInput.fill('0');
 		await maxInput.fill('100');
 		await expect(variants.first()).toHaveAttribute('style', /background-color: #ff0000/);
