@@ -135,7 +135,7 @@
 
 <style lang="postcss">
 	section.color {
-		@apply w-min border-r;
+		@apply w-min border-r bg-chromeo-200;
 
 		/* These are the styles of the ColorPicker component */
 

@@ -91,7 +91,7 @@
 
 <style lang="postcss">
 	.toolbar {
-		@apply flex justify-between gap-2.5 bg-chromeo-100 p-2.5;
+		@apply flex justify-between gap-2.5 bg-chromeo-200 p-2.5;
 	}
 
 	.toolbar__nav {
@@ -107,6 +107,6 @@
 	}
 
 	.empty-section {
-		@apply absolute inset-0 flex items-center justify-center;
+		@apply absolute inset-0 flex items-center justify-center bg-chromeo-200;
 	}
 </style>
