@@ -86,8 +86,8 @@ test.describe('Color card', () => {
 		await page.getByRole('button', { name: 'New color' }).click();
 
 		await expect(page.getByLabel('Property')).toHaveValue('l');
-		await expect(page.getByLabel('Min')).toHaveValue('0');
-		await expect(page.getByLabel('Max')).toHaveValue('100');
+		await expect(page.getByLabel('Start')).toHaveValue('0');
+		await expect(page.getByLabel('End')).toHaveValue('100');
 	});
 
 	test('should display correct number of variants based on steps input', async ({ page }) => {
@@ -211,16 +211,16 @@ test.describe('Color card', () => {
 
 		const variants = page.locator('.variant');
 		const propertySelect = page.getByLabel('Property');
-		const minInput = page.getByLabel('Min');
-		const maxInput = page.getByLabel('Max');
+		const startInput = page.getByLabel('Start');
+		const endInput = page.getByLabel('End');
 
 		// Test default lightness variants (0-100%)
 		await expect(variants.first()).toHaveAttribute('style', /background-color: #ffffff/);
 		await expect(variants.last()).toHaveAttribute('style', /background-color: #000000/);
 
 		// Test lightness with custom range (25-75%)
-		await minInput.fill('25');
-		await maxInput.fill('75');
+		await startInput.fill('25');
+		await endInput.fill('75');
 		await expect(variants.first()).toHaveAttribute('style', /background-color: #ff8080/);
 		await expect(variants.last()).toHaveAttribute('style', /background-color: #800000/);
 		await expect(variants.first()).not.toHaveAttribute('style', /background-color: #ffffff/);
@@ -228,8 +228,8 @@ test.describe('Color card', () => {
 
 		// Test hue variants (0-360 degrees)
 		await propertySelect.selectOption('Hue');
-		await minInput.fill('0');
-		await maxInput.fill('360');
+		await startInput.fill('0');
+		await endInput.fill('360');
 		await expect(variants.first()).toHaveAttribute('style', /background-color: #ff0000/);
 		await expect(variants.nth(2)).toHaveAttribute('style', /background-color: #e800ff/);
 		await expect(variants.nth(5)).toHaveAttribute('style', /background-color: #00b9ff/);
@@ -239,23 +239,23 @@ test.describe('Color card', () => {
 		await expect(variants.last()).not.toHaveAttribute('style', /background-color: #400000/);
 
 		// Test hue with custom range (120-240 degrees)
-		await minInput.fill('120');
-		await maxInput.fill('240');
+		await startInput.fill('120');
+		await endInput.fill('240');
 		await expect(variants.first()).toHaveAttribute('style', /background-color: #0000ff/);
 		await expect(variants.last()).toHaveAttribute('style', /background-color: #00ff00/);
 
 		// Test saturation variants (0-100%)
 		await propertySelect.selectOption('Saturation');
-		await minInput.fill('0');
-		await maxInput.fill('100');
+		await startInput.fill('0');
+		await endInput.fill('100');
 		await expect(variants.first()).toHaveAttribute('style', /background-color: #ff0000/);
 		await expect(variants.last()).toHaveAttribute('style', /background-color: #808080/);
 		await expect(variants.first()).not.toHaveAttribute('style', /background-color: #00ff00/);
 		await expect(variants.last()).not.toHaveAttribute('style', /background-color: #0000ff/);
 
 		// Test saturation with custom range (25-75%)
-		await minInput.fill('25');
-		await maxInput.fill('75');
+		await startInput.fill('25');
+		await endInput.fill('75');
 		await expect(variants.first()).toHaveAttribute('style', /background-color: #df2020/);
 		await expect(variants.last()).toHaveAttribute('style', /background-color: #9f6060/);
 	});
