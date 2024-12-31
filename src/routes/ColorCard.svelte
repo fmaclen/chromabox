@@ -149,7 +149,7 @@
 					placeholder="Max"
 					type="number"
 					min={0}
-					max={100}
+					max={color.variantsRange.property === 'h' ? 360 : 100}
 					id={`color-max-${index}`}
 					bind:value={color.variantsRange.max}
 				/>
