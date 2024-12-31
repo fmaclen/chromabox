@@ -9,16 +9,17 @@
 		disabled?: boolean;
 	}
 
-	let {
-		title,
-		variant,
-		children,
-		onclick,
-		disabled
-	}: Props = $props();
+	let { title, variant, children, onclick, disabled }: Props = $props();
 </script>
 
-<button class="button" type="button" {title} {onclick} {disabled} class:button--primary={variant === 'primary'}>
+<button
+	class="button"
+	type="button"
+	{title}
+	{onclick}
+	{disabled}
+	class:button--primary={variant === 'primary'}
+>
 	{@render children()}
 </button>
 

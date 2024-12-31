@@ -51,11 +51,12 @@
 
 <style lang="postcss">
 	.field-input {
-		@apply flex w-full items-center rounded bg-chromeo-300 outline-2;
+		@apply bg-chromeo-300 flex w-full items-center rounded outline-2;
 		@apply focus-within:bg-chromeo-50 focus-within:outline;
 	}
 
 	.field-input__input {
-		@apply block w-full bg-transparent p-2 font-mono text-xs outline-none;
+		@apply text-chromeo-900 block w-full bg-transparent p-2 font-mono text-xs outline-none;
+		@apply placeholder:text-chromeo-950/25;
 	}
 </style>

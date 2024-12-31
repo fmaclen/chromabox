@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { STORE_URL } from '$lib';
+	import { quadInOut } from 'svelte/easing';
+	import { fade, fly } from 'svelte/transition';
 
 	import { PUBLIC_IS_DEMO } from '$env/static/public';
 	import A from '$lib/components/A.svelte';
@@ -62,7 +64,11 @@
 	}
 </script>
 
-<aside class="export-panel">
+<aside
+	class="export-panel"
+	in:fly={{ x: 64, duration: 150, delay: 0, easing: quadInOut }}
+	out:fade={{ duration: 75 }}
+>
 	<nav class="export-panel__nav">
 		<h2 class="export-panel__title">Export</h2>
 
@@ -105,7 +111,7 @@
 
 <style lang="postcss">
 	.export-panel {
-		@apply bg-chromeo-100 sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-auto border-l;
+		@apply sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-auto border-l bg-chromeo-100;
 
 		/* Offsets the border of the last `ColorCard` */
 		@apply -ml-[1px];
@@ -115,7 +121,7 @@
 	}
 
 	nav.export-panel__nav {
-		@apply flex items-center py-2 px-2.5 gap-2;
+		@apply flex items-center gap-2 px-2.5 py-2;
 	}
 
 	h2.export-panel__title {
@@ -125,7 +131,7 @@
 	}
 
 	.export-panel__tabs {
-		@apply flex p-1 bg-chromeo-300 w-full justify-evenly rounded-md;
+		@apply flex w-full justify-evenly rounded-md bg-chromeo-300 p-1;
 	}
 
 	.export-panel__output {
@@ -141,7 +147,7 @@
 	}
 
 	button.button[role='tab'] {
-		@apply flex cursor-pointer items-center gap-2 rounded p-1 text-xs font-semibold tracking-tight flex-grow justify-center;
+		@apply flex flex-grow cursor-pointer items-center justify-center gap-2 rounded p-1 text-xs font-semibold tracking-tight;
 		@apply disabled:cursor-not-allowed disabled:opacity-50;
 		@apply active:scale-90;
 		@apply transition-all duration-100;
