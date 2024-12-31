@@ -117,6 +117,46 @@
 		</Field>
 	</fieldset>
 
+	<fieldset class="color__fieldset color__fieldset--row">
+		<Field>
+			<Field.Select
+				title="Property"
+				id={`color-property-${index}`}
+				bind:value={color.variantsRange.property}
+			>
+				<option value="h">Hue</option>
+				<option value="s">Saturation</option>
+				<option value="l">Lightness</option>
+			</Field.Select>
+		</Field>
+
+		<fieldset class="color__fieldset--row">
+			<Field>
+				<Field.Input
+					title="Min"
+					placeholder="Min"
+					type="number"
+					min={0}
+					max={100}
+					id={`color-min-${index}`}
+					bind:value={color.variantsRange.min}
+				/>
+			</Field>
+
+			<Field>
+				<Field.Input
+					title="Max"
+					placeholder="Max"
+					type="number"
+					min={0}
+					max={100}
+					id={`color-max-${index}`}
+					bind:value={color.variantsRange.max}
+				/>
+			</Field>
+		</fieldset>
+	</fieldset>
+
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--variants">
@@ -152,7 +192,7 @@
 	}
 
 	fieldset.color__fieldset--row {
-		@apply flex-row gap-2;
+		@apply flex w-full flex-row gap-2;
 	}
 
 	fieldset.color__fieldset--variants {
