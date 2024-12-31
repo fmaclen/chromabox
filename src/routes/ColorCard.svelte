@@ -102,7 +102,7 @@
 	<Divider />
 
 	<fieldset class="color__fieldset">
-		<div class="color__easing">
+		<div class="color__row">
 			<Field>
 				<Field.Select title="Easing" id={`color-easing-${index}`} bind:value={color.easingFn}>
 					<option value="linear" selected>Linear</option>
@@ -112,19 +112,34 @@
 				</Field.Select>
 			</Field>
 
-			<Field>
-				<Field.Input
-					title="Steps"
-					placeholder="Steps"
-					type="number"
-					min={0}
-					id={`color-steps-${index}`}
-					bind:value={color.steps}
-				/>
-			</Field>
+			<div class="color__row">
+				<Field>
+					<Field.Input
+						title="Steps"
+						placeholder="Steps"
+						type="number"
+						min={0}
+						id={`color-steps-${index}`}
+						bind:value={color.steps}
+					/>
+				</Field>
+
+				<Button title="Reverse" onclick={reverseColorVariants}>
+					<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24"
+						><path
+							fill="none"
+							stroke="currentColor"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="m3 8l4-4l4 4M7 4v9m6 3l4 4l4-4m-4-6v10"
+						/></svg
+					>
+				</Button>
+			</div>
 		</div>
 
-		<div class="color__range">
+		<div class="color__row">
 			<Field>
 				<Field.Select
 					title="Property"
@@ -137,7 +152,7 @@
 				</Field.Select>
 			</Field>
 
-			<div class="color__range--controls">
+			<div class="color__row">
 				<Field>
 					<Field.Input
 						title="Start"
@@ -161,19 +176,6 @@
 						bind:value={color.variantsRange.end}
 					/>
 				</Field>
-
-				<Button title="Reverse" onclick={reverseColorVariants}>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="1.25em"
-						height="1.25em"
-						viewBox="0 0 24 24"
-					>
-						<path
-							d="m7 20l-5-5l5-5l1.4 1.425L5.825 14H13v2H5.825L8.4 18.575zm10-6l-1.4-1.425L18.175 10H11V8h7.175L15.6 5.425L17 4l5 5z"
-						/>
-					</svg>
-				</Button>
 			</div>
 		</div>
 	</fieldset>
@@ -208,26 +210,16 @@
 		}
 	}
 
+	.color__row {
+		@apply flex flex-row gap-1 w-full;
+	}
+
 	fieldset.color__fieldset {
 		@apply m-0 flex flex-col gap-1 border-none p-2;
 	}
 
 	fieldset.color__fieldset--variants {
 		@apply gap-0 p-0;
-	}
-
-	.color__easing,
-	.color__range,
-	.color__range--controls {
-		@apply flex flex-row gap-1;
-	}
-
-	.color__range--controls {
-		@apply w-full;
-	}
-
-	.color__range--controls :global(.button) {
-		@apply px-1;
 	}
 
 	.swatch {
