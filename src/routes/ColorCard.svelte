@@ -124,17 +124,22 @@
 					/>
 				</Field>
 
-				<Button title="Reverse" onclick={reverseColorVariants}>
-					<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24"
-						><path
+				<Button title="Reverse" variant="icon" onclick={reverseColorVariants}>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="1.25em"
+						height="1.25em"
+						viewBox="0 0 24 24"
+					>
+						<path
 							fill="none"
 							stroke="currentColor"
 							stroke-linecap="round"
 							stroke-linejoin="round"
 							stroke-width="2"
 							d="m3 8l4-4l4 4M7 4v9m6 3l4 4l4-4m-4-6v10"
-						/></svg
-					>
+						/>
+					</svg>
 				</Button>
 			</div>
 		</div>
@@ -211,7 +216,7 @@
 	}
 
 	.color__row {
-		@apply flex flex-row gap-1 w-full;
+		@apply flex w-full flex-row gap-1;
 	}
 
 	fieldset.color__fieldset {
