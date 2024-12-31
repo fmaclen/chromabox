@@ -96,10 +96,6 @@
 					<A href={STORE_URL} target="_blank">full version</A>.
 				</EmptyMessage>
 			</section>
-		{:else if !palette.colors.length}
-			<section class="empty-section">
-				<EmptyMessage>No color variants to be exported</EmptyMessage>
-			</section>
 		{:else}
 			<pre class="export-panel__pre">{textToExport}</pre>
 			<div class="export-panel__copy">
