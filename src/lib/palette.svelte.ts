@@ -10,11 +10,11 @@ extend([namesPlugin]);
 const DEFAULT_COLOR_PALETTE = ['#008CFF', '#A600FF', '#F600FF', '#FF0004', '#FF9000', '#FFBF00'];
 const easingFns = { linear, quadInOut, quadIn, quadOut };
 
-type VariantsRange = {
+interface VariantsRange {
 	property: 'h' | 's' | 'l';
-	min: number;
-	max: number;
-};
+	start: number;
+	end: number;
+}
 
 export interface Color {
 	source: Swatch;
@@ -85,8 +85,8 @@ export class Palette {
 			tokenName: '',
 			variantsRange: {
 				property: 'l',
-				min: 0,
-				max: 100
+				start: 0,
+				end: 100
 			} as VariantsRange,
 			variants: []
 		};
@@ -96,14 +96,14 @@ export class Palette {
 	private generateVariants(color: Color): Swatch[] {
 		const colorVariants: Swatch[] = [];
 		const { h, s, l } = color.source.hsl;
-		const { min = 0, max = 100, property = 'l' } = color.variantsRange;
-		const range = max - min;
+		const { start = 0, end = 100, property = 'l' } = color.variantsRange;
+		const range = end - start;
 
 		for (let i = 0; i < color.steps; i++) {
 			const progress = i / (color.steps - 1);
 			const easedProgress = easingFns[color.easingFn as keyof typeof easingFns](progress);
 			const rangePercentage = range * (1 - easedProgress);
-			const hsl = { h, s, l, [property]: min + rangePercentage };
+			const hsl = { h, s, l, [property]: start + rangePercentage };
 
 			const variant = this.hslToSwatch(hsl);
 			colorVariants.push(variant);

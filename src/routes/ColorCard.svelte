@@ -133,25 +133,25 @@
 		<fieldset class="color__fieldset--row">
 			<Field>
 				<Field.Input
-					title="Min"
-					placeholder="Min"
+					title="Start"
+					placeholder="Start"
 					type="number"
 					min={0}
 					max={color.variantsRange.property === 'h' ? 360 : 100}
-					id={`color-min-${index}`}
-					bind:value={color.variantsRange.min}
+					id={`color-start-${index}`}
+					bind:value={color.variantsRange.start}
 				/>
 			</Field>
 
 			<Field>
 				<Field.Input
-					title="Max"
-					placeholder="Max"
+					title="End"
+					placeholder="End"
 					type="number"
 					min={0}
 					max={color.variantsRange.property === 'h' ? 360 : 100}
-					id={`color-max-${index}`}
-					bind:value={color.variantsRange.max}
+					id={`color-end-${index}`}
+					bind:value={color.variantsRange.end}
 				/>
 			</Field>
 		</fieldset>
