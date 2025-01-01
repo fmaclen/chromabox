@@ -188,7 +188,7 @@
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--variants">
-		{#each color.variants as variant, index}
+		{#each color.variants as variant}
 			<div
 				class="variant"
 				class:variant--dark={variant.isDark}
