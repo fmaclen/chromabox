@@ -6,7 +6,7 @@
 		children: Snippet;
 		onclick: () => void;
 		disabled?: boolean;
-		variant?: 'default' | 'icon';
+		variant?: 'default' | 'icon' | 'primary';
 	}
 
 	let { title, children, onclick, disabled, variant }: Props = $props();
@@ -23,6 +23,7 @@
 <style lang="postcss">
 	.button {
 		@apply flex cursor-pointer items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-semibold tracking-tight;
+		@apply hover:bg-chromeo-300;
 		@apply disabled:cursor-not-allowed disabled:opacity-50;
 		@apply active:scale-90;
 		@apply transition-all duration-100;

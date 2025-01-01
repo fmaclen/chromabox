@@ -172,10 +172,9 @@ test.describe('Export palette', () => {
 	test('should show empty message when no colors in palette', async ({ page }) => {
 		await page.goto('/');
 		const exportPanel = page.locator('aside.export-panel');
-		await expect(exportPanel).toBeVisible();
-		await expect(exportPanel.getByText('No color variants to be exported')).toBeVisible();
+		await expect(exportPanel).not.toBeVisible();
 
 		await page.getByRole('button', { name: 'New color' }).click();
-		await expect(exportPanel.getByText('No color variants to be exported')).not.toBeVisible();
+		await expect(exportPanel).toBeVisible();
 	});
 });

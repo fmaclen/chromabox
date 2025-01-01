@@ -203,9 +203,14 @@
 
 <style lang="postcss">
 	section.color {
-		@apply w-min border-r;
+		@apply w-min border-r bg-chromeo-100;
 
 		/* These are the styles of the ColorPicker component */
+
+		:global(.color-picker > *) {
+			@apply bg-transparent;
+		}
+
 		:global(.color-picker .wrapper) {
 			@apply m-0 border-none p-2;
 		}
@@ -238,6 +243,10 @@
 
 	.variant__color {
 		@apply px-2 py-3 font-mono text-xs opacity-90;
+	}
+
+	.variant {
+		@apply text-black;
 	}
 
 	.variant--dark {

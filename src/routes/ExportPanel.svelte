@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { STORE_URL } from '$lib';
+	import { quadInOut } from 'svelte/easing';
+	import { fade, fly } from 'svelte/transition';
 
 	import { PUBLIC_IS_DEMO } from '$env/static/public';
 	import A from '$lib/components/A.svelte';
@@ -8,7 +10,7 @@
 	import EmptyMessage from '$lib/components/EmptyMessage.svelte';
 	import { getPaletteContext, type Color } from '$lib/palette.svelte';
 
-	type Format = 'CSS' | 'SCSS' | 'Tailwind' | 'JSON';
+	type Format = 'Tailwind' | 'CSS' | 'SCSS' | 'JSON';
 
 	const palette = getPaletteContext();
 
@@ -19,16 +21,16 @@
 		textToExport = formatExport(palette.colors);
 	});
 
-	const formats: Format[] = ['CSS', 'SCSS', 'Tailwind', 'JSON'];
+	const formats: Format[] = ['Tailwind', 'CSS', 'SCSS', 'JSON'];
 
 	function formatVariant(tokenName: string, variantIndex: number, hex: string) {
 		switch (activeFormat) {
+			case 'Tailwind':
+				return `        "${tokenName}-${variantIndex}": "${hex}",`;
 			case 'CSS':
 				return `--${tokenName}-${variantIndex}: ${hex};`;
 			case 'SCSS':
 				return `$${tokenName}-${variantIndex}: ${hex};`;
-			case 'Tailwind':
-				return `        "${tokenName}-${variantIndex}": "${hex}",`;
 			case 'JSON':
 				return `  "${tokenName}-${variantIndex}": "${hex}",`;
 		}
@@ -62,22 +64,25 @@
 	}
 </script>
 
-<aside class="export-panel">
-	<h2 class="export-panel__title">Export palette</h2>
-	<Divider />
-
-	<div role="tablist" class="export-panel__tabs">
-		{#each formats as format}
-			<button
-				class="button"
-				role="tab"
-				aria-selected={activeFormat === format}
-				onclick={() => (activeFormat = format)}
-			>
-				{format}
-			</button>
-		{/each}
-	</div>
+<aside
+	class="export-panel"
+	in:fly={{ x: 64, duration: 150, delay: 0, easing: quadInOut }}
+	out:fade={{ duration: 75 }}
+>
+	<nav class="export-panel__nav">
+		<div role="tablist" class="export-panel__tabs">
+			{#each formats as format}
+				<button
+					class="button"
+					role="tab"
+					aria-selected={activeFormat === format}
+					onclick={() => (activeFormat = format)}
+				>
+					{format}
+				</button>
+			{/each}
+		</div>
+	</nav>
 
 	<Divider />
 
@@ -88,10 +93,6 @@
 					{activeFormat} export is only available in the
 					<A href={STORE_URL} target="_blank">full version</A>.
 				</EmptyMessage>
-			</section>
-		{:else if !palette.colors.length}
-			<section class="empty-section">
-				<EmptyMessage>No color variants to be exported</EmptyMessage>
 			</section>
 		{:else}
 			<pre class="export-panel__pre">{textToExport}</pre>
@@ -104,30 +105,29 @@
 
 <style lang="postcss">
 	.export-panel {
-		@apply sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-auto border-l bg-white;
+		@apply sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-auto border-l bg-chromeo-100;
 
 		/* Offsets the border of the last `ColorCard` */
 		@apply -ml-[1px];
 
 		/* HACK: h2, divider, tabs, divider, code */
-		@apply grid-rows-[max-content_max-content_max-content_max-content_auto];
+		@apply grid-rows-[max-content_max-content_auto];
 	}
 
-	h2.export-panel__title {
-		@apply flex items-center gap-1.5 px-2.5 font-bold tracking-tight;
-		@apply h-[50px]; /* Aligned with the first row in `ColorCard` */
+	nav.export-panel__nav {
+		@apply flex items-center gap-2;
 	}
 
 	.export-panel__tabs {
-		@apply flex gap-1.5 p-2.5;
+		@apply flex w-full justify-evenly;
 	}
 
 	.export-panel__output {
-		@apply relative box-border flex h-full flex-row overflow-y-auto rounded;
+		@apply relative box-border flex h-full flex-row overflow-y-auto;
 	}
 
 	pre.export-panel__pre {
-		@apply absolute inset-0 w-full p-2.5 font-mono text-xs;
+		@apply absolute inset-0 w-full p-2 font-mono text-xs;
 	}
 
 	.export-panel__copy {
@@ -135,14 +135,15 @@
 	}
 
 	button.button[role='tab'] {
-		@apply flex cursor-pointer items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-semibold tracking-tight;
+		@apply flex flex-grow cursor-pointer items-center justify-center gap-2 border-y-2 border-y-transparent bg-chromeo-200 p-1 text-xs font-semibold tracking-tight;
+		@apply p-2;
 		@apply disabled:cursor-not-allowed disabled:opacity-50;
 		@apply active:scale-90;
 		@apply transition-all duration-100;
 	}
 
-	[role='tab'][aria-selected='true'] {
-		@apply bg-stone-900 text-stone-50;
+	button.button[role='tab'][aria-selected='true'] {
+		@apply z-10 -my-0.5 border-b-2 border-b-accent bg-chromeo-50/50 text-accent;
 	}
 
 	.empty-section {

@@ -54,10 +54,12 @@
 
 <style lang="postcss">
 	.field-input {
-		@apply flex w-full items-center rounded border outline-2 focus-within:outline;
+		@apply flex w-full items-center rounded bg-chromeo-300 outline-2;
+		@apply focus-within:bg-chromeo-50 focus-within:outline;
 	}
 
 	.field-input__input {
-		@apply block w-full bg-transparent p-2 font-mono text-xs outline-none;
+		@apply block w-full bg-transparent p-2 font-mono text-xs text-chromeo-900 outline-none;
+		@apply placeholder:text-chromeo-950/30;
 	}
 </style>
