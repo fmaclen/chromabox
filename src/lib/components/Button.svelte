@@ -9,7 +9,7 @@
 		variant?: 'default' | 'icon' | 'primary';
 	}
 
-	let { title, children, onclick, disabled, variant }: Props = $props();
+	let { title, children, onclick, disabled, variant = 'default' }: Props = $props();
 </script>
 
 <button class="button button--{variant}" type="button" {title} {onclick} {disabled}>
@@ -31,6 +31,11 @@
 
 	.button--icon {
 		@apply p-0;
+	}
+
+	.button--primary {
+		@apply bg-accent text-white;
+		@apply hover:bg-accent/80;
 	}
 
 	.button__hit-area {
