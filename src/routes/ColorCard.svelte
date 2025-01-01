@@ -203,7 +203,7 @@
 
 <style lang="postcss">
 	section.color {
-		@apply h-max w-min;
+		@apply h-max w-min border-r;
 
 		/* These are the styles of the ColorPicker component */
 

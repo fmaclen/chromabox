@@ -30,7 +30,7 @@ export default {
 		}),
 		borderColor: ({ theme }) => ({
 			...theme('colors'),
-			DEFAULT: theme('colors.chromeo.300')
+			DEFAULT: 'hsl(var(--border) / <alpha-value>)'
 		})
 	},
 	plugins: []

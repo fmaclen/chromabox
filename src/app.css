@@ -15,7 +15,9 @@
 	--chromeo-900: 0 0% 16%;
 	--chromeo-950: 0 0% 1%;
 
-	--accent: 158 91% 33%;
+	--border: 0 0% 87%;
+
+	--accent: 158 91% 25%;
 }
 
 html.dark {
@@ -30,8 +32,10 @@ html.dark {
 	--chromeo-800: 0 0% 81%;
 	--chromeo-900: 0 0% 91%;
 	--chromeo-950: 0 0% 99%;
+
+	--border: 0 0% 33%;
 }
 
 body.body {
-	@apply bg-chromeo-300 text-chromeo-800;
+	@apply bg-chromeo-200 text-chromeo-800;
 }
