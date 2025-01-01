@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
+	import { flip } from 'svelte/animate';
 	import { quadInOut } from 'svelte/easing';
 	import { fade, fly } from 'svelte/transition';
 
@@ -188,11 +189,12 @@
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--variants">
-		{#each color.variants as variant}
+		{#each color.variants as variant, i (`${color.variants.length}-${variant.hex}`)}
 			<div
 				class="variant"
 				class:variant--dark={variant.isDark}
-				style={`background-color: ${variant.hex}`}
+				style={`background-color: ${variant.hex};`}
+				animate:flip={{ duration: 250, easing: quadInOut, delay: 25 * i }}
 			>
 				<p class="variant__color">{variant.hex}</p>
 				<ButtonCopy content={variant.hex} />
@@ -239,17 +241,14 @@
 	.variant {
 		@apply flex flex-row items-center justify-between gap-2;
 		@apply -mx-[1px] px-[2px];
-	}
-
-	.variant__color {
-		@apply px-2 py-3 font-mono text-xs opacity-90;
-	}
-
-	.variant {
 		@apply text-black;
 	}
 
 	.variant--dark {
 		@apply text-white;
+	}
+
+	.variant__color {
+		@apply px-2 py-3 font-mono text-xs opacity-90;
 	}
 </style>
