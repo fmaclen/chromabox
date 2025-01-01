@@ -1,6 +1,5 @@
 <script lang="ts">
 	import ColorPicker, { ChromeVariant } from 'svelte-awesome-color-picker';
-	import { flip } from 'svelte/animate';
 	import { quadInOut } from 'svelte/easing';
 	import { fade, fly } from 'svelte/transition';
 
@@ -189,12 +188,11 @@
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--variants">
-		{#each color.variants as variant, index (`${color.variants.length}-${variant.hex}`)}
+		{#each color.variants as variant, index}
 			<div
 				class="variant"
 				class:variant--dark={variant.isDark}
 				style={`background-color: ${variant.hex};`}
-				animate:flip={{ duration: 200, easing: quadInOut, delay: 25 * index }}
 			>
 				<p class="variant__color">{variant.hex}</p>
 				<ButtonCopy content={variant.hex} />
@@ -205,7 +203,7 @@
 
 <style lang="postcss">
 	section.color {
-		@apply w-min h-max;
+		@apply h-max w-min;
 
 		/* These are the styles of the ColorPicker component */
 
@@ -227,7 +225,7 @@
 	}
 
 	fieldset.color__fieldset {
-		@apply m-0 flex flex-col gap-1 border-none p-2 bg-chromeo-100;
+		@apply bg-chromeo-100 m-0 flex flex-col gap-1 border-none p-2;
 	}
 
 	fieldset.color__fieldset--variants {
@@ -242,6 +240,7 @@
 		@apply flex flex-row items-center justify-between gap-2;
 		@apply -mx-[1px] px-[2px];
 		@apply text-black;
+		@apply transition-all duration-200 ease-in-out;
 	}
 
 	.variant--dark {
