@@ -103,7 +103,7 @@
 	}
 
 	.colors {
-		@apply flex flex-grow flex-row overflow-auto gap-[1px];
+		@apply flex flex-grow flex-row gap-[1px] overflow-auto;
 	}
 
 	.empty-section {
