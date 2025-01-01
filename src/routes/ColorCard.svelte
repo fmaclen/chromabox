@@ -189,12 +189,12 @@
 	<Divider />
 
 	<fieldset class="color__fieldset color__fieldset--variants">
-		{#each color.variants as variant, i (`${color.variants.length}-${variant.hex}`)}
+		{#each color.variants as variant, index (`${color.variants.length}-${variant.hex}`)}
 			<div
 				class="variant"
 				class:variant--dark={variant.isDark}
 				style={`background-color: ${variant.hex};`}
-				animate:flip={{ duration: 250, easing: quadInOut, delay: 25 * i }}
+				animate:flip={{ duration: 200, easing: quadInOut, delay: 25 * index }}
 			>
 				<p class="variant__color">{variant.hex}</p>
 				<ButtonCopy content={variant.hex} />
@@ -205,12 +205,12 @@
 
 <style lang="postcss">
 	section.color {
-		@apply w-min border-r bg-chromeo-100;
+		@apply w-min h-max;
 
 		/* These are the styles of the ColorPicker component */
 
 		:global(.color-picker > *) {
-			@apply bg-transparent;
+			@apply bg-chromeo-100 rounded-none;
 		}
 
 		:global(.color-picker .wrapper) {
@@ -227,7 +227,7 @@
 	}
 
 	fieldset.color__fieldset {
-		@apply m-0 flex flex-col gap-1 border-none p-2;
+		@apply m-0 flex flex-col gap-1 border-none p-2 bg-chromeo-100;
 	}
 
 	fieldset.color__fieldset--variants {
