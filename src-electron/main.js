@@ -7,8 +7,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function createWindow() {
 	const mainWindow = new BrowserWindow({
-		width: 1366,
-		height: 900,
+		width: 1536,
+		height: 1034,
 		minWidth: 640,
 		minHeight: 480
 	});

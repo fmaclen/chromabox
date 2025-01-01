@@ -92,11 +92,11 @@
 		@apply container mx-auto my-32 flex flex-col items-center gap-16 text-center;
 
 		h1 {
-			@apply text-6xl font-bold tracking-tighter;
+			@apply text-6xl font-bold tracking-tighter text-chromeo-950;
 		}
 
 		h2 {
-			@apply text-balance text-2xl font-light tracking-wider;
+			@apply text-balance text-2xl font-light tracking-wider text-chromeo-950/75;
 		}
 	}
 
@@ -105,14 +105,14 @@
 	}
 
 	.button {
-		@apply rounded-md bg-stone-900 px-8 py-3 text-lg font-semibold text-stone-50 shadow;
+		@apply rounded-md bg-chromeo-950 px-8 py-3 text-lg font-semibold text-chromeo-50 shadow;
 		@apply hover:scale-105 hover:shadow-lg;
 		@apply active:scale-95 active:shadow-none;
 		@apply transition-all duration-100;
 	}
 
 	.button--secondary {
-		@apply border border-stone-900/25 bg-transparent text-stone-900;
+		@apply border border-chromeo-700 bg-transparent text-chromeo-950;
 	}
 
 	.main {
@@ -121,7 +121,7 @@
 	}
 
 	.main--demo {
-		@apply container mx-auto overflow-hidden rounded-lg border shadow-2xl;
+		@apply container mx-auto overflow-hidden rounded-lg shadow-2xl;
 	}
 
 	.demo-footer {

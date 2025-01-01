@@ -1,3 +1,37 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+:root {
+	--chromeo-50: 0 0% 99%;
+	--chromeo-100: 0 0% 98%;
+	--chromeo-200: 0 0% 95%;
+	--chromeo-300: 0 0% 91%;
+	--chromeo-400: 0 0% 85%;
+	--chromeo-500: 0 0% 79%;
+	--chromeo-600: 0 0% 30%;
+	--chromeo-700: 0 0% 20%;
+	--chromeo-800: 0 0% 15%;
+	--chromeo-900: 0 0% 12%;
+	--chromeo-950: 0 0% 10%;
+
+	--accent: 158 91% 33%;
+}
+
+html.dark {
+	--chromeo-50: 0 0% 10%;
+	--chromeo-100: 0 0% 12%;
+	--chromeo-200: 0 0% 15%;
+	--chromeo-300: 0 0% 20%;
+	--chromeo-400: 0 0% 30%;
+	--chromeo-500: 0 0% 40%;
+	--chromeo-600: 0 0% 50%;
+	--chromeo-700: 0 0% 60%;
+	--chromeo-800: 0 0% 70%;
+	--chromeo-900: 0 0% 80%;
+	--chromeo-950: 0 0% 90%;
+}
+
+body.body {
+	@apply bg-chromeo-300 text-chromeo-800;
+}
