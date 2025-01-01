@@ -57,6 +57,6 @@
 
 	.field-input__input {
 		@apply block w-full bg-transparent p-2 font-mono text-xs text-chromeo-900 outline-none;
-		@apply placeholder:text-chromeo-950/25;
+		@apply placeholder:text-chromeo-950/30;
 	}
 </style>

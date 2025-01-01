@@ -33,5 +33,5 @@ html.dark {
 }
 
 body.body {
-	@apply bg-chromeo-50 text-chromeo-800;
+	@apply bg-chromeo-300 text-chromeo-800;
 }
