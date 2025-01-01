@@ -50,7 +50,7 @@
 	</nav>
 
 	<nav class="toolbar__nav">
-		<Button title="Toggle theme" onclick={toggleTheme}>
+		<Button title="Toggle theme" onclick={toggleTheme} variant="icon">
 			{#if theme === 'light'}
 				<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24">
 					<path

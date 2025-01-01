@@ -82,6 +82,14 @@ test.describe('Color card', () => {
 		await expect(hslInput).toHaveValue('hsl(120, 100%, 50%)');
 	});
 
+	test('should use default values for variants range', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+
+		await expect(page.getByLabel('Property')).toHaveValue('l');
+		await expect(page.getByLabel('Start')).toHaveValue('0');
+		await expect(page.getByLabel('End')).toHaveValue('100');
+	});
+
 	test('should display correct number of variants based on steps input', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
 		const variants = page.locator('.variant');
@@ -194,6 +202,76 @@ test.describe('Color card', () => {
 
 		// Last variant should be black (0% lightness)
 		await expect(variants.last()).toHaveAttribute('style', /background-color: #000000/);
+	});
+
+	test('should update variants when changing variants range options', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+		await hexInput.fill('#ff0000');
+		await hexInput.blur();
+
+		const variants = page.locator('.variant');
+		const propertySelect = page.getByLabel('Property');
+		const startInput = page.getByLabel('Start');
+		const endInput = page.getByLabel('End');
+
+		// Test default lightness variants (0-100%)
+		await expect(variants.first()).toHaveAttribute('style', /background-color: #ffffff/);
+		await expect(variants.last()).toHaveAttribute('style', /background-color: #000000/);
+
+		// Test lightness with custom range (25-75%)
+		await startInput.fill('25');
+		await endInput.fill('75');
+		await expect(variants.first()).toHaveAttribute('style', /background-color: #ff8080/);
+		await expect(variants.last()).toHaveAttribute('style', /background-color: #800000/);
+		await expect(variants.first()).not.toHaveAttribute('style', /background-color: #ffffff/);
+		await expect(variants.last()).not.toHaveAttribute('style', /background-color: #000000/);
+
+		// Test hue variants (0-360 degrees)
+		await propertySelect.selectOption('Hue');
+		await startInput.fill('0');
+		await endInput.fill('360');
+		await expect(variants.first()).toHaveAttribute('style', /background-color: #ff0000/);
+		await expect(variants.nth(2)).toHaveAttribute('style', /background-color: #e800ff/);
+		await expect(variants.nth(5)).toHaveAttribute('style', /background-color: #00b9ff/);
+		await expect(variants.nth(9)).toHaveAttribute('style', /background-color: #e8ff00/);
+		await expect(variants.last()).toHaveAttribute('style', /background-color: #ff0000/);
+		await expect(variants.first()).not.toHaveAttribute('style', /background-color: #ff9f9f/);
+		await expect(variants.last()).not.toHaveAttribute('style', /background-color: #400000/);
+
+		// Test hue with custom range (120-240 degrees)
+		await startInput.fill('120');
+		await endInput.fill('240');
+		await expect(variants.first()).toHaveAttribute('style', /background-color: #0000ff/);
+		await expect(variants.last()).toHaveAttribute('style', /background-color: #00ff00/);
+
+		// Test saturation variants (0-100%)
+		await propertySelect.selectOption('Saturation');
+		await startInput.fill('0');
+		await endInput.fill('100');
+		await expect(variants.first()).toHaveAttribute('style', /background-color: #ff0000/);
+		await expect(variants.last()).toHaveAttribute('style', /background-color: #808080/);
+		await expect(variants.first()).not.toHaveAttribute('style', /background-color: #00ff00/);
+		await expect(variants.last()).not.toHaveAttribute('style', /background-color: #0000ff/);
+
+		// Test saturation with custom range (25-75%)
+		await startInput.fill('25');
+		await endInput.fill('75');
+		await expect(variants.first()).toHaveAttribute('style', /background-color: #df2020/);
+		await expect(variants.last()).toHaveAttribute('style', /background-color: #9f6060/);
+	});
+
+	test('should reverse variants range', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+		const variants = page.locator('.variant');
+		const reverseButton = page.getByRole('button', { name: 'Reverse' });
+		await expect(variants.first()).toHaveAttribute('style', /background-color: #ffffff/);
+		await expect(variants.last()).toHaveAttribute('style', /background-color: #000000/);
+
+		await reverseButton.click();
+		await expect(variants.first()).toHaveAttribute('style', /background-color: #000000/);
+		await expect(variants.last()).toHaveAttribute('style', /background-color: #ffffff/);
+		await expect(variants.first()).not.toHaveAttribute('style', /background-color: #ffffff/);
+		await expect(variants.last()).not.toHaveAttribute('style', /background-color: #000000/);
 	});
 
 	test('should remove multiple colors when clicking Reset', async ({ page }) => {

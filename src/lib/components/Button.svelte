@@ -3,24 +3,21 @@
 
 	interface Props {
 		title: string;
-		variant?: 'primary';
 		children: Snippet;
 		onclick: () => void;
 		disabled?: boolean;
+		variant?: 'default' | 'icon' | 'primary';
 	}
 
-	let { title, variant, children, onclick, disabled }: Props = $props();
+	let { title, children, onclick, disabled, variant = 'default' }: Props = $props();
 </script>
 
-<button
-	class="button"
-	type="button"
-	{title}
-	{onclick}
-	{disabled}
-	class:button--primary={variant === 'primary'}
->
-	{@render children()}
+<button class="button button--{variant}" type="button" {title} {onclick} {disabled}>
+	{#if variant === 'icon'}
+		<span class="button__hit-area">{@render children()}</span>
+	{:else}
+		{@render children()}
+	{/if}
 </button>
 
 <style lang="postcss">
@@ -32,8 +29,19 @@
 		@apply transition-all duration-100;
 	}
 
+	.button--icon {
+		@apply p-0;
+	}
+
 	.button--primary {
 		@apply bg-accent text-white;
 		@apply hover:bg-accent/80;
+	}
+
+	.button__hit-area {
+		@apply block h-full p-2 opacity-40 hover:opacity-100;
+		@apply hover:scale-125;
+		@apply active:scale-75;
+		@apply transition-all duration-100;
 	}
 </style>

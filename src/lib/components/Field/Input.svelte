@@ -10,6 +10,7 @@
 		type?: 'text' | 'password' | 'email' | 'number' | 'date' | 'url' | 'file';
 		required?: boolean;
 		min?: number;
+		max?: number;
 		onchange?: (e: Event) => void;
 		onblur?: (e: Event) => void;
 		children?: Snippet;
@@ -24,6 +25,7 @@
 		required = false,
 		id,
 		min,
+		max,
 		onchange,
 		onblur,
 		children
@@ -40,6 +42,7 @@
 		{required}
 		{id}
 		{min}
+		{max}
 		aria-label={title}
 		{onchange}
 		{onblur}
