@@ -86,6 +86,7 @@
 
 	.layout--demo {
 		@apply h-min;
+		@apply md:mx-8;
 	}
 
 	.demo-header {
