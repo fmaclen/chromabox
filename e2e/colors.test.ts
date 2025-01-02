@@ -117,14 +117,14 @@ test.describe('Color card', () => {
 
 		// Set colors for consistent testing
 		const originalColor = '#ff0000';
-		const linearExpectedSecondColor = 'background-color: #ffd1d1';
-		const linearExpectedPenultimateColor = 'background-color: #2e0000';
-		const quadInOutExpectedSecondColor = 'background-color: #fff7f7';
-		const quadInOutExpectedPenultimateColor = 'background-color: #080000';
-		const quadInExpectedSecondColor = 'background-color: #fffbfb';
-		const quadInExpectedPenultimateColor = 'background-color: #590000';
-		const quadOutExpectedSecondColor = 'background-color: #ffa6a6';
-		const quadOutExpectedPenultimateColor = 'background-color: #040000';
+		const linearExpectedSecondColor = 'background-color: #ffd1d1;';
+		const linearExpectedPenultimateColor = 'background-color: #2e0000;';
+		const quadInOutExpectedSecondColor = 'background-color: #fff7f7;';
+		const quadInOutExpectedPenultimateColor = 'background-color: #080000;';
+		const quadInExpectedSecondColor = 'background-color: #fffbfb;';
+		const quadInExpectedPenultimateColor = 'background-color: #590000;';
+		const quadOutExpectedSecondColor = 'background-color: #ffa6a6;';
+		const quadOutExpectedPenultimateColor = 'background-color: #040000;';
 
 		await hexInput.fill(originalColor);
 		await hexInput.blur();
