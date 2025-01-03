@@ -51,13 +51,15 @@
 	</nav>
 
 	<nav class="toolbar__nav">
-		<Button
-			variant="mobile"
-			title="Export"
-			onclick={() => (isExportPanelOpen = !isExportPanelOpen)}
-		>
-			Export
-		</Button>
+		{#if hasColors}
+			<Button
+				variant="mobile"
+				title="Export"
+				onclick={() => (isExportPanelOpen = !isExportPanelOpen)}
+			>
+				Export
+			</Button>
+		{/if}
 		<Button title="Toggle theme" onclick={toggleTheme} variant="icon">
 			{#if theme === 'light'}
 				<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24">
