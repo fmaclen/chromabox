@@ -6,7 +6,7 @@
 		children: Snippet;
 		onclick: () => void;
 		disabled?: boolean;
-		variant?: 'default' | 'icon' | 'primary';
+		variant?: 'default' | 'icon' | 'primary' | 'mobile';
 	}
 
 	let { title, children, onclick, disabled, variant = 'default' }: Props = $props();
@@ -23,10 +23,15 @@
 <style lang="postcss">
 	.button {
 		@apply flex cursor-pointer items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-semibold tracking-tight;
-		@apply hover:bg-chromeo-300;
 		@apply disabled:cursor-not-allowed disabled:opacity-50;
 		@apply active:scale-90;
 		@apply transition-all duration-100;
+	}
+
+	@media (hover: hover) {
+		.button {
+			@apply hover:border-chromeo-300 hover:bg-chromeo-300;
+		}
 	}
 
 	.button--icon {
@@ -36,6 +41,10 @@
 	.button--primary {
 		@apply bg-accent text-white;
 		@apply hover:bg-accent/80;
+	}
+
+	.button--mobile {
+		@apply md:hidden;
 	}
 
 	.button__hit-area {

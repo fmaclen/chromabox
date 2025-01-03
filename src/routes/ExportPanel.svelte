@@ -12,6 +12,11 @@
 
 	type Format = 'Tailwind' | 'CSS' | 'SCSS' | 'JSON';
 
+	interface Props {
+		isOpen: boolean;
+	}
+
+	const { isOpen }: Props = $props();
 	const palette = getPaletteContext();
 
 	let activeFormat = $state<Format>(PUBLIC_IS_DEMO ? 'JSON' : 'CSS');
@@ -66,6 +71,8 @@
 
 <aside
 	class="export-panel"
+	class:export-panel--open={isOpen}
+	class:hidden={!isOpen}
 	in:fly={{ x: 64, duration: 150, delay: 0, easing: quadInOut }}
 	out:fade={{ duration: 75 }}
 >
@@ -112,6 +119,11 @@
 
 		/* HACK: h2, divider, tabs, divider, code */
 		@apply grid-rows-[max-content_max-content_auto];
+	}
+
+	.export-panel:not(.export-panel--open) {
+		@apply hidden;
+		@apply md:block;
 	}
 
 	nav.export-panel__nav {

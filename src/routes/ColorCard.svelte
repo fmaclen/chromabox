@@ -192,7 +192,7 @@
 			<div
 				class="variant"
 				class:variant--dark={variant.isDark}
-				style={`background-color: ${variant.hex}`}
+				style={`background-color: ${variant.hex};`}
 			>
 				<p class="variant__color">{variant.hex}</p>
 				<ButtonCopy content={variant.hex} />
@@ -203,12 +203,12 @@
 
 <style lang="postcss">
 	section.color {
-		@apply w-min border-r bg-chromeo-100;
+		@apply h-max w-min border-r;
 
 		/* These are the styles of the ColorPicker component */
 
 		:global(.color-picker > *) {
-			@apply bg-transparent;
+			@apply rounded-none bg-chromeo-100;
 		}
 
 		:global(.color-picker .wrapper) {
@@ -225,7 +225,7 @@
 	}
 
 	fieldset.color__fieldset {
-		@apply m-0 flex flex-col gap-1 border-none p-2;
+		@apply m-0 flex flex-col gap-1 border-none bg-chromeo-100 p-2;
 	}
 
 	fieldset.color__fieldset--variants {
@@ -239,17 +239,15 @@
 	.variant {
 		@apply flex flex-row items-center justify-between gap-2;
 		@apply -mx-[1px] px-[2px];
-	}
-
-	.variant__color {
-		@apply px-2 py-3 font-mono text-xs opacity-90;
-	}
-
-	.variant {
 		@apply text-black;
+		@apply transition-all duration-200 ease-in-out;
 	}
 
 	.variant--dark {
 		@apply text-white;
+	}
+
+	.variant__color {
+		@apply px-2 py-3 font-mono text-xs opacity-90;
 	}
 </style>

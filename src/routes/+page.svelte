@@ -13,6 +13,7 @@
 	const palette = getPaletteContext();
 
 	let theme = $state<'light' | 'dark'>('dark');
+	let isExportPanelOpen = $state(false);
 	const hasColors = $derived(palette.colors.length > 0);
 
 	function toggleTheme() {
@@ -50,6 +51,15 @@
 	</nav>
 
 	<nav class="toolbar__nav">
+		{#if hasColors}
+			<Button
+				variant="mobile"
+				title="Export"
+				onclick={() => (isExportPanelOpen = !isExportPanelOpen)}
+			>
+				Export
+			</Button>
+		{/if}
 		<Button title="Toggle theme" onclick={toggleTheme} variant="icon">
 			{#if theme === 'light'}
 				<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24">
@@ -85,7 +95,7 @@
 	</div>
 
 	{#if hasColors}
-		<ExportPanel />
+		<ExportPanel isOpen={isExportPanelOpen} />
 	{/if}
 </div>
 
@@ -103,10 +113,11 @@
 	}
 
 	.colors {
-		@apply flex flex-grow flex-row bg-chromeo-200;
+		@apply flex flex-grow flex-row overflow-auto;
 	}
 
 	.empty-section {
-		@apply absolute inset-0 flex items-center justify-center bg-chromeo-200;
+		@apply absolute inset-0 flex justify-center bg-chromeo-200 p-16;
+		@apply md:items-center md:p-0;
 	}
 </style>
