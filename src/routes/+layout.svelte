@@ -83,7 +83,7 @@
 	.layout {
 		@apply grid h-screen text-sm;
 	}
-	
+
 	.layout--demo {
 		@apply h-min;
 		@apply md:px-8;
@@ -92,7 +92,6 @@
 	.demo-header {
 		@apply container mx-auto my-32 flex flex-col items-center gap-16 text-center;
 		@apply px-8;
-
 
 		h1 {
 			@apply text-6xl font-bold tracking-tighter text-chromeo-950;
@@ -130,7 +129,6 @@
 	.demo-footer {
 		@apply container mx-auto my-16 flex flex-row items-center justify-center gap-4;
 		@apply px-8;
-
 
 		nav {
 			@apply ml-auto flex flex-row items-center justify-center gap-4;
