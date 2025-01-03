@@ -106,6 +106,8 @@
 <style lang="postcss">
 	.export-panel {
 		@apply sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-auto border-l bg-chromeo-100;
+		@apply hidden;
+		@apply md:block;
 
 		/* Offsets the border of the last `ColorCard` */
 		@apply -ml-[1px];

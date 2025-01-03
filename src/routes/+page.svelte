@@ -107,6 +107,7 @@
 	}
 
 	.empty-section {
-		@apply absolute inset-0 flex items-center justify-center bg-chromeo-200;
+		@apply absolute inset-0 flex justify-center bg-chromeo-200 p-16;
+		@apply md:p-0 md:items-center;
 	}
 </style>
