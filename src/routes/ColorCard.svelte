@@ -194,8 +194,8 @@
 				class:variant--dark={variant.isDark}
 				style={`background-color: ${variant.hex};`}
 			>
-				<p class="variant__color">{variant.hex}</p>
-				<ButtonCopy content={variant.hex} />
+				<p class="variant__color">{palette.swatchToString(variant)}</p>
+				<ButtonCopy content={palette.swatchToString(variant)} />
 			</div>
 		{/each}
 	</fieldset>
