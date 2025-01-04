@@ -52,6 +52,13 @@
 	</nav>
 
 	<nav class="toolbar__nav">
+		<Field>
+			<Field.Select title="Color format" id="color-format" bind:value={palette.stringColorFormat}>
+				<option value="hex">HEX</option>
+				<option value="rgb">RGB</option>
+				<option value="hsl">HSL</option>
+			</Field.Select>
+		</Field>
 		{#if hasColors}
 			<Button
 				variant="mobile"
@@ -61,13 +68,6 @@
 				Export
 			</Button>
 		{/if}
-		<Field>
-			<Field.Select title="Color format" id="color-format" bind:value={palette.stringColorFormat}>
-				<option value="hex">HEX</option>
-				<option value="rgb">RGB</option>
-				<option value="hsl">HSL</option>
-			</Field.Select>
-		</Field>
 		<Button title="Toggle theme" onclick={toggleTheme} variant="icon">
 			{#if theme === 'light'}
 				<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24">
