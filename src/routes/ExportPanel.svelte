@@ -139,7 +139,7 @@
 	}
 
 	pre.export-panel__pre {
-		@apply absolute inset-0 w-full p-2 font-mono text-xs;
+		@apply absolute inset-0 w-full overflow-auto p-2 font-mono text-xs;
 	}
 
 	.export-panel__copy {
