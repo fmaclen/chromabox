@@ -28,16 +28,16 @@
 
 	const formats: Format[] = ['Tailwind', 'CSS', 'SCSS', 'JSON'];
 
-	function formatVariant(tokenName: string, variantIndex: number, hex: string) {
+	function formatVariant(tokenName: string, variantIndex: number, stringColor: string) {
 		switch (activeFormat) {
 			case 'Tailwind':
-				return `        "${tokenName}-${variantIndex}": "${hex}",`;
+				return `        "${tokenName}-${variantIndex}": "${stringColor}",`;
 			case 'CSS':
-				return `--${tokenName}-${variantIndex}: ${hex};`;
+				return `--${tokenName}-${variantIndex}: ${stringColor};`;
 			case 'SCSS':
-				return `$${tokenName}-${variantIndex}: ${hex};`;
+				return `$${tokenName}-${variantIndex}: ${stringColor};`;
 			case 'JSON':
-				return `  "${tokenName}-${variantIndex}": "${hex}",`;
+				return `  "${tokenName}-${variantIndex}": "${stringColor}",`;
 		}
 	}
 
@@ -51,7 +51,7 @@
 						formatVariant(
 							color.tokenName || palette.getClosestCSSColorName(color.source.hex),
 							index,
-							variant.hex
+							palette.swatchToString(variant)
 						)
 					)
 					.join('\n')
