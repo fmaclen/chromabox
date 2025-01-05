@@ -177,4 +177,46 @@ test.describe('Export palette', () => {
 		await page.getByRole('button', { name: 'New color' }).click();
 		await expect(exportPanel).toBeVisible();
 	});
+
+	test('should update export format when changing color format selector', async ({ page }) => {
+		await page.goto('/');
+		await page.getByRole('button', { name: 'New color' }).click();
+		await page.getByLabel('HEX', { exact: true }).fill('#ff0000');
+		await page.getByLabel('Steps').fill('3');
+
+		const formatSelect = page.getByLabel('Color format');
+		const exportPanel = page.locator('pre.export-panel__pre');
+
+		// Test default format (HEX)
+		await expect(exportPanel).toContainText('--red-0: #ffffff');
+		await expect(exportPanel).toContainText('--red-1: #ff0000');
+		await expect(exportPanel).toContainText('--red-2: #000000');
+		await expect(exportPanel).not.toContainText('--red-0: rgb(255, 255, 255)');
+		await expect(exportPanel).not.toContainText('--red-0: hsl(0, 0%, 100%)');
+
+		// Test RGB format
+		await formatSelect.selectOption('rgb');
+		await expect(exportPanel).toContainText('--red-0: rgb(255, 255, 255)');
+		await expect(exportPanel).toContainText('--red-1: rgb(255, 0, 0)');
+		await expect(exportPanel).toContainText('--red-2: rgb(0, 0, 0)');
+		await expect(exportPanel).not.toContainText('--red-0: #ffffff');
+		await expect(exportPanel).not.toContainText('--red-0: hsl(0, 0%, 100%)');
+
+		// Test HSL format
+		await formatSelect.selectOption('hsl');
+		await expect(exportPanel).toContainText('--red-0: hsl(0, 0%, 100%)');
+		await expect(exportPanel).toContainText('--red-1: hsl(0, 100%, 50%)');
+		await expect(exportPanel).toContainText('--red-2: hsl(0, 0%, 0%)');
+		await expect(exportPanel).not.toContainText('--red-0: #ffffff');
+		await expect(exportPanel).not.toContainText('--red-0: rgb(255, 255, 255)');
+
+		// Verify format changes are reflected in clipboard
+		await page.locator('aside.export-panel').getByRole('button', { name: 'Copy' }).click();
+		const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
+		expect(clipboardText).toContain('--red-0: hsl(0, 0%, 100%)');
+		expect(clipboardText).toContain('--red-1: hsl(0, 100%, 50%)');
+		expect(clipboardText).toContain('--red-2: hsl(0, 0%, 0%)');
+		expect(clipboardText).not.toContain('--red-0: #ffffff');
+		expect(clipboardText).not.toContain('--red-0: rgb(255, 255, 255)');
+	});
 });
