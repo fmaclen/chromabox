@@ -123,7 +123,7 @@
 
 	.export-panel:not(.export-panel--open) {
 		@apply hidden;
-		@apply md:block;
+		@apply md:flex md:flex-col;
 	}
 
 	nav.export-panel__nav {
