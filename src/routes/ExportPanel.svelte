@@ -28,16 +28,16 @@
 
 	const formats: Format[] = ['Tailwind', 'CSS', 'SCSS', 'JSON'];
 
-	function formatVariant(tokenName: string, variantIndex: number, hex: string) {
+	function formatVariant(tokenName: string, variantIndex: number, color: string) {
 		switch (activeFormat) {
 			case 'Tailwind':
-				return `        "${tokenName}-${variantIndex}": "${hex}",`;
+				return `        "${tokenName}-${variantIndex}": "${color}",`;
 			case 'CSS':
-				return `--${tokenName}-${variantIndex}: ${hex};`;
+				return `--${tokenName}-${variantIndex}: ${color};`;
 			case 'SCSS':
-				return `$${tokenName}-${variantIndex}: ${hex};`;
+				return `$${tokenName}-${variantIndex}: ${color};`;
 			case 'JSON':
-				return `  "${tokenName}-${variantIndex}": "${hex}",`;
+				return `  "${tokenName}-${variantIndex}": "${color}",`;
 		}
 	}
 
@@ -51,7 +51,7 @@
 						formatVariant(
 							color.tokenName || palette.getClosestCSSColorName(color.source.hex),
 							index,
-							variant.hex
+							palette.swatchToString(variant)
 						)
 					)
 					.join('\n')
@@ -112,7 +112,7 @@
 
 <style lang="postcss">
 	.export-panel {
-		@apply sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-auto border-l bg-chromeo-100;
+		@apply sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-hidden border-l bg-chromeo-100;
 
 		/* Offsets the border of the last `ColorCard` */
 		@apply -ml-[1px];
@@ -123,7 +123,7 @@
 
 	.export-panel:not(.export-panel--open) {
 		@apply hidden;
-		@apply md:block;
+		@apply md:flex md:flex-col;
 	}
 
 	nav.export-panel__nav {
@@ -139,7 +139,7 @@
 	}
 
 	pre.export-panel__pre {
-		@apply absolute inset-0 w-full p-2 font-mono text-xs;
+		@apply absolute inset-0 w-full overflow-auto p-2 font-mono text-xs;
 	}
 
 	.export-panel__copy {
