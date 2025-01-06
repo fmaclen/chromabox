@@ -112,7 +112,7 @@
 
 <style lang="postcss">
 	.export-panel {
-		@apply bg-chromeo-100 sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-hidden border-l;
+		@apply sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-hidden border-l bg-chromeo-100;
 
 		/* Offsets the border of the last `ColorCard` */
 		@apply -ml-[1px];
@@ -147,7 +147,7 @@
 	}
 
 	button.button[role='tab'] {
-		@apply bg-chromeo-200 flex flex-grow cursor-pointer items-center justify-center gap-2 border-y-2 border-y-transparent p-1 text-xs font-semibold tracking-tight;
+		@apply flex flex-grow cursor-pointer items-center justify-center gap-2 border-y-2 border-y-transparent bg-chromeo-200 p-1 text-xs font-semibold tracking-tight;
 		@apply p-2;
 		@apply disabled:cursor-not-allowed disabled:opacity-50;
 		@apply active:scale-90;
@@ -155,7 +155,7 @@
 	}
 
 	button.button[role='tab'][aria-selected='true'] {
-		@apply border-b-accent bg-chromeo-50/50 text-accent z-10 -my-0.5 border-b-2;
+		@apply z-10 -my-0.5 border-b-2 border-b-accent bg-chromeo-50/50 text-accent;
 	}
 
 	.empty-section {
