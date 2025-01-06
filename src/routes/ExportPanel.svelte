@@ -28,16 +28,16 @@
 
 	const formats: Format[] = ['Tailwind', 'CSS', 'SCSS', 'JSON'];
 
-	function formatVariant(tokenName: string, variantIndex: number, stringColor: string) {
+	function formatVariant(tokenName: string, variantIndex: number, color: string) {
 		switch (activeFormat) {
 			case 'Tailwind':
-				return `        "${tokenName}-${variantIndex}": "${stringColor}",`;
+				return `        "${tokenName}-${variantIndex}": "${color}",`;
 			case 'CSS':
-				return `--${tokenName}-${variantIndex}: ${stringColor};`;
+				return `--${tokenName}-${variantIndex}: ${color};`;
 			case 'SCSS':
-				return `$${tokenName}-${variantIndex}: ${stringColor};`;
+				return `$${tokenName}-${variantIndex}: ${color};`;
 			case 'JSON':
-				return `  "${tokenName}-${variantIndex}": "${stringColor}",`;
+				return `  "${tokenName}-${variantIndex}": "${color}",`;
 		}
 	}
 
@@ -112,7 +112,7 @@
 
 <style lang="postcss">
 	.export-panel {
-		@apply sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-hidden border-l bg-chromeo-100;
+		@apply bg-chromeo-100 sticky inset-0 right-0 z-10 grid min-w-80 overflow-y-hidden border-l;
 
 		/* Offsets the border of the last `ColorCard` */
 		@apply -ml-[1px];
@@ -147,7 +147,7 @@
 	}
 
 	button.button[role='tab'] {
-		@apply flex flex-grow cursor-pointer items-center justify-center gap-2 border-y-2 border-y-transparent bg-chromeo-200 p-1 text-xs font-semibold tracking-tight;
+		@apply bg-chromeo-200 flex flex-grow cursor-pointer items-center justify-center gap-2 border-y-2 border-y-transparent p-1 text-xs font-semibold tracking-tight;
 		@apply p-2;
 		@apply disabled:cursor-not-allowed disabled:opacity-50;
 		@apply active:scale-90;
@@ -155,7 +155,7 @@
 	}
 
 	button.button[role='tab'][aria-selected='true'] {
-		@apply z-10 -my-0.5 border-b-2 border-b-accent bg-chromeo-50/50 text-accent;
+		@apply border-b-accent bg-chromeo-50/50 text-accent z-10 -my-0.5 border-b-2;
 	}
 
 	.empty-section {
