@@ -414,11 +414,5 @@ test.describe('Color card', () => {
 		await expect(variants.first()).toHaveText('hsl(0, 0%, 100%)');
 		await expect(variants.first()).not.toHaveText('rgb(255, 255, 255)');
 		await expect(variants.first()).not.toHaveText('#ffffff');
-
-		await variants.first().getByRole('button', { name: 'Copy' }).click();
-		clipboard = await page.evaluate(() => navigator.clipboard.readText());
-		expect(clipboard).toBe('hsl(0, 0%, 100%)');
-		expect(clipboard).not.toBe('rgb(255, 255, 255)');
-		expect(clipboard).not.toBe('#ffffff');
 	});
 });

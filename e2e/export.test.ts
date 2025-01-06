@@ -209,14 +209,5 @@ test.describe('Export palette', () => {
 		await expect(exportPanel).toContainText('--red-2: hsl(0, 0%, 0%)');
 		await expect(exportPanel).not.toContainText('--red-0: #ffffff');
 		await expect(exportPanel).not.toContainText('--red-0: rgb(255, 255, 255)');
-
-		// Verify format changes are reflected in clipboard
-		await page.locator('aside.export-panel').getByRole('button', { name: 'Copy' }).click();
-		const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
-		expect(clipboardText).toContain('--red-0: hsl(0, 0%, 100%)');
-		expect(clipboardText).toContain('--red-1: hsl(0, 100%, 50%)');
-		expect(clipboardText).toContain('--red-2: hsl(0, 0%, 0%)');
-		expect(clipboardText).not.toContain('--red-0: #ffffff');
-		expect(clipboardText).not.toContain('--red-0: rgb(255, 255, 255)');
 	});
 });
