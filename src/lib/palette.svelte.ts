@@ -47,7 +47,7 @@ export class Palette {
 		this.colors.push(this.stringToColor(random().toHex()));
 	}
 
-	removeColor(index: number) {
+	deleteColor(index: number) {
 		this.colors = this.colors.filter((_, i) => i !== index);
 	}
 

@@ -58,7 +58,7 @@
 			</Field.Input>
 		</Field>
 
-		<Button title="Remove" variant="icon" onclick={() => palette.removeColor(index)}>Remove</Button>
+		<Button title="Delete" variant="icon" onclick={() => palette.deleteColor(index)}>Delete</Button>
 	</fieldset>
 
 	<Divider />
