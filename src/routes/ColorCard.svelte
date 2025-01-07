@@ -57,6 +57,15 @@
 				{/if}
 			</Field.Input>
 		</Field>
+
+		<Button title="Delete" variant="icon" onclick={() => palette.deleteColor(color)}>
+			<svg xmlns="http://www.w3.org/2000/svg" width="1.25em" height="1.25em" viewBox="0 0 24 24">
+				<path
+					fill="currentColor"
+					d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"
+				/>
+			</svg>
+		</Button>
 	</fieldset>
 
 	<Divider />
@@ -226,6 +235,10 @@
 
 	fieldset.color__fieldset {
 		@apply m-0 flex flex-col gap-1 border-none bg-chromeo-100 p-2;
+	}
+
+	fieldset.color__fieldset--row {
+		@apply flex-row gap-2;
 	}
 
 	fieldset.color__fieldset--variants {
