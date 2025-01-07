@@ -4,6 +4,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 	import EmptyMessage from '$lib/components/EmptyMessage.svelte';
+	import Field from '$lib/components/Field';
 	import { getPaletteContext } from '$lib/palette.svelte';
 
 	import ColorCard from './ColorCard.svelte';
@@ -51,6 +52,13 @@
 	</nav>
 
 	<nav class="toolbar__nav">
+		<Field>
+			<Field.Select title="Color format" id="color-format" bind:value={palette.stringColorFormat}>
+				<option value="hex">HEX</option>
+				<option value="rgb">RGB</option>
+				<option value="hsl">HSL</option>
+			</Field.Select>
+		</Field>
 		{#if hasColors}
 			<Button
 				variant="mobile"

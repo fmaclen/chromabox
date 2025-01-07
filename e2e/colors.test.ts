@@ -377,4 +377,42 @@ test.describe('Color card', () => {
 		await expect(lightVariants).toHaveCount(6);
 		await expect(darkVariants).toHaveCount(6);
 	});
+
+	test('should update displayed color format when changing format selector', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+		await hexInput.fill('#ff0000');
+		await hexInput.blur();
+
+		const formatSelect = page.getByLabel('Color format');
+		const variants = page.locator('.variant');
+
+		// Test default format (HEX)
+		await expect(variants.first()).toHaveText('#ffffff');
+		await expect(variants.first()).not.toHaveText('rgb(255, 255, 255)');
+		await expect(variants.first()).not.toHaveText('hsl(0, 0%, 100%)');
+
+		await variants.first().getByRole('button', { name: 'Copy' }).click();
+		let clipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(clipboard).toBe('#ffffff');
+		expect(clipboard).not.toBe('rgb(255, 255, 255)');
+		expect(clipboard).not.toBe('hsl(0, 0%, 100%)');
+
+		// Test RGB format
+		await formatSelect.selectOption('rgb');
+		await expect(variants.first()).toHaveText('rgb(255, 255, 255)');
+		await expect(variants.first()).not.toHaveText('#ffffff');
+		await expect(variants.first()).not.toHaveText('hsl(0, 0%, 100%)');
+
+		await variants.first().getByRole('button', { name: 'Copy' }).click();
+		clipboard = await page.evaluate(() => navigator.clipboard.readText());
+		expect(clipboard).toBe('rgb(255, 255, 255)');
+		expect(clipboard).not.toBe('#ffffff');
+		expect(clipboard).not.toBe('hsl(0, 0%, 100%)');
+
+		// Test HSL format
+		await formatSelect.selectOption('hsl');
+		await expect(variants.first()).toHaveText('hsl(0, 0%, 100%)');
+		await expect(variants.first()).not.toHaveText('rgb(255, 255, 255)');
+		await expect(variants.first()).not.toHaveText('#ffffff');
+	});
 });

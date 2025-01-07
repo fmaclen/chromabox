@@ -36,6 +36,7 @@ export interface Swatch {
 
 export class Palette {
 	colors = $state<Color[]>([]);
+	stringColorFormat = $state<'hex' | 'rgb' | 'hsl'>('hex');
 
 	constructor() {
 		if (!PUBLIC_IS_DEMO) return;
@@ -48,6 +49,17 @@ export class Palette {
 
 	stringToColor(colorString: string): Color {
 		return this.colordToColor(colord(colorString));
+	}
+
+	swatchToString(swatch: Swatch): string {
+		switch (this.stringColorFormat) {
+			case 'hex':
+				return swatch.hex;
+			case 'rgb':
+				return swatch.rgbString;
+			case 'hsl':
+				return swatch.hslString;
+		}
 	}
 
 	getClosestCSSColorName(colorString: string): string {
