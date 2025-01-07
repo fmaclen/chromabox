@@ -5,6 +5,8 @@ import { linear, quadIn, quadInOut, quadOut } from 'svelte/easing';
 
 import { PUBLIC_IS_DEMO } from '$env/static/public';
 
+import { generateRandomId } from './utils';
+
 extend([namesPlugin]);
 
 const DEFAULT_COLOR_PALETTE = ['#008CFF', '#A600FF', '#F600FF', '#FF0004', '#FF9000', '#FFBF00'];
@@ -17,6 +19,7 @@ interface VariantsRange {
 }
 
 export interface Color {
+	id: string;
 	source: Swatch;
 	easingFn: string;
 	steps: number;
@@ -95,6 +98,7 @@ export class Palette {
 
 	private colordToColor(colord: Colord): Color {
 		const color = {
+			id: generateRandomId(),
 			source: this.colordToSwatch(colord),
 			easingFn: 'linear',
 			steps: 12,
