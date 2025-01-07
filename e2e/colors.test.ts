@@ -415,4 +415,43 @@ test.describe('Color card', () => {
 		await expect(variants.first()).not.toHaveText('rgb(255, 255, 255)');
 		await expect(variants.first()).not.toHaveText('#ffffff');
 	});
+
+	test('should handle color removal correctly', async ({ page }) => {
+		const newColorButton = page.getByRole('button', { name: 'New color' });
+		const colors = page.locator('section.color');
+
+		await expect(colors).toHaveCount(0);
+		await expect(page.getByRole('button', { name: 'Remove' })).not.toBeVisible();
+
+		// Add a single color and remove it
+		await newColorButton.click();
+		await expect(colors).toHaveCount(1);
+		await expect(page.getByRole('button', { name: 'Remove' })).toBeVisible();
+
+		await page.getByRole('button', { name: 'Remove' }).click();
+		await expect(colors).toHaveCount(0);
+
+		// Add multiple colors with different hex values
+		const testColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00'];
+		for (const color of testColors) {
+			await newColorButton.click();
+			const hexInput = page.getByLabel('HEX').last();
+			await hexInput.fill(color);
+			await hexInput.blur();
+		}
+		await expect(colors).toHaveCount(4);
+
+		// Remove middle color (green) and verify remaining colors and order
+		await colors.nth(1).getByRole('button', { name: 'Remove' }).click();
+		await expect(colors).toHaveCount(3);
+		await expect(colors.first().getByLabel('HEX', { exact: true })).toHaveValue('#ff0000');
+		await expect(colors.nth(1).getByLabel('HEX', { exact: true })).toHaveValue('#0000ff');
+		await expect(colors.last().getByLabel('HEX', { exact: true })).toHaveValue('#ffff00');
+
+		// Remove first color (red) and verify remaining colors and order
+		await colors.first().getByRole('button', { name: 'Remove' }).click();
+		await expect(colors).toHaveCount(2);
+		await expect(colors.first().getByLabel('HEX', { exact: true })).toHaveValue('#0000ff');
+		await expect(colors.last().getByLabel('HEX', { exact: true })).toHaveValue('#ffff00');
+	});
 });
