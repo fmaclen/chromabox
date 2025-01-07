@@ -58,9 +58,7 @@
 			</Field.Input>
 		</Field>
 
-		<Button title="Remove" variant="icon" onclick={() => palette.removeColor(index)}>
-			Remove
-		</Button>
+		<Button title="Remove" variant="icon" onclick={() => palette.removeColor(index)}>Remove</Button>
 	</fieldset>
 
 	<Divider />
@@ -232,7 +230,7 @@
 		@apply m-0 flex flex-col gap-1 border-none bg-chromeo-100 p-2;
 	}
 
-  fieldset.color__fieldset--row {
+	fieldset.color__fieldset--row {
 		@apply flex-row gap-2;
 	}
 
