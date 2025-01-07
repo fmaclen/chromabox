@@ -47,6 +47,10 @@ export class Palette {
 		this.colors.push(this.stringToColor(random().toHex()));
 	}
 
+	removeColor(index: number) {
+		this.colors = this.colors.filter((_, i) => i !== index);
+	}
+
 	stringToColor(colorString: string): Color {
 		return this.colordToColor(colord(colorString));
 	}
