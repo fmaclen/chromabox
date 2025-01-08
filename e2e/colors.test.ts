@@ -180,6 +180,21 @@ test.describe('Color card', () => {
 		expect(quadOutPenultimateColor).not.toBe(linearPenultimateColor);
 	});
 
+	test('should default to source color when there is only 1 variant', async ({ page }) => {
+		await page.getByRole('button', { name: 'New color' }).click();
+		await hexInput.fill('#ff0000');
+		await hexInput.blur();
+
+		const variants = page.locator('.variant');
+		await expect(variants).toHaveCount(12);
+
+		const stepsInput = page.getByLabel('Steps');
+		await stepsInput.fill('1');
+		await expect(variants).toHaveCount(1);
+		await expect(variants.getByText('#ff0000')).toBeVisible();
+		await expect(variants.first()).toHaveAttribute('style', /background-color: #ff0000/);
+	});
+
 	test('should maintain number of variants when updating color input', async ({ page }) => {
 		await page.getByRole('button', { name: 'New color' }).click();
 

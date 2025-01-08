@@ -115,6 +115,12 @@ export class Palette {
 
 	private generateVariants(color: Color): Swatch[] {
 		const colorVariants: Swatch[] = [];
+
+		if (color.steps === 1) {
+			colorVariants.push(color.source);
+			return colorVariants;
+		}
+
 		const { h, s, l } = color.source.hsl;
 		const { start, end, property } = color.variantsRange;
 		const range = end - start;
