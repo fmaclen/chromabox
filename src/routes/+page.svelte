@@ -17,10 +17,11 @@
 	let isExportPanelOpen = $state(false);
 	const hasColors = $derived(palette.colors.length > 0);
 
-	function toggleTheme() {
-		// First, get the current theme from the document
+	$effect.pre(() => {
 		theme = document.documentElement.className as 'light' | 'dark';
-		// Then, toggle it
+	});
+
+	function toggleTheme() {
 		theme = theme === 'light' ? 'dark' : 'light';
 		document.documentElement.className = theme;
 	}
