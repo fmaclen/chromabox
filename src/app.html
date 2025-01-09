@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,6 +25,12 @@
 
 		%sveltekit.head%
 	</head>
+	<script>
+		// We check and apply the color theme preference on initial load
+		// to prevent a flash of unstyled content
+		const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		document.documentElement.className = theme;
+	</script>
 	<body data-sveltekit-preload-data="hover" class="body">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>

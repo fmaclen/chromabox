@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
 	import Button from '$lib/components/Button.svelte';
@@ -13,9 +14,11 @@
 
 	const palette = getPaletteContext();
 
-	let theme = $state<'light' | 'dark'>('dark');
+	let theme = $state<'light' | 'dark'>();
 	let isExportPanelOpen = $state(false);
 	const hasColors = $derived(palette.colors.length > 0);
+
+	onMount(() => (theme = document.documentElement.className as 'light' | 'dark'));
 
 	function toggleTheme() {
 		theme = theme === 'light' ? 'dark' : 'light';
