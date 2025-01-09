@@ -5,7 +5,7 @@ Designed for front-end developers and code-inclined designers.
 
 - ⚡️ [Live demo](https://chromabox.fernando.is)
   - _No sign-up required_
-- 🖥️ Download for [macOS, Windows & Linux](https://fmaclen.gumroad.com/l/chromabox)
+- 🖥️ Download for [macOS, Windows & Linux](https://store.fernando.is)
 - 🐳 [Self-hosting](#self-hosting)
 
 ---
