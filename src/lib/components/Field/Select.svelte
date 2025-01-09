@@ -28,7 +28,7 @@
 
 <style lang="postcss">
 	.field-select {
-		@apply block h-full w-full rounded bg-chromeo-200 p-1.5 font-mono text-xs text-chromeo-900;
+		@apply block h-full w-full appearance-none rounded bg-chromeo-200 p-2 font-mono text-xs text-chromeo-900 outline-2 outline-chromeo-800;
 		@apply focus-within:bg-chromeo-50 focus-within:outline;
 	}
 </style>

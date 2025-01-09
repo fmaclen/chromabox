@@ -13,9 +13,13 @@
 
 	const palette = getPaletteContext();
 
-	let theme = $state<'light' | 'dark'>('dark');
+	let theme: 'light' | 'dark' = $state('dark');
 	let isExportPanelOpen = $state(false);
 	const hasColors = $derived(palette.colors.length > 0);
+
+	$effect.pre(() => {
+		theme = document.documentElement.className as 'light' | 'dark';
+	});
 
 	function toggleTheme() {
 		theme = theme === 'light' ? 'dark' : 'light';
