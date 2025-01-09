@@ -40,7 +40,7 @@
 
 	.button--primary {
 		@apply bg-accent text-white;
-		@apply hover:bg-accent/80;
+		@apply hover:bg-accent/80 hover:border-accent;
 	}
 
 	.button--mobile {

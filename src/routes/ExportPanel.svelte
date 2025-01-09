@@ -155,7 +155,7 @@
 	}
 
 	button.button[role='tab'][aria-selected='true'] {
-		@apply z-10 -my-0.5 border-b-2 border-b-accent bg-chromeo-50/50 text-accent;
+		@apply z-10 -my-0.5 border-b-2 border-b-accent bg-chromeo-50 text-accent;
 	}
 
 	.empty-section {
