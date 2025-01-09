@@ -14,11 +14,10 @@
 
 	const palette = getPaletteContext();
 
-	let theme = $state<'light' | 'dark'>();
+	let theme: 'light' | 'dark' = $state('dark');
 	let isExportPanelOpen = $state(false);
 	const hasColors = $derived(palette.colors.length > 0);
 
-	onMount(() => (theme = document.documentElement.className as 'light' | 'dark'));
 
 	function toggleTheme() {
 		theme = theme === 'light' ? 'dark' : 'light';
