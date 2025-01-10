@@ -469,4 +469,26 @@ test.describe('Color card', () => {
 		await expect(colors.first().getByLabel('HEX', { exact: true })).toHaveValue('#0000ff');
 		await expect(colors.last().getByLabel('HEX', { exact: true })).toHaveValue('#ffff00');
 	});
+
+	test('should not update color when input value is unchanged', async ({ page }) => {
+		async function testColorInput(input: Locator) {
+			await page.getByRole('button', { name: 'New color' }).click();
+
+			const initialHex = await hexInput.inputValue();
+			const initialRgb = await rgbInput.inputValue();
+			const initialHsl = await hslInput.inputValue();
+
+			await input.focus();
+			await input.blur();
+			await expect(hexInput).toHaveValue(initialHex);
+			await expect(rgbInput).toHaveValue(initialRgb);
+			await expect(hslInput).toHaveValue(initialHsl);
+
+			await page.getByRole('button', { name: 'Delete' }).click();
+		}
+
+		await testColorInput(hexInput);
+		await testColorInput(rgbInput);
+		await testColorInput(hslInput);
+	});
 });
