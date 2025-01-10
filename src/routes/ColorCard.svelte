@@ -27,9 +27,25 @@
 
 	function handleColorInput(event: Event) {
 		const target = event.target as HTMLInputElement;
-		if (palette.isColorValid(target.value)) {
-			color.source = palette.stringToColor(target.value).source;
+		if (!palette.isColorValid(target.value)) return;
+
+		let previousValue;
+		switch (target.id) {
+			case `color-hex-${index}`:
+				previousValue = color.source.hex;
+				break;
+			case `color-rgb-${index}`:
+				previousValue = color.source.rgbString;
+				break;
+			case `color-hsl-${index}`:
+				previousValue = color.source.hslString;
+				break;
+			default:
+				return;
 		}
+		if (previousValue === target.value) return;
+
+		color.source = palette.stringToColor(target.value).source;
 	}
 
 	function reverseColorVariants() {
